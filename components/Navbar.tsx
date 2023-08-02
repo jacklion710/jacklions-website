@@ -25,6 +25,7 @@ import {
     MoonIcon,
     SunIcon
   } from '@chakra-ui/icons';
+  
  
   function ColorModeSwitcher() {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -287,6 +288,7 @@ import {
     href?: string;
   }
   
+
   const NAV_ITEMS: Array<NavItem> = [
     {
       label: 'Gallery',
@@ -294,12 +296,12 @@ import {
         {
           label: 'Audio',
           subLabel: 'Music',
-          href: '#',
+          href: '/audio',
         },
         {
           label: 'Visual',
           subLabel: 'Graphics',
-          href: '#',
+          href: '/visuals',
         },
       ],
     },
@@ -309,12 +311,12 @@ import {
         {
           label: 'Lessons',
           subLabel: '1 on 1 lessons',
-          href: '#',
+          href: '/lessons',
         },
         {
           label: 'Audio Engineering',
           subLabel: 'Recording sessions and engineering services',
-          href: '#',
+          href: '/engineering',
         }
       ],
     },
@@ -324,12 +326,12 @@ import {
         {
           label: 'Samples',
           subLabel: 'Packs for music production',
-          href: '#',
+          href: '/samples',
         },
         {
           label: 'Devices',
           subLabel: 'Creative enhancements',
-          href: '#',
+          href: '/devices',
         }
       ],
     },
@@ -339,12 +341,12 @@ import {
         {
           label: 'Social',
           subLabel: 'Media links',
-          href: '#',
+          href: '/social',
         },
         {
           label: 'Direct',
           subLabel: 'Reach me',
-          href: '#',
+          href: '/direct',
         }
       ],
     }
