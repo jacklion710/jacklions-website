@@ -1,21 +1,23 @@
-import { Box, Heading, Link, VStack, IconButton } from '@chakra-ui/react';
-// Import icons from your preferred icon library. Here's an example with Chakra's icons:
+import { Box, Heading, Link, VStack, IconButton, ChakraProvider } from '@chakra-ui/react';
 import { FaSpotify, FaApple, FaSoundcloud } from 'react-icons/fa';
+import Navbar from '../components/Navbar';
 
 export default function HomePage() {
   return (
-    <VStack spacing={8} align="center">
-      <Heading size="xl">My Music</Heading>
+    <ChakraProvider>
+      <Navbar />
+      <VStack spacing={8} align="left">
+        <Heading size="xl">My Music</Heading>
 
       {/* Embed SoundCloud Player */}
       <Box>
         <iframe
-          width="100%"
+          width="300"
           height="300"
           scrolling="no"
           frameBorder="no"
           allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1485160441&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1485160441&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=trueZ"
         ></iframe>
       </Box>
 
@@ -32,6 +34,7 @@ export default function HomePage() {
         </Link>
       </VStack>
     </VStack>
+    </ChakraProvider>
   );
 }
 
