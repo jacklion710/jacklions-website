@@ -1,17 +1,69 @@
-import React from 'react';
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Link,
+  HStack,
+  VStack,
+  IconButton,
+  Button,
+  ChakraProvider,
+  useColorModeValue
+} from "@chakra-ui/react";
+import {
+  FaInstagram,
+  FaEnvelope
+} from "react-icons/fa";
 
-const Music = () => {
+import Navbar from "../components/Navbar";
+
+export default function SocialPage() {
+  const bg = useColorModeValue("white", "gray.800");
+  const color = useColorModeValue("black", "white");
+
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h2>Your Music Title Here</h2>
-      <p>Description or any other details about the music.</p>
-      
-      <audio controls>
-        <source src="path_to_your_audio_file.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-    </div>
+    <ChakraProvider>
+      <Navbar />
+      <Flex
+        direction="column"
+        align="center"
+        justify="center"
+        py={8}
+        px={4}
+        height="calc(100vh - 100px)"
+      >
+        <Box w="100%" maxW="600px" textAlign="center">
+          <Heading size="xl" mb={4}>
+            Connect with Me
+          </Heading>
+          <Text mb={6}>
+            Want to ask a question or collaborate? Reach out to me directly on any of the
+            platforms below or shoot me an email.
+          </Text>
+          <HStack spacing={4} justify="center" wrap="wrap" mb={4}>
+            <Link href="https://www.instagram.com/jack.lion/?hl=en" isExternal>
+              <IconButton aria-label="Spotify" icon={<FaInstagram />} size="lg" colorScheme="pink" />
+            </Link>
+            {/* ... other icons ... */}
+            <Link href="mailto:jack.lion710@gmail.com">
+              <IconButton aria-label="Email" icon={<FaEnvelope />} size="lg" colorScheme="teal" />
+            </Link>
+          </HStack>
+
+          {/* Bookings Section */}
+          <VStack spacing={4} align="center" mt={10}>
+            <Text fontSize="lg" fontWeight="semibold">
+              For bookings, please use the link below:
+            </Text>
+            <Link href="YOUR_BOOKING_LINK_HERE" isExternal>
+              <Button colorScheme="blue" size="lg">
+                Book Now
+              </Button>
+            </Link>
+          </VStack>
+        </Box>
+      </Flex>
+    </ChakraProvider>
   );
 }
-
-export default Music;
