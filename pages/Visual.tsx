@@ -1,17 +1,82 @@
-import React from 'react';
+import { Box, Center, Heading, Link, VStack, HStack, IconButton, ChakraProvider, SimpleGrid, Flex, Button, useDisclosure } from '@chakra-ui/react';
+import { FaSpotify, FaApple, FaSoundcloud,  FaCompactDisc } from 'react-icons/fa';
+import Navbar from '../components/Navbar';
 
-const Music = () => {
+export default function HomePage() {
+  const { isOpen, onToggle } = useDisclosure()  // Sidebar visibility state
+
+
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h2>Your Music Title Here</h2>
-      <p>Description or any other details about the music.</p>
-      
-      <audio controls>
-        <source src="path_to_your_audio_file.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-    </div>
+    <ChakraProvider>
+      <Navbar />
+      <Flex justify="center" my={8} ml={0} flexGrow={1}>
+        <Flex direction={["column", "row"]} width="100%">
+            <Box p={2} flexGrow={1}>
+              <VStack spacing={8} align="center">
+                <Heading size="xl">My Visual Art</Heading>
+        {/* Embed SoundCloud Player */}
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={20}>
+          <Box>
+              <iframe 
+                  src="https://www.instagram.com/p/Cpx9BBMp1tG/embed" 
+                  width="320" 
+                  height="480" 
+                  frameBorder="0" 
+                  scrolling="no" 
+              ></iframe>
+          </Box>
+          <Box>
+            <iframe 
+                src="https://www.instagram.com/p/CEXJReCgq5h/embed" 
+                width="320" 
+                height="480" 
+                frameBorder="0" 
+                scrolling="no" 
+            ></iframe>
+          </Box>
+          <Box>
+            <iframe 
+                src="https://www.instagram.com/p/CFtCJm_As_E/embed" 
+                width="320" 
+                height="480" 
+                frameBorder="0" 
+                scrolling="no" 
+            ></iframe>
+          </Box>
+          <Box>
+            <iframe 
+                src="https://www.instagram.com/p/ChxYt1Cp1WT/embed" 
+                width="320" 
+                height="480" 
+                frameBorder="0" 
+                scrolling="no" 
+            ></iframe>
+          </Box>
+          <Box>
+            <iframe 
+                src="https://www.instagram.com/p/Co5o9b4M9lV/embed" 
+                width="320" 
+                height="480" 
+                frameBorder="0" 
+                scrolling="no" 
+            ></iframe>
+          </Box>
+          <Box>
+            <iframe 
+                src="https://www.instagram.com/p/CptSIkPAF_I/embed" 
+                width="320" 
+                height="480" 
+                frameBorder="0" 
+                scrolling="no" 
+            ></iframe>
+          </Box>
+                </SimpleGrid>
+              </VStack>
+            </Box>
+          {/* Right empty panel */}
+          <Box w={{ base: "0%", md: "1%" }} />
+        </Flex>
+      </Flex>
+    </ChakraProvider>
   );
 }
-
-export default Music;
