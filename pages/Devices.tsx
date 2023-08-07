@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 
-export default function SamplePacksPage() {
+export default function DevicesPage() {
   return (
     <ChakraProvider>
       <Navbar />
@@ -19,11 +19,62 @@ export default function SamplePacksPage() {
         <VStack spacing={10} width="100%" maxW="1000px">
           <Heading size="xl" borderBottom="1px solid">Creative Devices</Heading>
 
-          {/* Sample Pack Item */}
+          {/* Device Item */}
           <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
             <Flex justify="space-between" align="center">
               <Box>
                 <Heading size="lg" mb={4}>Tune Delay</Heading>
+                <Text>Device Description</Text>
+              </Box>
+              <Box>
+                <Image src="/path/to/samplepack/image.jpg" alt="Sample Pack Image" boxSize="100px" />
+              </Box>
+            </Flex>
+            <Button colorScheme="blue" size="md" mt={4}>
+              <Link href="/path/to/purchase">
+                Purchase
+              </Link>
+            </Button>
+          </Box>
+
+          <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
+            <Flex justify="space-between" align="center">
+              <Box>
+                <Heading size="lg" mb={4}>M4L Basic MAP Button</Heading>
+                <Text>Device Description</Text>
+              </Box>
+              <Box>
+                <Image src="/path/to/samplepack/image.jpg" alt="Sample Pack Image" boxSize="100px" />
+              </Box>
+            </Flex>
+            <Button colorScheme="blue" size="md" mt={4}>
+              <Link href="/path/to/purchase">
+                Purchase
+              </Link>
+            </Button>
+          </Box>
+
+          <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
+            <Flex justify="space-between" align="center">
+              <Box>
+                <Heading size="lg" mb={4}>FM Anything</Heading>
+                <Text>Device Description</Text>
+              </Box>
+              <Box>
+                <Image src="/path/to/samplepack/image.jpg" alt="Sample Pack Image" boxSize="100px" />
+              </Box>
+            </Flex>
+            <Button colorScheme="blue" size="md" mt={4}>
+              <Link href="/path/to/purchase">
+                Purchase
+              </Link>
+            </Button>
+          </Box>
+          
+          <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
+            <Flex justify="space-between" align="center">
+              <Box>
+                <Heading size="lg" mb={4}>Spectrogram</Heading>
                 <Text>Device Description</Text>
               </Box>
               <Box>
