@@ -1,10 +1,10 @@
-import { Box, Center, Heading, Link, VStack, HStack, IconButton, ChakraProvider, SimpleGrid, Flex, Button, useDisclosure } from '@chakra-ui/react';
-import { FaSpotify, FaApple, FaSoundcloud,  FaCompactDisc } from 'react-icons/fa';
+import { Box, Center, Heading, Link, VStack, HStack, IconButton, ChakraProvider, SimpleGrid, Flex, Button, useDisclosure, useColorMode } from '@chakra-ui/react';
+import { FaSpotify, FaApple, FaSoundcloud, FaBandcamp, FaCompactDisc } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 
 export default function HomePage() {
   const { isOpen, onToggle } = useDisclosure()  // Sidebar visibility state
-
+  const { colorMode } = useColorMode();
 
   return (
     <ChakraProvider>
@@ -53,11 +53,22 @@ export default function HomePage() {
                     <IconButton aria-label="Spotify" icon={<FaSpotify />} size="lg" colorScheme="green" />
                 </Link>
                 <Link href="https://music.apple.com/us/artist/jack-lion/1470477992" isExternal>
-                    <IconButton aria-label="Apple Music" icon={<FaApple />} size="lg" colorScheme="gray" />
+                  <IconButton 
+                      aria-label="Apple Music" 
+                      icon={<FaApple />} 
+                      size="lg" 
+                      bg={colorMode === "light" ? "gray.200" : "gray.700"}  // Change the background color based on mode
+                      color={colorMode === "light" ? "black" : "white"}     // Change the icon color based on mode
+                  />
+
                 </Link>
                 <Link href="https://soundcloud.com/jack0lion" isExternal>
                     <IconButton aria-label="SoundCloud" icon={<FaSoundcloud />} size="lg" colorScheme="red" />
                 </Link>
+                <Link href="https://jack0lion.bandcamp.com/" isExternal>
+                    <IconButton aria-label="Bandcamp" icon={<FaBandcamp />} size="lg" colorScheme="blue" />
+                </Link>
+
             </HStack>
           </Flex>
         {/* Embed SoundCloud Player */}
