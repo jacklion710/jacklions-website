@@ -90,4 +90,5 @@ export default function BookingPage() {
   );
 }
 
-// https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0w9Y-bSp4iEfmtZLVteHAJSyjUOXOf_pLSQx0JAN_XalobFO2LVchz5a_qWVwUqusj5KcKVPth
+
+// Add a page with instructions for booking a lesson
