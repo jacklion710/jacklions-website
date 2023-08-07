@@ -13,7 +13,7 @@ export default function HomePage() {
         <Flex direction={["column", "row"]} width="100%">
             <Box p={2} flexGrow={1}>
               <VStack spacing={8} align="center">
-                <Heading size="xl">My Visual Art</Heading>
+                <Heading size="xl" borderBottom="1px solid">Visuals</Heading>
         {/* Embed SoundCloud Player */}
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={20}>
           <Box>
