@@ -26,16 +26,16 @@ export default function BookingPage() {
 
               <Flex direction={["column", "row"]} align="center">
                 <Box mr={[0, 4]} textAlign="center" fontSize="md">
-                  <Text>Duration: 1 hour online</Text>
-                  <Text>Price: $30</Text>
+                  <Text>Online</Text>
+                  <Text>30/hr</Text>
                 </Box>
 
                 {/* Vertical Divider */}
                 <Box height="4em" width="1px" bg="gray.300" display={["none", "block"]} mx={4}></Box>
 
                 <Box textAlign="center" fontSize="md">
-                  <Text>Duration: 1 hour onsite</Text>
-                  <Text>Price: $50</Text>
+                  <Text>Onsite</Text>
+                  <Text>50/hr</Text>
                 </Box>
               </Flex>
 
