@@ -30,7 +30,7 @@ export default function HomePage() {
               {isOpen && 
                 <Box w="100%">
                   <VStack align="start" spacing={4}>
-                  <Heading size="md">Discography</Heading>
+                  <Heading size="md" borderBottom="1px solid">Discography</Heading>
                   <Link href="https://soundcloud.com/jack0lion/velocity" isExternal>Velocity</Link>
                   <Link href="https://soundcloud.com/jack0lion/opaque" isExternal>Opaque</Link>
                   <Link href="https://soundcloud.com/meanmugmusic/undehfined-jacklion-interlace" isExternal>Interlace</Link>
@@ -45,7 +45,7 @@ export default function HomePage() {
 
             <Box p={2} flexGrow={1}>
               <VStack spacing={8} align="center">
-                <Heading size="xl">My Music</Heading>
+                <Heading size="xl" borderBottom="1px solid">My Music</Heading>
           {/* Links to other platforms */}
         <Flex justifyContent="center" width="100%" mb={4}>
             <HStack spacing={4}>
