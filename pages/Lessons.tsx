@@ -48,7 +48,7 @@ export default function BookingPage() {
 
               {/* Booking Link */}
               <Button colorScheme="blue" size="md">
-                <Link href="YOUR_GOOGLE_CALENDAR_APPOINTMENT_LINK" isExternal>
+                <Link href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0w9Y-bSp4iEfmtZLVteHAJSyjUOXOf_pLSQx0JAN_XalobFO2LVchz5a_qWVwUqusj5KcKVPth" isExternal>
                   Click Here to Book a Lesson
                 </Link>
               </Button>
