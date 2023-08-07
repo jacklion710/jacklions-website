@@ -23,7 +23,7 @@ export default function SamplePacksPage() {
           <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
             <Flex justify="space-between" align="center">
               <Box>
-                <Heading size="lg" mb={4}>Sample Pack Name</Heading>
+                <Heading size="lg" mb={4}>Breakbeats</Heading>
                 <Text>Sample Pack Description</Text>
               </Box>
               <Box>
