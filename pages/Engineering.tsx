@@ -20,38 +20,43 @@ export default function EngineeringPage() {
                   <Heading size="xl" borderBottom="1px solid">Recording Studio Catalog</Heading>
 
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
-                      <Heading size="lg" mb={4}>Recording</Heading>
-                      <Text>Professional vocal recordings or mono, stereo, mid/side, and up to 16 channel multitrack instrumental recording sessions for any source you wish to capture.</Text>
-                      
-                      <Heading size="md" mt={4}>Instruments Available:</Heading>
-                      <List>
-                          <Text>Electric Guitar</Text>
-                          <Text>5 String Electric Bass</Text>
-                          <Text>Acoustic Guitar</Text>
-                      </List>
-
-                      <Heading size="md" mt={4}>Electronic Instruments:</Heading>
-                      <List>
-                          <Text>Subsequent37</Text>
-                          <Text>Subharmonicon</Text>
-                          <Text>DFAM</Text>
-                          <Text>Eurorack</Text>
-                      </List>
-
-                      <Heading size="md" mt={4}>Microphones:</Heading>
-                      <List>
-                          <Text>Telefunken TF39</Text>
-                          <Text>Aston Origin</Text>
-                          <Text>SM57</Text>
-                          <Text>SM7B</Text>
-                          <Text>CR-14</Text>
-                          <Text>SP-1</Text>
-                      </List>
-                      
-                      <Text mt={4}>Minimum of 1 hr in order to book a recording session</Text>
-                      <Text>$50/hr</Text>
-                      <Text>$140 for 3 hours</Text>
-                  </Box>
+                    <Flex direction="column" justifyContent="space-between" alignItems="flex-start" h="100%">
+                        <VStack align="start" spacing={4}>
+                            <Heading size="lg" mb={4}>Recording</Heading>
+                            <Text>Professional vocal recordings or mono, stereo, mid/side, and up to 16 channel multitrack instrumental recording sessions for any source you wish to capture.</Text>
+                            <Heading size="md" mt={4}>Instruments Available:</Heading>
+                            <List>
+                                <Text>Electric Guitar</Text>
+                                <Text>5 String Electric Bass</Text>
+                                <Text>Acoustic Guitar</Text>
+                            </List>
+                            <Heading size="md" mt={4}>Electronic Instruments:</Heading>
+                            <List>
+                                <Text>Subsequent37</Text>
+                                <Text>Subharmonicon</Text>
+                                <Text>DFAM</Text>
+                                <Text>Eurorack</Text>
+                            </List>
+                            <Heading size="md" mt={4}>Microphones:</Heading>
+                            <List>
+                                <Text>Telefunken TF39</Text>
+                                <Text>Aston Origin</Text>
+                                <Text>SM57</Text>
+                                <Text>SM7B</Text>
+                                <Text>CR-14</Text>
+                                <Text>SP-1</Text>
+                            </List>
+                            <Text mt={4}>Minimum of 1 hr in order to book a recording session</Text>
+                            <Text>$50/hr</Text>
+                            <Text>$140 for 3 hours</Text>
+                        </VStack>
+                        <Button colorScheme="blue" size="md" mt={4}>
+                            <Link href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0w9Y-bSp4iEfmtZLVteHAJSyjUOXOf_pLSQx0JAN_XalobFO2LVchz5a_qWVwUqusj5KcKVPth" isExternal>
+                                Book a Recording Session
+                            </Link>
+                        </Button>
+                    </Flex>
+                </Box>
 
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
                       <Heading size="lg" mb={4}>Engineering</Heading>
@@ -82,14 +87,8 @@ export default function EngineeringPage() {
                   </Box>
 
                   <Button colorScheme="blue" size="md" mt={4}>
-                      <Link href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0w9Y-bSp4iEfmtZLVteHAJSyjUOXOf_pLSQx0JAN_XalobFO2LVchz5a_qWVwUqusj5KcKVPth" isExternal>
-                          Book Now
-                      </Link>
-                  </Button>
-
-                  <Button colorScheme="blue" size="md" mt={4}>
                       <Link href="/Direct">
-                          Contact & Pricing
+                          For Engineering Services, Contact Me
                       </Link>
                   </Button>
 
@@ -101,3 +100,4 @@ export default function EngineeringPage() {
 
 
 // Add dropdowns within each box with sound examples
+// Add a page with instructions for booking an appointment
