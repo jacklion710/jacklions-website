@@ -51,7 +51,7 @@ export default function EngineeringPage() {
                             <Text>$140 for 3 hours</Text>
                         </VStack>
                         <Button colorScheme="blue" size="md" mt={4}>
-                            <Link href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0w9Y-bSp4iEfmtZLVteHAJSyjUOXOf_pLSQx0JAN_XalobFO2LVchz5a_qWVwUqusj5KcKVPth" isExternal>
+                            <Link href="/SessionInfo">
                                 Book a Recording Session
                             </Link>
                         </Button>
