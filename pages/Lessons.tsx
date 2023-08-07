@@ -21,7 +21,7 @@ export default function BookingPage() {
               <Heading size="xl" borderBottom="1px solid" borderColor="gray.300" pb={2}>Lessons</Heading>
 
               <Text textAlign="center" fontSize="md" maxW="500px" borderBottom="1px solid" borderColor="gray.300" pb={2}>
-                I offer personalized lessons in music production, guitar, bass, max msp and GLSL. Each session is tailored to meet your unique learning goals. Lessons are available both online and in-person. 
+                I offer personalized lessons in music production, theory, guitar, bass, max msp and GLSL. Each session is tailored to meet your unique learning goals. Lessons are available both online and in-person. 
               </Text>
 
               <Flex direction={["column", "row"]} align="center">
