@@ -25,7 +25,7 @@ import {
     MoonIcon,
     SunIcon
   } from '@chakra-ui/icons';
- 
+
   function ColorModeSwitcher() {
     const { colorMode, toggleColorMode } = useColorMode();
     return (
@@ -37,14 +37,12 @@ import {
     );
   }
   
-  
-
   export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode } = useColorMode();
 
     return (
-      <Box>
+      <Box className="aberrationEffect">
         <Flex
           bg={useColorModeValue('white', 'black')}
           color={useColorModeValue('white', 'black')}
