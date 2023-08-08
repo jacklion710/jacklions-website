@@ -29,7 +29,7 @@ export default function SamplePacksPage() {
             <Box mt={4}>
               <iframe 
                 style={{border: "0", width: "100%", height: "800px"}} 
-                src="https://bandcamp.com/EmbeddedPlayer/album=2258007380/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" 
+                src="https://bandcamp.com/EmbeddedPlayer/album=2258007380/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=true/transparent=true/" 
                 seamless>
               </iframe>
             </Box>
@@ -45,7 +45,7 @@ export default function SamplePacksPage() {
             <Box mt={4}>
               <iframe 
                 style={{border: "0", width: "100%", height: "800px"}} 
-                src="https://bandcamp.com/EmbeddedPlayer/album=3513673397/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" 
+                src="https://bandcamp.com/EmbeddedPlayer/album=3513673397/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=true/transparent=true/" 
                 seamless>
               </iframe>
             </Box>
@@ -61,7 +61,7 @@ export default function SamplePacksPage() {
             <Box mt={4}>
               <iframe 
                 style={{border: "0", width: "100%", height: "800px"}} 
-                src="https://bandcamp.com/EmbeddedPlayer/album=4003857503/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" 
+                src="https://bandcamp.com/EmbeddedPlayer/album=4003857503/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=true/transparent=true/" 
                 seamless>
               </iframe>
             </Box>
@@ -71,13 +71,13 @@ export default function SamplePacksPage() {
             <Flex justify="space-between" align="center">
               <Box>
                 <Heading size="lg" mb={4}>Free Foley Pack</Heading>
-                <Text>Recorded foley and FX</Text>
+                <Text>recordedoley and FX</Text>
               </Box>
             </Flex>
             <Box mt={4}>
               <iframe 
                 style={{border: "0", width: "100%", height: "800px"}} 
-                src="https://bandcamp.com/EmbeddedPlayer/album=797578818/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" 
+                src="https://bandcamp.com/EmbeddedPlayer/album=797578818/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=true/transparent=true/" 
                 seamless>
               </iframe>
             </Box>
