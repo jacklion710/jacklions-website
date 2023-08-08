@@ -348,5 +348,15 @@ import {
           href: '/Direct',
         }
       ],
+    },
+    {
+      label: 'Immersive',
+      children: [
+        {
+          label: 'Playground',
+          subLabel: 'Take a leap of faith',
+          href: '/wip',
+        }
+      ],
     }
   ];
