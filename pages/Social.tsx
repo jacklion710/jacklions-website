@@ -32,7 +32,7 @@ export default function SocialPage() {
             }}
           >
             <Heading size="xl" textAlign="center" borderBottom={`1px solid `}>
-              Connect with Me
+              Platforms
             </Heading>
           </Box>
           <HStack spacing={{ base: 4, md: 8 }} justify="center">
