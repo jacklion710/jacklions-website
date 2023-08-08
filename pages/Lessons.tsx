@@ -12,37 +12,35 @@ import Navbar from '../components/Navbar';
 
 export default function BookingPage() {
   return (
-    <ChakraProvider>
+    <ChakraProvider resetCSS>
       <Navbar />
-      <Flex justify="center" my={8} ml={0} flexGrow={1}>
-        <Flex direction={["column", "row"]} width="100%">
+      <Flex direction="column" align="center" justify="center" minH="100vh" p={4}>
+        <Flex direction={["column", "row"]} width="100%" maxWidth="1200px">
           <Box p={2} flexGrow={1}>
             <VStack spacing={8} align="center">
               <Heading size="xl" borderBottom="1px solid" borderColor="gray.300" pb={2}>Lessons</Heading>
 
-              <Text textAlign="center" fontSize="md" maxW="500px" borderBottom="1px solid" borderColor="gray.300" pb={2}>
+              <Text textAlign="center" fontSize="md" maxW={["90%", "500px"]} borderBottom="1px solid" borderColor="gray.300" pb={2}>
                 I offer personalized lessons in music production, theory, guitar, bass, max msp and GLSL. Each session is tailored to meet your unique learning goals. Lessons are available both online and in-person. 
               </Text>
 
-              <Flex direction={["column", "row"]} align="center">
-                <Box mr={[0, 4]} textAlign="center" fontSize="md">
+              <Flex direction="row" align="center" width="100%" justify="center">
+                <Box mr={[2, 4]} textAlign="center" fontSize="md" mb={[2, 0]}>
                   <Text>Online</Text>
                   <Text>30/hr</Text>
                 </Box>
 
-                {/* Vertical Divider */}
-                <Box height="4em" width="1px" bg="gray.300" display={["none", "block"]} mx={4}></Box>
+                <Box height="4em" width="1px" bg="gray.300" mx={2}></Box>
 
-                <Box textAlign="center" fontSize="md">
+                <Box textAlign="center" fontSize="md" ml={[2, 0]}>
                   <Text>Onsite</Text>
                   <Text>50/hr</Text>
                 </Box>
               </Flex>
 
-              {/* Horizontal Overline */}
-              <Box width="500px" borderTop="1px solid" borderColor="gray.300" mt={2} mb={4}></Box>
+              <Box width={["90%", "500px"]} borderTop="1px solid" borderColor="gray.300" mt={2} mb={4}></Box>
 
-              <Text textAlign="center" fontSize="md" maxW="500px">
+              <Text textAlign="center" fontSize="md" maxW={["90%", "500px"]}>
                 For specific lesson plans and other details, feel free to <Link href="/Direct" color="blue.500">contact me</Link>.
               </Text>
 
@@ -58,7 +56,7 @@ export default function BookingPage() {
               <Heading size="xl">YouTube Tutorials</Heading>
 
               {/* Embed the first video */}
-              <Box width="560px" height="315px" borderRadius="md" overflow="hidden" boxShadow="xl">
+              <Box width={["100%", "560px"]} height="315px" borderRadius="md" overflow="hidden" boxShadow="xl">
                 <iframe 
                   width="100%" 
                   height="100%" 
@@ -70,7 +68,7 @@ export default function BookingPage() {
               </Box>
 
               {/* Embed the second video */}
-              <Box width="560px" height="315px" borderRadius="md" overflow="hidden" boxShadow="xl">
+              <Box width={["100%", "560px"]} height="315px" borderRadius="md" overflow="hidden" boxShadow="xl">
                 <iframe 
                   width="100%" 
                   height="100%" 
@@ -90,5 +88,3 @@ export default function BookingPage() {
   );
 }
 
-
-// Add a page with instructions for booking a lesson
