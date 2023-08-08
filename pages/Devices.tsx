@@ -81,34 +81,43 @@ export default function DevicesPage() {
 
   return (
     <ChakraProvider>
-      <Navbar />
-      <Box mb={60}>
-        <Flex justify="center" my={8} ml={0} flexGrow={1}>
-          <VStack spacing={250} width="50%" maxW="1000px">
-            <Heading size="xl" borderBottom="1px solid">Creative Devices</Heading>
+        <Navbar />
+        <Box mb={60}>
+            <Flex justify="center" my={4} ml={0} flexGrow={1}>
+              <VStack spacing={16} width={["100%", "80%", "70%", "50%"]} maxW="1000px">
 
-            {devices.map(dev => (
-              <Box key={dev.name} p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" height="500px">
-                <Flex justify="space-between" align="center">
-                  <Box>
-                    <Heading size="lg" mb={4}>{dev.name}</Heading>
-                    <Text>{dev.description}</Text>
-                  </Box>
-                </Flex>
-                <iframe 
-                  src={dev.gumroadLink} 
-                  width="100%" 
-                  height="580"
-                  frameBorder="0" 
-                  scrolling="no" 
-                  style={{ background: iframeBg, marginTop: "16px" }} 
-                  title={`Purchase ${dev.name}`}></iframe>
-              </Box>
-            ))}
 
-          </VStack>
-        </Flex>
-      </Box>
+
+                    {/* Wrap the header with a container and adjust its margin */}
+                    <Flex direction="column" mb={2}>
+                        <Heading size="xl" borderBottom="1px solid">Creative Devices</Heading>
+                    </Flex>
+
+
+                    {devices.map(dev => (
+                        <Box key={dev.name} p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
+                            <Flex justify="space-between" align="center">
+                              <Box>
+                                  <Heading size="lg" mb={4}>{dev.name}</Heading>
+                                  <Text mb={4}>{dev.description}</Text>
+                              </Box>
+
+                            </Flex>
+                            <iframe 
+                                src={dev.gumroadLink} 
+                                width="100%" 
+                                height="500" 
+                                frameBorder="0" 
+                                scrolling="no" 
+                                style={{ background: iframeBg, marginTop: "16px" }} 
+                                title={`Purchase ${dev.name}`}>
+                            </iframe>
+                    
+                        </Box>
+                    ))}
+                </VStack>
+            </Flex>
+        </Box>
     </ChakraProvider>
   );
 }
