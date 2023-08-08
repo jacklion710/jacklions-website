@@ -75,11 +75,12 @@ export default function SocialPage() {
             <Text fontSize="lg" fontWeight="semibold">
               For bookings, please use the link below:
             </Text>
-            <Link href="BOOKING_LINK" isExternal>
-              <Button colorScheme="blue" size="lg">
-                Book Now
+              <Button colorScheme="blue" size="md" mt={4}>
+                  <Link href="/SessionInfo">
+                      Book a Session
+                  </Link>
               </Button>
-            </Link>
+
           </VStack>
         </Box>
       </Flex>
