@@ -13,8 +13,42 @@ import {
     Text,
     useColorModeValue,
   } from '@chakra-ui/react';
-  
+  import { useState } from 'react';
+  import { signInWithEmailAndPassword } from 'firebase/auth';
+  import { auth } from '../../utils/firebase'; 
+  import { onAuthStateChanged } from 'firebase/auth';
+  import { useEffect } from 'react';
+  import { useRouter } from 'next/router';
+
   export default function SignInPage() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
+    const handleSignIn = async () => {
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        router.push('/'); // Redirect to the dashboard or another page
+      } catch (err: any) {
+        setError(err.message);
+      }
+    };
+
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log('User is signed in:', user);
+          router.push('/'); // Redirect to the dashboard or another page
+        } else {
+          console.log('User is signed out');
+          // Handle the sign-out situation as needed
+        }
+      });
+
+      // Return a cleanup function to unsubscribe the listener when the component unmounts
+      return () => unsubscribe();
+    }, []);
+
     return (
       <Flex
         minH={'100vh'}
@@ -34,14 +68,16 @@ import {
             boxShadow={'lg'}
             p={8}>
             <Stack spacing={4}>
-              <FormControl id="email">
+              <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" />
+                <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </FormControl>
-              <FormControl id="password">
+
+              <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
-                <Input type="password" />
+                <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </FormControl>
+
               <Stack spacing={10}>
                 <Stack
                   direction={{ base: 'column', sm: 'row' }}
@@ -50,7 +86,9 @@ import {
                   <Checkbox>Remember me</Checkbox>
                   <Link color={'blue.400'}>Forgot password?</Link>
                 </Stack>
+                {error && <Text color="red.500">{error}</Text>}
                 <Button
+                  onClick={handleSignIn}
                   bg={'blue.400'}
                   color={'white'}
                   _hover={{
