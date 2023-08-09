@@ -9,18 +9,42 @@ import {
     HStack,
     InputRightElement,
     Stack,
+    VStack,
     Button,
     Heading,
     Text,
     useColorModeValue,
-    Link,
+    Link as ChakraLink,
   } from '@chakra-ui/react';
+  import Link from 'next/link';
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-  
-  export default function SignUpPage() {
+  import { auth } from '../../utils/firebase';
+  import dynamic from "next/dynamic";
+  import { createUserWithEmailAndPassword } from 'firebase/auth';
+  import { updateProfile } from 'firebase/auth';
+
+  function SignUpPage() {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-  
+    const [error, setError] = useState<string | null>(null);
+    const handleSignup = async () => {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        if (userCredential.user) {
+          await updateProfile(userCredential.user, {
+            displayName: `${firstName} ${lastName}`,
+          });
+        }
+      } catch (err: any) {
+        setError(err.message);
+      }
+    };
+    
+    
     return (
       <Flex
         minH={'100vh'}
@@ -46,24 +70,29 @@ import {
                 <Box>
                   <FormControl id="firstName" isRequired>
                     <FormLabel>First Name</FormLabel>
-                    <Input type="text" />
+                    <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} type="text" />
                   </FormControl>
                 </Box>
                 <Box>
                   <FormControl id="lastName">
                     <FormLabel>Last Name</FormLabel>
-                    <Input type="text" />
+                    <Input value={lastName} onChange={(e) => setLastName(e.target.value)} type="text" />
                   </FormControl>
                 </Box>
               </HStack>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" />
+                <Input value={email} onChange={(e) => setEmail(e.target.value)} type="text" />
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
-                  <Input type={showPassword ? 'text' : 'password'} />
+                <Input 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    type={showPassword ? "text" : "password"} 
+                />
+
                   <InputRightElement h={'full'}>
                     <Button
                       variant={'ghost'}
@@ -76,20 +105,26 @@ import {
                 </InputGroup>
               </FormControl>
               <Stack spacing={10} pt={2}>
+              {error && <Text color="red.500">{error}</Text>}
                 <Button
-                  loadingText="Submitting"
-                  size="lg"
-                  bg={'blue.400'}
-                  color={'white'}
-                  _hover={{
-                    bg: 'blue.500',
-                  }}>
-                  Sign up
+                    onClick={handleSignup}
+                    loadingText="Submitting"
+                    size="lg"
+                    bg={'blue.400'}
+                    color={'white'}
+                    _hover={{
+                        bg: 'blue.500',
+                    }}>
+                    Sign up
                 </Button>
+
               </Stack>
               <Stack pt={6}>
                 <Text align={'center'}>
-                  Already a user? <Link color={'blue.400'}>Login</Link>
+                    Already a user? 
+                    <Link href="./signin/page" passHref>
+                        <ChakraLink color="blue.400">Login</ChakraLink>
+                    </Link>
                 </Text>
               </Stack>
             </Stack>
@@ -98,3 +133,6 @@ import {
       </Flex>
     );
   }
+
+  export default dynamic (() => Promise.resolve(SignUpPage), {ssr: false})
+
