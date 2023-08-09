@@ -25,20 +25,3 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
-
-@keyframes chromaticAberration {
-  0% {
-      filter: hue-rotate(15deg) blur(0px);
-  }
-  50% {
-      filter: hue-rotate(10deg) blur(1px);
-  }
-  100% {
-      filter: hue-rotate(0deg) blur(0px);
-  }
-}
-
-.aberrationEffect {
-  animation: chromaticAberration 3s infinite alternate;
-}
-
