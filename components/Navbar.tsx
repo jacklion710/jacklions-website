@@ -42,17 +42,19 @@ import {
     const { colorMode } = useColorMode();
 
     return (
-      <Box className="aberrationEffect">
-        <Flex
-          bg={useColorModeValue('white', 'black')}
-          color={useColorModeValue('white', 'black')}
-          minH={'60px'}
-          py={{ base: 2 }}
-          px={{ base: 4 }}
-          borderBottom={1}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.900')}
-          align={'center'}>
+      <Box>
+          <Flex
+              // bg={useColorModeValue('white', 'black')}
+              bg="repeating-linear-gradient(45deg, rgba(20, 63, 149, 0.2), rgba(0, 0, 0, 0.4) 10px, rgba(0, 0, 0, 0.4) 10px, rgba(20, 63, 149, 0.2) 20px)"
+
+              color={useColorModeValue('white', 'black')}
+              minH={'60px'}
+              py={{ base: 2 }}
+              px={{ base: 4 }}
+              borderBottom={1}
+              borderStyle={'solid'}
+              borderColor={useColorModeValue('gray.200', 'gray.900')}
+              align={'center'}>
           <Flex
             flex={{ base: 1, md: 'auto' }}
             ml={{ base: -2 }}
@@ -67,17 +69,22 @@ import {
             />
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-            <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}>
-            <Button as={"a"} href="/" variant={"link"}>
-            <Image src={colorMode === "light" ? "/assets/jack.lion_dark.png" : "/assets/jack.lion_light.png"}
-            alt="Logo"
-            w={['40px', '40px', '50px']} objectFit="cover"
-            />
-            </Button>
-            </Text>
+                    <Text
+                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+                        fontFamily={'heading'}
+                        color={useColorModeValue('gray.800', 'white')}>
+                        
+                        <Button as={"a"} href="/" variant={"link"}>
+                            <Box className="aberrationEffect">
+                                <Image 
+                                    src={colorMode === "light" ? "/assets/jack.lion_dark.png" : "/assets/jack.lion_light.png"}
+                                    alt="Logo"
+                                    w={['40px', '40px', '50px']} 
+                                    objectFit="cover"
+                                />
+                            </Box>
+                        </Button>
+                    </Text>
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
             </Flex>
