@@ -1,10 +1,11 @@
-import 'firebase/auth';
-import { getApps, initializeApp, firebase } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'; 
+
 import dotenv from 'dotenv';
+
 dotenv.config();
 
-const firebaseConfig = {
+const config = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
@@ -14,9 +15,9 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
 
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
+// Initialize Firebase with the config
+const firebaseApp = initializeApp(config);
 
-export default firebase;
-export const auth = getAuth();
+const auth = getAuth(firebaseApp);
+
+export { firebaseApp, auth };
