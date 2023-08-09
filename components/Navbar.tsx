@@ -25,6 +25,7 @@ import {
     MoonIcon,
     SunIcon
   } from '@chakra-ui/icons';
+  import dynamic from "next/dynamic";
 
   function ColorModeSwitcher() {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -37,15 +38,16 @@ import {
     );
   }
   
-  export default function Navbar() {
+  // export default function Navbar() {
+  function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode } = useColorMode();
 
     return (
       <Box>
           <Flex
-              // bg={useColorModeValue('white', 'black')}
-              bg="repeating-linear-gradient(45deg, rgba(20, 63, 149, 0.2), rgba(0, 0, 0, 0.4) 10px, rgba(0, 0, 0, 0.4) 10px, rgba(20, 63, 149, 0.2) 20px)"
+              bg={useColorModeValue('white', 'black')}
+              // bg="repeating-linear-gradient(45deg, rgba(20, 63, 149, 0.2), rgba(0, 0, 0, 0.4) 10px, rgba(0, 0, 0, 0.4) 10px, rgba(20, 63, 149, 0.2) 20px)"
 
               color={useColorModeValue('white', 'black')}
               minH={'60px'}
@@ -75,7 +77,8 @@ import {
                         color={useColorModeValue('gray.800', 'white')}>
                         
                         <Button as={"a"} href="/" variant={"link"}>
-                            <Box className="aberrationEffect">
+                            {/* <Box className="aberrationEffect"> */}
+                            <Box>
                                 <Image 
                                     src={colorMode === "light" ? "/assets/jack.lion_dark.png" : "/assets/jack.lion_light.png"}
                                     alt="Logo"
@@ -284,6 +287,8 @@ import {
       </Stack>
     );
   };
+  export default dynamic(() => Promise.resolve(Navbar), { ssr: false });
+
   
   interface NavItem {
     label: string;
@@ -365,3 +370,5 @@ import {
       ],
     }
   ];
+
+  
