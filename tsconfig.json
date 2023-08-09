@@ -29,6 +29,6 @@
     "**/*.tsx", 
     ".next/types/**/*.ts", 
     "components/src/**/*.tsx"
-, "utils/firebase.js", "utils/users.js"  ],
+, "utils/firebase.ts" ],
   "exclude": ["node_modules"]
 }
