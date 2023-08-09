@@ -9,7 +9,7 @@ import {
     Collapse,
     Icon,
     Image,
-    Link,
+    Link as ChakraLink,
     Popover,
     PopoverTrigger,
     PopoverContent,
@@ -26,6 +26,12 @@ import {
     SunIcon
   } from '@chakra-ui/icons';
   import dynamic from "next/dynamic";
+  import { auth } from '../utils/firebase';
+  import { useEffect, useState } from 'react';
+  import { onAuthStateChanged } from 'firebase/auth';
+  import Link from 'next/link';
+  import { User } from 'firebase/auth';
+  import NextLink from "next/link";
 
   function ColorModeSwitcher() {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -42,6 +48,23 @@ import {
   function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode } = useColorMode();
+    const [user, setUser] = useState<User | null>(null);
+    const textAlignValue = useBreakpointValue({ base: 'center', md: 'left', default: 'center' });
+
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in.
+          setUser(user);
+        } else {
+          // No user is signed in.
+          setUser(null);
+        }
+      });
+
+      // Cleanup subscription on unmount
+      return () => unsubscribe();
+    }, []);
 
     return (
       <Box>
@@ -49,7 +72,7 @@ import {
               bg={useColorModeValue('white', 'black')}
               // bg="repeating-linear-gradient(45deg, rgba(20, 63, 149, 0.2), rgba(0, 0, 0, 0.4) 10px, rgba(0, 0, 0, 0.4) 10px, rgba(20, 63, 149, 0.2) 20px)"
 
-              color={useColorModeValue('white', 'black')}
+              color={useColorModeValue('black', 'white')}
               minH={'60px'}
               py={{ base: 2 }}
               px={{ base: 4 }}
@@ -71,8 +94,7 @@ import {
             />
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Text
-                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+                     <Text textAlign={'center' as const}
                         fontFamily={'heading'}
                         color={useColorModeValue('gray.800', 'white')}>
                         
@@ -97,24 +119,50 @@ import {
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
             direction={'row'}
-            spacing={6}>
+            spacing={6}
+          >
             <ColorModeSwitcher />
-            <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href='/signin'>
-              Sign In
-            </Button>
-            <Button
-              as={'a'}
-              display={{ base: 'inline-flex', md: 'inline-flex' }}  // Making it visible on both orientations
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'white'}
-              bg={'red.400'}
-              href='/signup'
-              _hover={{
-                  bg: 'red.300',
-              }}>
-              Sign Up
-            </Button>
+            {user ? (
+              <>
+                <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href='/Profile'>
+                  Profile
+                </Button>
+                <Button
+                  as={'a'}
+                  display={{ base: 'inline-flex', md: 'inline-flex' }}
+                  fontSize={'sm'}
+                  fontWeight={600}
+                  color={'white'}
+                  bg={'red.400'}
+                  onClick={() => auth.signOut()} // Make sure to actually log the user out here
+                  _hover={{
+                    bg: 'red.300',
+                  }}
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href='/signin'>
+                  Sign In
+                </Button>
+                <Button
+                  as={'a'}
+                  display={{ base: 'inline-flex', md: 'inline-flex' }}
+                  fontSize={'sm'}
+                  fontWeight={600}
+                  color={'white'}
+                  bg={'red.400'}
+                  href='/signup'
+                  _hover={{
+                    bg: 'red.300',
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </>
+            )}
           </Stack>
         </Flex>
   
@@ -136,21 +184,12 @@ import {
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
-                <Link
-                  p={2}
-                  href={navItem.href ?? '#'}
-                  fontSize={'md'}  // <-- Increase font size
-                  fontWeight={500}
-                  color={linkColor}
-                  _hover={{
-                    textDecoration: 'none',
-                    color: linkHoverColor,
-                  }}
-                  display="flex"  // <-- Add these two lines to center text vertically
-                  alignItems="center"
-                >
-                  {navItem.label}
+                <Link href={navItem.href ?? '#'}>
+                    <Box p={2}>
+                        {navItem.label}
+                    </Box>
                 </Link>
+
               </PopoverTrigger>
   
               {navItem.children && (
@@ -179,15 +218,15 @@ import {
     const subLabelColor = useColorModeValue('black', 'white'); // White in dark mode, Black in light mode
   
     return (
-      <Link
-        href={href}
-        role={'group'}
-        display={'flex'}
-        alignItems="center"
-        p={2}
-        rounded={'md'}
-        _hover={{ bg: useColorModeValue('red.50', 'gray.900') }}
-      >
+      <Link href={'#'}>
+        <Box
+            role={'group'}
+            display={'flex'}
+            alignItems="center"
+            p={2}
+            rounded={'md'}
+            _hover={{ bg: useColorModeValue('red.50', 'gray.900') }}
+        >
         <Stack direction={'row'} align={'center'}>
           <Box>
             <Text
@@ -213,8 +252,9 @@ import {
             <Icon color={'red.400'} w={5} h={5} as={ChevronRightIcon} />
           </Flex>
         </Stack>
-      </Link>
-    );
+      </Box>
+    </Link>
+  );
 };
   
   const MobileNav = () => {
@@ -277,9 +317,11 @@ import {
           >
             {children &&
               children.map((child) => (
-                <Link key={child.label} py={2} href={child.href} color={colorMode === 'light' ? 'black' : 'white'}>
-                    {child.label}
-                </Link>
+                <NextLink href={child.href ?? '#'}>
+                    <ChakraLink key={child.label} py={2} color={colorMode === 'light' ? 'black' : 'white'}>
+                        {child.label}
+                    </ChakraLink>
+                </NextLink>
 
               ))}
           </Stack>
@@ -287,9 +329,9 @@ import {
       </Stack>
     );
   };
+
   export default dynamic(() => Promise.resolve(Navbar), { ssr: false });
 
-  
   interface NavItem {
     label: string;
     subLabel?: string;
