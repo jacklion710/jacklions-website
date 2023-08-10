@@ -1,0 +1,18 @@
+todo list:
+opt out and user profile info
+
+user bio
+
+profile picture
+
+delete account
+
+Finish discography and Music links on Audio page
+
+calendly?
+
+password requirements
+
+UI cleanup
+
+RNBO
