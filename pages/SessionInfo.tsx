@@ -38,11 +38,13 @@ import {
                             </ListItem>
                         </List>
   
-                        <Button colorScheme="blue" size="md" mt={6}>
-                            <Link href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0w9Y-bSp4iEfmtZLVteHAJSyjUOXOf_pLSQx0JAN_XalobFO2LVchz5a_qWVwUqusj5KcKVPth" isExternal>
+                        <Flex justify="center">
+                            <Button colorScheme="blue" size="md" mt={6}>
+                                <Link href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0w9Y-bSp4iEfmtZLVteHAJSyjUOXOf_pLSQx0JAN_XalobFO2LVchz5a_qWVwUqusj5KcKVPth" isExternal>
                                 Book Now
-                            </Link>
-                        </Button>
+                                </Link>
+                            </Button>
+                        </Flex>
                     </Box>
                 </VStack>
             </Flex>
