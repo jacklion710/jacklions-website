@@ -98,8 +98,8 @@ import {
                         fontFamily={'heading'}
                         color={useColorModeValue('gray.800', 'white')}>
                         
-                        <Button as={"a"} href="/" variant={"link"}>
-                            {/* <Box className="aberrationEffect"> */}
+                        <NextLink href="/">
+                          <Button as={"a"} variant={"link"}>
                             <Box>
                                 <Image 
                                     src={colorMode === "light" ? "/assets/jack.lion_dark.png" : "/assets/jack.lion_light.png"}
@@ -109,6 +109,7 @@ import {
                                 />
                             </Box>
                         </Button>
+                        </NextLink>
                     </Text>
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
@@ -184,11 +185,11 @@ import {
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
-                <Link href={navItem.href ?? '#'}>
-                    <Box p={2}>
-                        {navItem.label}
-                    </Box>
-                </Link>
+              <NextLink href={navItem.href ?? '#'}>
+                  <Box p={2}>
+                      {navItem.label}
+                  </Box>
+              </NextLink>
 
               </PopoverTrigger>
   
@@ -218,7 +219,7 @@ import {
     const subLabelColor = useColorModeValue('black', 'white'); // White in dark mode, Black in light mode
   
     return (
-      <Link href={'#'}>
+      <NextLink href={href ?? '#'}>
         <Box
             role={'group'}
             display={'flex'}
@@ -253,7 +254,7 @@ import {
           </Flex>
         </Stack>
       </Box>
-    </Link>
+    </NextLink>
   );
 };
   
@@ -278,16 +279,8 @@ import {
   
     return (
       <Stack spacing={4} onClick={children && onToggle}>
-        <Flex
-          py={2}
-          as={Link}
-          href={href ?? '#'}
-          justify={'space-between'}
-          align={'center'}
-          _hover={{
-            textDecoration: 'none',
-          }}
-        >
+        <NextLink href={href ?? '#'}>
+          <Flex py={2} as={"a"} justify={'space-between'} align={'center'} _hover={{textDecoration: 'none'}}>
           <Text
             fontWeight={600}
             fontSize={'md'}
@@ -326,6 +319,7 @@ import {
               ))}
           </Stack>
         </Collapse>
+        </NextLink>
       </Stack>
     );
   };
