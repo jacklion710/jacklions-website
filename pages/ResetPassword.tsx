@@ -1,3 +1,4 @@
+"use client"
 import {
     Flex,
     Box,
@@ -18,15 +19,17 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '@/utils/firebase';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
+import dynamic from "next/dynamic";
 
 type CustomError = {
     message: string;
   };  
 
-function ResetPassword() {
+export default function ResetPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
+  const bgColor = useColorModeValue('gray.500', 'gray.900');
 
   const handleResetPassword = async () => {
     try {
@@ -48,7 +51,6 @@ function ResetPassword() {
     }
   };
     
-
   return (
     <ChakraProvider resetCSS>
       <Navbar />
@@ -56,16 +58,16 @@ function ResetPassword() {
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'}>Reset Password</Heading>
-                    <Text fontSize={'lg'} color={useColorModeValue('gray.600', 'gray.500')}>
-                        Enter your email to receive reset instructions.
-                    </Text>
-                </Stack>
-                <Box
-                    rounded={'lg'}
-                    bg={useColorModeValue('gray.300', 'gray.700')}
-                    boxShadow={'lg'}
-                    p={8}
-                >
+                        <Text fontSize={'lg'} color={useColorModeValue('gray.600', 'gray.500')}>
+                            Enter your email to receive reset instructions.
+                        </Text>
+                    </Stack>
+                    <Box
+                        rounded={'lg'}
+                        bg={bgColor}
+                        boxShadow={'lg'}
+                        p={8}
+                     >
                     <Stack spacing={4}>
                         <FormControl id="email" isRequired>
                             <FormLabel>Email address</FormLabel>
@@ -93,4 +95,5 @@ function ResetPassword() {
 );
 }
 
-export default ResetPassword;
+// export default ResetPassword;
+// export default dynamic(() => Promise.resolve(ResetPassword), { ssr: false });
