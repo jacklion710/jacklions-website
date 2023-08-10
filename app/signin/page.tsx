@@ -104,7 +104,7 @@ import {
                     </Button>
 
                     <Text align={'center'}>
-                      Don't have an account?{' '}
+                      Don&apos;t have an account?{' '}
                       <NextLink href="/signup" passHref>
                         <Text as="span" color="blue.400" cursor="pointer">Sign Up</Text>
                       </NextLink>

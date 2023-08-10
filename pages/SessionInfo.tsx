@@ -25,7 +25,7 @@ import {
                         
                         <List spacing={2}>
                             <ListItem>
-                                <Text fontSize="md">1. Click on the 'Book Now' button below.</Text>
+                                <Text fontSize="md">1. Click on the &apos;Book Now&apos; button below.</Text>
                             </ListItem>
                             <ListItem>
                                 <Text fontSize="md">2. Select an available date and time from the calendar.</Text>
@@ -34,7 +34,7 @@ import {
                                 <Text fontSize="md">3. Fill in your personal information and any additional notes as well as what kind of session you are booking (recording session or lesson).</Text>
                             </ListItem>
                             <ListItem>
-                                <Text fontSize="md">4. Confirm the appointment and you'll receive a confirmation email shortly.</Text>
+                                <Text fontSize="md">4. Confirm the appointment and you&apos;ll receive a confirmation email shortly.</Text>
                             </ListItem>
                         </List>
   
