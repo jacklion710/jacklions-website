@@ -8,8 +8,8 @@ import { auth } from '@/utils/firebase';
 interface User {
   email: string | null;
   displayName: string | null;
+  username: string | null;
 }
-
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
   const backgroundColor = 'gray.900';  // Dark background for entire page
@@ -22,6 +22,7 @@ const Profile = () => {
         setUser({
           email: currentUser.email,
           displayName: currentUser.displayName,
+          username: null  // added this line
         });
       } else {
         setUser(null);
@@ -30,7 +31,7 @@ const Profile = () => {
 
     // Cleanup the listener on component unmount
     return () => unsubscribe();
-  }, []);
+}, []);
 
   return (
     <ChakraProvider>
@@ -43,7 +44,7 @@ const Profile = () => {
                 <Box w="full" maxW="600px" p={4} bgColor={boxColor} borderWidth={1} borderRadius="lg" boxShadow="lg">
                     {user ? (
                         <HStack spacing={4}>
-                            <Text color="white">Username: {user.displayName || 'Not set'}</Text>
+                            <Text color="white">Username: {user.username || 'Not set'}</Text>
                             <Text color="white">Email: {user.email}</Text>
                             {/* More profile details */}
                         </HStack>
