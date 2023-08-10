@@ -87,7 +87,9 @@ import {
                       align={'start'}
                       justify={'space-between'}>
                       <Checkbox>Remember me</Checkbox>
-                      <Link color={'blue.400'}>Forgot password?</Link>
+                      <NextLink href="/ResetPassword" passHref>
+                        <Link color={'blue.400'}>Forgot password?</Link>
+                      </NextLink>
                     </Stack>
                     {error && <Text color="red.500">{error}</Text>}
                     <Button
