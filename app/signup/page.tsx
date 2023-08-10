@@ -2,6 +2,7 @@
 import {
     Flex,
     Box,
+    Checkbox,
     FormControl,
     FormLabel,
     Input,
@@ -23,6 +24,8 @@ import {
   import dynamic from "next/dynamic";
   import { createUserWithEmailAndPassword } from 'firebase/auth';
   import { updateProfile } from 'firebase/auth';
+  import { doc, setDoc } from 'firebase/firestore';
+  import { db } from '../../utils/firebase'; 
 
   function SignUpPage() {
     const [firstName, setFirstName] = useState('');
@@ -31,6 +34,8 @@ import {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [isOptedIn, setIsOptedIn] = useState(false);
+
     const handleSignup = async () => {
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -38,12 +43,16 @@ import {
           await updateProfile(userCredential.user, {
             displayName: `${firstName} ${lastName}`,
           });
+          // Store the email list preference in Firestore
+          const userDocRef = doc(db, 'users', userCredential.user.uid);
+          await setDoc(userDocRef, {
+            isOptedIn: isOptedIn
+          }, { merge: true });  // merge true will make sure we only update/add this field
         }
       } catch (err: any) {
         setError(err.message);
       }
     };
-    
     
     return (
       <Flex
@@ -117,6 +126,13 @@ import {
                     }}>
                     Sign up
                 </Button>
+                <FormControl mt={4}>
+                  <Checkbox 
+                      isChecked={isOptedIn} 
+                      onChange={(e) => setIsOptedIn(e.target.checked)}>
+                      Sign me up for the email list
+                  </Checkbox>
+              </FormControl>
 
               </Stack>
               <Stack pt={6}>
