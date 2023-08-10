@@ -17,16 +17,24 @@ import {
     Link as ChakraLink,
   } from '@chakra-ui/react';
   import Link from 'next/link';
-  import { useState } from 'react';
+  import { useState, useEffect } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
   import { auth } from '../../utils/firebase';
   import dynamic from "next/dynamic";
-  import { createUserWithEmailAndPassword } from 'firebase/auth';
+  import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
   import { updateProfile } from 'firebase/auth';
-  import { doc, setDoc } from 'firebase/firestore';
+  import { doc, setDoc, getDoc } from 'firebase/firestore';
   import { db } from '../../utils/firebase'; 
+  import { User as FirebaseUser } from 'firebase/auth';
+
+  type User = {
+    email: string;
+    displayName: string | null;
+    username: string | null;
+};
 
   function SignUpPage() {
+    const [user, setUser] = useState<any | null>(null);
     const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -62,6 +70,30 @@ import {
           setError(err.message);
       }
   };
+
+  useEffect(() => {
+    // Set an authentication state observer and get user data
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser: FirebaseUser | null) =>  {
+        if (currentUser) {
+            const userDocRef = doc(db, 'users', currentUser.uid);
+            const userSnap = await getDoc(userDocRef);
+            if (userSnap.exists()) {
+                setUser(userSnap.data() as User);
+            } else {
+                setUser({
+                    email: currentUser.email,
+                    displayName: currentUser.displayName,
+                    username: null
+                });
+            }
+        } else {
+            setUser(null);
+        }
+    });
+
+    // Cleanup the listener on component unmount
+        return () => unsubscribe();
+    }, []);
     
     return (
       <Flex align={'center'} justify={'center'}>
