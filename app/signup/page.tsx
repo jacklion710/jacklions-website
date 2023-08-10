@@ -10,7 +10,6 @@ import {
     HStack,
     InputRightElement,
     Stack,
-    VStack,
     Button,
     Heading,
     Text,

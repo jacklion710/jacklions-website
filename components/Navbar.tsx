@@ -14,7 +14,6 @@ import {
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    useBreakpointValue,
     useDisclosure
   } from '@chakra-ui/react';
   import {
@@ -29,7 +28,6 @@ import {
   import { auth } from '../utils/firebase';
   import { useEffect, useState } from 'react';
   import { onAuthStateChanged } from 'firebase/auth';
-  import Link from 'next/link';
   import { User } from 'firebase/auth';
   import NextLink from "next/link";
 

@@ -8,9 +8,7 @@ import {
     Image,
     useColorModeValue,
     useColorMode,
-    Flex,
-    ChakraProvider,
-    ColorModeScript
+    ChakraProvider
   } from '@chakra-ui/react';
   import Navbar from '../components/Navbar';
   

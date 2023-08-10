@@ -5,9 +5,6 @@ import {
   ChakraProvider,
   Flex,
   Text,
-  Image,
-  Button,
-  Link,
   useColorModeValue
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';

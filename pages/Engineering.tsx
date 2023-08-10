@@ -7,8 +7,7 @@ import {
   Flex,
   Text,
   Button,
-  List,
-  ListItem
+  List
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 export default function EngineeringPage() {

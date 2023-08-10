@@ -1,5 +1,4 @@
-import { Box, Center, Heading, Link, VStack, HStack, IconButton, ChakraProvider, SimpleGrid, Flex, Button, useDisclosure } from '@chakra-ui/react';
-import { FaSpotify, FaApple, FaSoundcloud,  FaCompactDisc } from 'react-icons/fa';
+import { Box, Heading, VStack, ChakraProvider, SimpleGrid, Flex, Button, useDisclosure } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 
 export default function HomePage() {

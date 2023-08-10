@@ -1,5 +1,5 @@
 import {
-  Box, Flex, Heading, Link, HStack, IconButton, ChakraProvider, useColorModeValue, useBreakpointValue
+  Box, Flex, Heading, Link, HStack, IconButton, ChakraProvider, useColorModeValue
 } from '@chakra-ui/react';
 import {
   FaSpotify, FaApple, FaSoundcloud, FaYoutube, FaInstagram, FaPatreon, FaGithub
@@ -39,7 +39,7 @@ export default function SocialPage() {
                 <Link href="https://open.spotify.com/artist/35foCh1HOk7XwvVzuiFmzc" isExternal>
                     <IconButton aria-label="Spotify" icon={<FaSpotify />} size="lg" colorScheme="green" />
                 </Link>
-                
+
                 <Link href="https://music.apple.com/us/artist/jack-lion/1470477992" isExternal>
                     <IconButton aria-label="Apple Music" icon={<FaApple />} size="lg" colorScheme="gray" />
                 </Link>

@@ -4,9 +4,7 @@ import {
   VStack,
   ChakraProvider,
   Flex,
-  Text,
-  Image,
-  Link
+  Text
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 

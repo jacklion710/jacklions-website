@@ -9,9 +9,7 @@ import {
     Text,
     useColorModeValue,
     Heading,
-    VStack,
     ChakraProvider,
-    localStorageManager,
     Stack,
     useColorMode
 } from '@chakra-ui/react';
@@ -19,7 +17,6 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '@/utils/firebase';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
-import dynamic from "next/dynamic";
 
 type CustomError = {
     message: string;
