@@ -12,10 +12,7 @@ import {
     Heading,
     Text,
     useColorModeValue,
-    useBreakpointValue,
-    ChakraProvider,
-    useColorMode,
-    ColorModeScript
+    useColorMode
   } from '@chakra-ui/react';
   import { useState, useEffect } from 'react';
   import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
