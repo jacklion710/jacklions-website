@@ -93,6 +93,10 @@ import {
                 <FormLabel>Email address</FormLabel>
                 <Input value={email} onChange={(e) => setEmail(e.target.value)} type="text" />
               </FormControl>
+              <FormControl id="phoneNumber">
+                  <FormLabel>Phone Number (optional)</FormLabel>
+                  <Input type="tel" />
+              </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
