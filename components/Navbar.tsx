@@ -49,7 +49,8 @@ import {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode } = useColorMode();
     const [user, setUser] = useState<User | null>(null);
-    const textAlignValue = useBreakpointValue({ base: 'center', md: 'left', default: 'center' });
+    const textAlignValue = 'center';
+    // const textAlignValue = useBreakpointValue({ base: 'center', md: 'left', default: 'center' });
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -279,7 +280,7 @@ import {
   
     return (
       <Stack spacing={4} onClick={children && onToggle}>
-        <NextLink href={href ?? '#'}>
+      <NextLink href={href ?? '#'}>
           <Flex py={2} as={"a"} justify={'space-between'} align={'center'} _hover={{textDecoration: 'none'}}>
           <Text
             fontWeight={600}
@@ -298,6 +299,7 @@ import {
             />
           )}
         </Flex>
+    </NextLink>
   
         <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
           <Stack
@@ -319,7 +321,6 @@ import {
               ))}
           </Stack>
         </Collapse>
-        </NextLink>
       </Stack>
     );
   };
