@@ -27,45 +27,51 @@ import {
   import { db } from '../../utils/firebase'; 
 
   function SignUpPage() {
+    const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isOptedIn, setIsOptedIn] = useState(true);
 
     const handleSignup = async () => {
       try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        if (userCredential.user) {
-          await updateProfile(userCredential.user, {
-            displayName: `${firstName} ${lastName}`,
-          });
-          // Store the email list preference in Firestore
-          const userDocRef = doc(db, 'users', userCredential.user.uid);
-          await setDoc(userDocRef, {
-            isOptedIn: isOptedIn
-          }, { merge: true });  // merge true will make sure we only update/add this field
-        }
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          if (userCredential.user) {
+              await updateProfile(userCredential.user, {
+                  displayName: `${firstName} ${lastName}`,
+              });
+  
+              // Define user data that should be saved in Firestore
+              const userData = {
+                  displayName: `${firstName} ${lastName}`,
+                  username: username,
+                  email: email, 
+                  phoneNumber: phoneNumber, // assuming you've set state for phone number as well
+                  isOptedIn: isOptedIn
+              };
+  
+              // Store user data in Firestore
+              const userDocRef = doc(db, 'users', userCredential.user.uid);
+              await setDoc(userDocRef, userData, { merge: true }); // merge true will make sure we only update/add these fields
+          }
       } catch (err: any) {
-        setError(err.message);
+          setError(err.message);
       }
-    };
+  };
     
     return (
-      <Flex
-        align={'center'}
-        justify={'center'}
-        // bg={useColorModeValue('gray.50', 'gray.800')}
-        >
+      <Flex align={'center'} justify={'center'}>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={8} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'} textAlign={'center'}>
               Sign up
             </Heading>
             <Text fontSize={'lg'} color={useColorModeValue('gray.600', 'gray.500')}>
-              to enjoy the best features  ✌️
+              to enjoy the best features ✌️
             </Text>
           </Stack>
           <Box
@@ -74,6 +80,12 @@ import {
             boxShadow={'lg'}
             p={8}>
             <Stack spacing={4}>
+              {/* Username field added here */}
+              <FormControl id="username" isRequired>
+                <FormLabel>Username</FormLabel>
+                <Input value={username} onChange={(e) => setUsername(e.target.value)} type="text" />
+              </FormControl>
+
               <HStack>
                 <Box>
                   <FormControl id="firstName" isRequired>
@@ -88,14 +100,18 @@ import {
                   </FormControl>
                 </Box>
               </HStack>
+
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input value={email} onChange={(e) => setEmail(e.target.value)} type="text" />
               </FormControl>
+
               <FormControl id="phoneNumber">
                   <FormLabel>Phone Number (optional)</FormLabel>
-                  <Input type="tel" />
+                  <Input value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} type="tel" />
               </FormControl>
+
+
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
