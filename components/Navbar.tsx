@@ -318,13 +318,13 @@ import {
           >
             {children &&
               children.map((child) => (
-                <NextLink href={child.href ?? '#'}>
-                    <ChakraLink key={child.label} py={2} color={colorMode === 'light' ? 'black' : 'white'}>
-                        {child.label}
-                    </ChakraLink>
+                <NextLink key={child.label} href={child.href ?? '#'}>
+                  <ChakraLink py={2} color={colorMode === 'light' ? 'black' : 'white'}>
+                    {child.label}
+                  </ChakraLink>
                 </NextLink>
-
               ))}
+
           </Stack>
         </Collapse>
       </Stack>
