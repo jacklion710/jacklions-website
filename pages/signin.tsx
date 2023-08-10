@@ -12,19 +12,22 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    useBreakpointValue,
     ChakraProvider,
+    useColorMode,
     ColorModeScript
   } from '@chakra-ui/react';
-  import { useState } from 'react';
-  import { signInWithEmailAndPassword } from 'firebase/auth';
+  import { useState, useEffect } from 'react';
+  import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
   import { auth } from '../utils/firebase'; 
-  import { onAuthStateChanged } from 'firebase/auth';
-  import { useEffect } from 'react';
   import { useRouter } from 'next/router';
   import dynamic from "next/dynamic";
   import Navbar from '../components/Navbar';
 
   function SignInPage() {
+    const { colorMode } = useColorMode();
+    console.log(colorMode)
+    const bgColor = colorMode === 'dark' ? 'gray.900' : 'gray.50';
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -54,19 +57,18 @@ import {
     }, []);
 
     return (
-      <ChakraProvider>
-        <Navbar />
           <Flex
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.900')} // making it even darker for dark mode
+            bg={bgColor}
           >
+            <Navbar />
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
               <Stack align={'center'}>
                 <Heading fontSize={'4xl'}>Sign in to your account</Heading>
                 <Text fontSize={'lg'} color={useColorModeValue('gray.600', 'gray.200')}>
-                  to enjoy all of our cool <Link color={useColorModeValue('blue.400', 'blue.200')}>Forgot password?</Link> ✌️
+                  Sign in to enjoy all of the coolest features 
                 </Text>
               </Stack>
               <Box
@@ -110,7 +112,6 @@ import {
               </Box>
             </Stack>
           </Flex>
-        </ChakraProvider>
       );
     }
 
