@@ -5,6 +5,8 @@ user bio
 
 profile picture
 
+display username
+
 delete account
 
 Finish discography and Music links on Audio page
@@ -16,3 +18,5 @@ password requirements
 UI cleanup
 
 RNBO
+
+Redirect home after signup
