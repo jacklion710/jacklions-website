@@ -32,11 +32,39 @@ export default function HomePage() {
                   <VStack align="start" spacing={4}>
                   <Heading size="md" borderBottom="1px solid">Discography</Heading>
                   <Link href="https://soundcloud.com/jack0lion/velocity" isExternal>Velocity</Link>
-                  <Link href="https://soundcloud.com/jack0lion/opaque" isExternal>Opaque</Link>
-                  <Link href="https://soundcloud.com/meanmugmusic/undehfined-jacklion-interlace" isExternal>Interlace</Link>
+
                   <Link href="https://soundcloud.com/jack0lion/axiom" isExternal>Axiom</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/realize" isExternal>Realize</Link>
+
                   <Link href="https://soundcloud.com/jack0lion/fingerprints" isExternal>Fingerprints</Link>
+
                   <Link href="https://soundcloud.com/jack0lion/vengance" isExternal>Vengance</Link>
+
+                  <Link href="https://soundcloud.com/meanmugmusic/undehfined-jacklion-interlace" isExternal>Interlace</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/subversion" isExternal>Subversion</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/rage-against-the-machine-killing-in-the-name-jacklion-remix" isExternal>Killing In The Name</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/breakthrough" isExternal>Breakthrough</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/opaque" isExternal>Opaque</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/fightwqwyattbeats" isExternal>Fight</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/noir-woptik-sound" isExternal>Noir</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/nightcrawler" isExternal>Nightcrawler</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/pockets-a_salad-collab" isExternal>Pockets</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/seasons" isExternal>Seasons</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/fresh-off-the-press" isExternal>Fresh Off The Press</Link>
+
+                  <Link href="https://soundcloud.com/jack0lion/saturnalia" isExternal>Saturnalia</Link>
+                               
                   {/* Add more links as needed */}
                   </VStack>
                 </Box>
@@ -150,7 +178,7 @@ export default function HomePage() {
                 scrolling="no"
                 frameBorder="no"
                 allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1040338969%3Fsecret_token%3Ds-BqLLgTHpFLL&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/758811643&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
           <Box>
