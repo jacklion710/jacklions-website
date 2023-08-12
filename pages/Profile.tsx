@@ -18,20 +18,31 @@ const Profile = () => {
   const toast = useToast();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        setUser({
-          email: currentUser.email,
-          displayName: currentUser.displayName,
-          username: null  
-        });
+        const db = getFirestore();
+        const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setUser({
+            email: currentUser.email,
+            displayName: currentUser.displayName,
+            username: userData.username || null,
+          });
+        } else {
+          setUser({
+            email: currentUser.email,
+            displayName: currentUser.displayName,
+            username: null,
+          });
+        }
       } else {
         setUser(null);
       }
     });
-
+  
     return () => unsubscribe();
-  }, []);
+  }, [user]);
 
   const handleDeleteAccount = async () => {
     if (user && auth.currentUser && window.confirm('Are you sure you want to delete your account?')) {
@@ -67,6 +78,7 @@ const Profile = () => {
           <Box w="full" maxW="600px" p={4} bgColor={boxColor} borderWidth={1} borderRadius="lg" boxShadow="lg">
             {user ? (
               <HStack spacing={4}>
+                <Text color="white">Username: {user.username}</Text>
                 <Text color="white">Email: {user.email}</Text>
                 {/* More profile details */}
                 <Button colorScheme="red" onClick={handleDeleteAccount}>Delete Account</Button>
