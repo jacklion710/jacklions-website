@@ -119,66 +119,91 @@ import {
           </Flex>
 
           <Stack
-            flex={{ base: 1, md: 0 }}
-            justify={'flex-end'}
-            direction={{ base: 'column', md: 'row' }}   // <-- Changed this line
-            spacing={2}
-          >
-            {user ? (
+    flex={{ base: 1, md: 0 }}
+    justify={'flex-end'}
+    direction={{ base: 'column', md: 'row' }}   // <-- Changed this line
+    spacing={2}
+>
+          {user ? (
               <>
-                <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href='/Profile'>
-                  Profile
-                </Button>
-                <Button
-                  as={'a'}
-                  display={{ base: 'inline-flex', md: 'inline-flex' }}
-                  fontSize={'sm'}
-                  fontWeight={600}
-                  color={'white'}
-                  bg={'red.400'}
-                  onClick={() => auth.signOut()} 
-                  _hover={{
-                    bg: 'red.300',
-                  }}
+                  {/* This is the "Profile" button styled as a box */}
+                  <Button 
+                    as={'a'} 
+                    fontSize={'sm'} 
+                    fontWeight={400} 
+                    variant={'solid'} 
+                    bg={'teal.500'}
+                    _hover={{
+                        bg: 'blue.400',  // Optional: change background on hover
+                    }}
+                    color={'white'}   // Changing text color to white for contrast
+                    href='/Profile' 
+                    size="sm"  
+                    w="80px"
                 >
-                  Logout
+                    Profile
                 </Button>
+
+                  {/* This is the "Logout" button styled with just red text */}
+                  <Button
+                      as={'a'}
+                      fontSize={'sm'}
+                      fontWeight={600}
+                      variant={'link'}
+                      color={'red.400'}
+                      _hover={{
+                          color: 'red.300',
+                      }}
+                      onClick={async () => {
+                          await auth.signOut();
+                          window.location.href = '/';
+                      }} 
+                      size="sm" 
+                      w="80px"
+                  >
+                      Logout
+                  </Button>
               </>
-            ) : (
+          ) : (
               <>
-                <Button 
-                  sx={{ marginLeft: ["auto", "0"]}}
-                  as={'a'} 
-                  fontSize={'sm'} 
-                  fontWeight={400} 
-                  variant={'link'} 
-                  href='/signin'
-                  size="sm"  
-                  w="80px"
+                  <Button 
+                    sx={{ marginLeft: ["auto", "0"]}}
+                    as={'a'} 
+                    fontSize={'sm'} 
+                    fontWeight={400} 
+                    variant={'link'} 
+                    href='/signin'
+                    color={'blue.500'} // Set the text color to blue
+                    _hover={{
+                        color: 'blue.400',  // Change the text color slightly on hover
+                        textDecoration: 'underline' // Underline text on hover for a stylized effect
+                    }}
+                    size="sm"  
+                    w="80px"
                 >
-                  Sign In
+                    Sign In
                 </Button>
-                <Button
-                  sx={{ marginLeft: ["auto", "0"]}}
-                  as={'a'}
-                  display={{ base: 'inline-flex', md: 'inline-flex' }}
-                  fontSize={'sm'}
-                  fontWeight={600}
-                  color={'white'}
-                  bg={'red.400'}
-                  href='/signup'
-                  _hover={{
-                    bg: 'red.300',
-                  }}
-                  size="sm"  
-                  w="80px" 
-                >
-                  Sign Up
-                </Button>
-                <ColorModeSwitcher />
+                  <Button
+                      sx={{ marginLeft: ["auto", "0"]}}
+                      as={'a'}
+                      display={{ base: 'inline-flex', md: 'inline-flex' }}
+                      fontSize={'sm'}
+                      fontWeight={600}
+                      color={'white'}
+                      bg={'teal.500'}
+                      href='/signup'
+                      _hover={{
+                          bg: 'orange.400',
+                      }}
+                      size="sm"  
+                      w="80px" 
+                  >
+                      Sign Up
+                  </Button>
               </>
-            )}
-          </Stack>
+          )}
+          <ColorModeSwitcher /> 
+      </Stack>
 
         </Flex>
   

@@ -1,11 +1,9 @@
 todo list:
-Redirect home after signup
-
-Redirect home after logout
-
 profile picture (firebase)
 
 Handle username duplicates
+
+Center labels on navbar
 
 RNBO
 
