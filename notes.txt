@@ -1,11 +1,11 @@
 todo list:
 Redirect home after signup
 
+Redirect home after logout
+
 profile picture (firebase)
 
-password requirements
-
-Add content from contact to the dashboard
+password requirements?
 
 RNBO
 
