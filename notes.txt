@@ -5,8 +5,6 @@ Redirect home after logout
 
 profile picture (firebase)
 
-password requirements?
-
 RNBO
 
 UI cleanup
