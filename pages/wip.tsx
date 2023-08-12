@@ -24,10 +24,10 @@ import {
   
     return (
         <ChakraProvider>
-            <Box minHeight="100vh" backgroundColor={bgColor} color={textColor}>
+            <Box minHeight="94vh" backgroundColor={bgColor} color={textColor}>
                 <Navbar />
-                <Center height="70vh">
-                <VStack spacing={6}>
+                <Center height="50vh">
+                <VStack spacing={3}>
                     <Image src={logo} boxSize="150px" objectFit="cover" alt="Logo" />
                     <Heading size="xl">Under Construction</Heading>
                     <Text fontSize="lg" textAlign="center">Working hard to bring this section to you soon. Stay tuned!</Text>
