@@ -5,8 +5,6 @@ profile picture (firebase)
 
 password requirements
 
-Confirmation email (firebase)
-
 RNBO
 
 UI cleanup
