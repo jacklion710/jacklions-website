@@ -56,7 +56,7 @@ import {
             </Text>
             <Heading>Jack.Lion</Heading>
             <Text color={'gray.500'} fontSize={'lg'}>
-              Electronic artist, developer and recording engineer
+              Electronic artist, developer and audio engineer
             </Text>
             <Stack
               spacing={4}
