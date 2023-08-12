@@ -12,7 +12,7 @@ import {
   } from '@chakra-ui/react';
   import { BsMusicNoteBeamed  } from 'react-icons/bs';  
   import {  PiPaintBrushBold  } from 'react-icons/pi';
-  import {  FaWrench  } from 'react-icons/fa';
+  import {  FaWrench, FaMicrophone, FaChalkboardTeacher } from 'react-icons/fa';
   import { ReactElement } from 'react';
   
   interface FeatureProps {
@@ -84,6 +84,20 @@ import {
                 iconBg={useColorModeValue('purple.100', 'purple.900')}
                 text={'Engineering'}
               />
+              <Feature
+              icon={
+                <Icon as={FaMicrophone} color={'red.500'} w={5} h={5} /> 
+              }
+              iconBg={useColorModeValue('red.100', 'red.900')}
+              text={'Recording'}
+            />
+             <Feature
+              icon={
+                <Icon as={FaChalkboardTeacher} color={'blue.500'} w={5} h={5} />
+              }
+              iconBg={useColorModeValue('blue.100', 'blue.900')}
+              text={'Lessons'}
+            />
             </Stack>
           </Stack>
           <Flex>
