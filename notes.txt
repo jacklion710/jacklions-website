@@ -5,6 +5,8 @@ profile picture (firebase)
 
 password requirements
 
+Add content from contact to the dashboard
+
 RNBO
 
 UI cleanup
