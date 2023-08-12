@@ -69,8 +69,6 @@ import {
       <Box>
           <Flex
               bg={useColorModeValue('white', 'black')}
-              // bg="repeating-linear-gradient(45deg, rgba(20, 63, 149, 0.2), rgba(0, 0, 0, 0.4) 10px, rgba(0, 0, 0, 0.4) 10px, rgba(20, 63, 149, 0.2) 20px)"
-
               color={useColorModeValue('black', 'white')}
               minH={'60px'}
               py={{ base: 2 }}
@@ -78,7 +76,8 @@ import {
               borderBottom={1}
               borderStyle={'solid'}
               borderColor={useColorModeValue('gray.200', 'gray.900')}
-              align={'center'}>
+              align={'center'}
+              justify={'space-between'}>
           <Flex
             flex={{ base: 1, md: 'auto' }}
             ml={{ base: -2 }}
@@ -183,9 +182,9 @@ import {
     const linkColor = useColorModeValue('gray.600', 'gray.200');
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-  
+    
     return (
-      <Stack direction={'row'} spacing={4}>
+      <Stack direction={'row'} spacing={4} justifyContent="center" alignItems="center" flexGrow={1}> {/* <-- Added these styles */}
         {NAV_ITEMS.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
@@ -195,7 +194,7 @@ import {
                       {navItem.label}
                   </Box>
               </NextLink>
-
+  
               </PopoverTrigger>
   
               {navItem.children && (

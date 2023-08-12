@@ -31,7 +31,7 @@ export default function SocialPage() {
         justify="flex-start"
         py={8}
         px={4}
-        height="calc(96vh - 100px)"
+        height="calc(98vh - 100px)"
       >
         <Box 
           w="100%" 

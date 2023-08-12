@@ -24,7 +24,7 @@ import {
   
     return (
         <ChakraProvider>
-            <Box minHeight="94vh" backgroundColor={bgColor} color={textColor}>
+            <Box minHeight="95vh" backgroundColor={bgColor} color={textColor}>
                 <Navbar />
                 <Center height="50vh">
                 <VStack spacing={3}>
