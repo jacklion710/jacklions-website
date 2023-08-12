@@ -12,6 +12,7 @@ interface User {
   displayName: string | null;
   username: string | null;
   isSubscribedToEmail: boolean;
+  isOptedIn?: boolean; // If it wasn't here before, add it.
 }
 
 const Profile = () => {
@@ -48,16 +49,21 @@ const Profile = () => {
             email: currentUser.email,
             displayName: currentUser.displayName,
             username: userData.username || null,
-            isSubscribedToEmail: userData.isSubscribedToEmail || false
-          });
+            isSubscribedToEmail: userData.isSubscribedToEmail || false,
+            isOptedIn: userData.isOptedIn || false  // Add this line
+        });
+        
+
           setBio(userData.bio || null);
         } else {
           setUser({
             email: currentUser.email,
             displayName: currentUser.displayName,
             username: null,
-            isSubscribedToEmail: false,  // Add this line
-          });
+            isSubscribedToEmail: false,
+            isOptedIn: false  // Add this line
+        });
+        
           
         }
       } else {
@@ -103,9 +109,6 @@ const Profile = () => {
     }
   };
 
-  
-  
-
   return (
     <ChakraProvider>
         <Box bgColor={backgroundColor} minH="100vh">
@@ -135,7 +138,8 @@ const Profile = () => {
                                     <Button mt={2} size="sm" onClick={handleSaveBio}>Save</Button>
                                 </Box>
                             )}
-                            <Text color="white">Subscribed to Emails: {user.isSubscribedToEmail ? "Yes" : "No"}</Text>
+
+                            <Text color="white">Opted into Email List: {user.isOptedIn ? "Yes" : "No"}</Text>  // Add this line
                             
                             <Text 
                               mt={4} 
