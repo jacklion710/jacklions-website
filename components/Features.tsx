@@ -31,11 +31,11 @@ import { AiFillEye } from 'react-icons/ai';
     return (
       <Link href={href} passHref>
         <Stack 
-          direction={['column', 'row']} // Vertically aligned on mobile, horizontally on larger screens.
+          direction={['column', 'row']} 
           align={'center'} 
-          justify={['center', 'start']} // Centered on mobile, starts at the beginning (left) on larger screens.
+          justify={['center', 'start']} 
           cursor="pointer"
-          spacing={2} // Adjust spacing as needed
+          spacing={2} 
         >
           <Flex
             w={8}
@@ -46,7 +46,7 @@ import { AiFillEye } from 'react-icons/ai';
             bg={iconBg}>
             {icon}
           </Flex>
-          <Text textAlign={['center', 'inherit']} fontWeight={600}>{text}</Text> // Centered text on mobile, default alignment on larger screens.
+          <Text textAlign={['center', 'inherit']} fontWeight={600}>{text}</Text> 
         </Stack>
       </Link>
     );
