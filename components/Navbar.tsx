@@ -50,8 +50,6 @@ import {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode } = useColorMode();
     const [user, setUser] = useState<User | null>(null);
-    const textAlignValue = 'center';
-    // const textAlignValue = useBreakpointValue({ base: 'center', md: 'left', default: 'center' });
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -215,8 +213,6 @@ import {
   }
   
   const DesktopNav = () => {
-    const linkColor = useColorModeValue('gray.600', 'gray.200');
-    const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   
     return (
