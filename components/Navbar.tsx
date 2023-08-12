@@ -442,7 +442,7 @@ import {
       children: [
         {
           label: 'Playground',
-          subLabel: 'Take a leap of faith',
+          subLabel: 'Take a journey',
           href: '/wip',
         }
       ],
