@@ -26,7 +26,6 @@ import {
   import { doc, setDoc, getDoc } from 'firebase/firestore';
   import { db } from '../../utils/firebase'; 
   import { User as FirebaseUser, sendEmailVerification } from 'firebase/auth';
-  import Footer from '@/components/Footer'
 
   type User = {
     email: string;
@@ -97,8 +96,17 @@ import {
               await setDoc(userDocRef, userData, { merge: true }); // merge true will make sure we only update/add these fields
             }
           } catch (err: any) {
-              setError(err.message);
-          }
+            // Check the error code and set a user-friendly message
+            switch (err.code) {
+              case "auth/email-already-in-use":
+                setError("This email address is already in use. Please use a different email or log in.");
+                break;
+              // You can add more cases if you want to handle other types of errors
+              default:
+                setError(err.message); // This will display the Firebase error message by default if no specific error is caught
+                break;
+            }
+        }
       };
 
   useEffect(() => {
