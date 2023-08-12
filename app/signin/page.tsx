@@ -115,7 +115,7 @@ import {
                 </Stack>
               </Box>
             </Stack>
-            <Footer/>
+
           </Flex>
           
       );

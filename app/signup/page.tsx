@@ -127,7 +127,7 @@ import {
     
     return (
       <Flex align={'center'} justify={'center'} pb="50px">
-        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={8} px={6}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={4} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'} textAlign={'center'}>
               Sign up
@@ -235,7 +235,7 @@ import {
             </Stack>
           </Box>
         </Stack>
-        <Footer/>
+
       </Flex>
     );
   }
