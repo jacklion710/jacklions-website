@@ -73,7 +73,6 @@ import {
               minH={'60px'}
               py={{ base: 2 }}
               px={{ base: 4 }}
-              borderBottom={1}
               borderStyle={'solid'}
               borderColor={useColorModeValue('gray.200', 'gray.900')}
               align={'center'}
@@ -100,9 +99,9 @@ import {
                           <Button as={"a"} variant={"link"}>
                             <Box>
                                 <Image 
-                                    src={colorMode === "light" ? "/assets/jack.lion_dark.png" : "/assets/jack.lion_light.png"}
+                                    src={colorMode === "light" ? "/assets/jack.lion_text_dark.png" : "/assets/jack.lion_text_light.png"}
                                     alt="Logo"
-                                    w={['40px', '40px', '50px']} 
+                                    w={['50px', '50px', '660x']} 
                                     objectFit="cover"
                                 />
                             </Box>
@@ -182,10 +181,11 @@ import {
     const linkColor = useColorModeValue('gray.600', 'gray.200');
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
-    
+  
     return (
-      <Stack direction={'row'} spacing={4} justifyContent="center" alignItems="center" flexGrow={1}> {/* <-- Added these styles */}
-        {NAV_ITEMS.map((navItem) => (
+      <Flex justifyContent="center" alignItems="center" flexGrow={1}>
+        <Stack direction={'row'} spacing={4}>
+          {NAV_ITEMS.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
@@ -216,8 +216,9 @@ import {
           </Box>
         ))}
       </Stack>
-    );
-  };
+    </Flex>
+  );
+};
   
   const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
     const subLabelColor = useColorModeValue('black', 'white'); // White in dark mode, Black in light mode
