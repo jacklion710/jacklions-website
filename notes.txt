@@ -5,6 +5,8 @@ Redirect home after logout
 
 profile picture (firebase)
 
+Handle username duplicates
+
 RNBO
 
 UI cleanup
