@@ -10,8 +10,7 @@ import {
     useColorModeValue,
     Heading,
     ChakraProvider,
-    Stack,
-    useColorMode
+    Stack
 } from '@chakra-ui/react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '@/utils/firebase';
@@ -19,14 +18,10 @@ import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '../components/Footer';
 
-type CustomError = {
-    message: string;
-  };  
 
 export default function ResetPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const { colorMode } = useColorMode();
   const bgColor = useColorModeValue('gray.500', 'gray.900');
 
   const handleResetPassword = async () => {
@@ -52,7 +47,7 @@ export default function ResetPassword() {
   return (
     <ChakraProvider resetCSS>
       <Navbar />
-        <Flex align={'center'} justify={'flex-start'}>
+        <Flex align={'center'} justify={'flex-start'} pb="500px">
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
                     <Heading fontSize={'4xl'}>Reset Password</Heading>
@@ -93,6 +88,3 @@ export default function ResetPassword() {
     </ChakraProvider >
 );
 }
-
-// export default ResetPassword;
-// export default dynamic(() => Promise.resolve(ResetPassword), { ssr: false });

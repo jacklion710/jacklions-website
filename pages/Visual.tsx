@@ -1,10 +1,8 @@
-import { Box, Heading, VStack, ChakraProvider, SimpleGrid, Flex, Button, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, VStack, ChakraProvider, SimpleGrid, Flex } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function HomePage() {
-  const { isOpen, onToggle } = useDisclosure()  // Sidebar visibility state
-
 
   return (
     <ChakraProvider>

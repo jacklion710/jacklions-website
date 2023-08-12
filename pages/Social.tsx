@@ -1,5 +1,5 @@
 import {
-  Box, Flex, Heading, Link, HStack, IconButton, ChakraProvider, useColorModeValue
+  Box, Flex, Heading, Link, HStack, IconButton, ChakraProvider
 } from '@chakra-ui/react';
 import {
   FaSpotify, FaApple, FaSoundcloud, FaYoutube, FaInstagram, FaPatreon, FaGithub
@@ -10,8 +10,6 @@ import Footer from '../components/Footer';
 
 
 export default function SocialPage() {
-  const bg = useColorModeValue('white', 'gray.800');
-  const color = useColorModeValue('black', 'white');
 
   return (
     <ChakraProvider>

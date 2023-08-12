@@ -19,12 +19,10 @@ import {
   import { auth } from '@/utils/firebase'; 
   import dynamic from "next/dynamic";
   import NextLink from 'next/link';
-  import Footer from '@/components/Footer'
   
   function SignInPage() {
     const { colorMode } = useColorMode();
     console.log(colorMode)
-    const bgColor = colorMode === 'dark' ? 'gray.900' : 'gray.50';
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
