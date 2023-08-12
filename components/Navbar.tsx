@@ -35,9 +35,12 @@ import {
     const { colorMode, toggleColorMode } = useColorMode();
     return (
       <IconButton
+        sx={{ marginLeft: ["auto", "0"]}}
         aria-label="Toggle dark mode"
         icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
         onClick={toggleColorMode}
+        size="sm" 
+        w="80px"
       />
     );
   }
@@ -68,7 +71,7 @@ import {
     return (
       <Box>
           <Flex
-              bg={useColorModeValue('white', 'black')}
+              bg={useColorModeValue('gray.300', 'black')}
               color={useColorModeValue('black', 'white')}
               minH={'60px'}
               py={{ base: 2 }}
@@ -84,42 +87,43 @@ import {
             <IconButton
               onClick={onToggle}
               icon={
-                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={12} h={12} />
               }
               variant={'ghost'}
               aria-label={'Toggle Navigation'}
             />
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                     <Text textAlign={'center' as const}
-                        fontFamily={'heading'}
-                        color={useColorModeValue('gray.800', 'white')}>
-                        
-                        <NextLink href="/">
-                          <Button as={"a"} variant={"link"}>
-                            <Box>
-                                <Image 
-                                    src={colorMode === "light" ? "/assets/jack.lion_text_dark.png" : "/assets/jack.lion_text_light.png"}
-                                    alt="Logo"
-                                    w={['50px', '50px', '660x']} 
-                                    objectFit="cover"
-                                />
-                            </Box>
-                        </Button>
-                        </NextLink>
-                    </Text>
+            <Text
+              textAlign={'center' as const}
+              fontFamily={'heading'}
+              color={useColorModeValue('gray.800', 'white')}
+            >
+              <NextLink href="/">
+                <Button as={"a"} variant={"link"}>
+                  <Box>
+                    <Image 
+                      src={colorMode === "light" ? "/assets/jack.lion_text_dark.png" : "/assets/jack.lion_text_light.png"}
+                      alt="Logo"
+                      w={['100px', '50px', '660x']}  // Here's the change. '100px' for mobile, '50px' for the next breakpoint, and '660x' for larger screens.
+                      objectFit="cover"
+                  />
+
+                  </Box>
+                </Button>
+              </NextLink>
+            </Text>
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
             </Flex>
           </Flex>
-  
+
           <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
-            direction={'row'}
-            spacing={6}
+            direction={{ base: 'column', md: 'row' }}   // <-- Changed this line
+            spacing={2}
           >
-            <ColorModeSwitcher />
             {user ? (
               <>
                 <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href='/Profile'>
@@ -132,7 +136,7 @@ import {
                   fontWeight={600}
                   color={'white'}
                   bg={'red.400'}
-                  onClick={() => auth.signOut()} // Make sure to actually log the user out here
+                  onClick={() => auth.signOut()} 
                   _hover={{
                     bg: 'red.300',
                   }}
@@ -143,15 +147,19 @@ import {
             ) : (
               <>
                 <Button 
+                  sx={{ marginLeft: ["auto", "0"]}}
                   as={'a'} 
                   fontSize={'sm'} 
                   fontWeight={400} 
                   variant={'link'} 
                   href='/signin'
+                  size="sm"  
+                  w="80px"
                 >
                   Sign In
                 </Button>
                 <Button
+                  sx={{ marginLeft: ["auto", "0"]}}
                   as={'a'}
                   display={{ base: 'inline-flex', md: 'inline-flex' }}
                   fontSize={'sm'}
@@ -162,12 +170,16 @@ import {
                   _hover={{
                     bg: 'red.300',
                   }}
+                  size="sm"  
+                  w="80px" 
                 >
                   Sign Up
                 </Button>
+                <ColorModeSwitcher />
               </>
             )}
           </Stack>
+
         </Flex>
   
         <Collapse in={isOpen} animateOpacity>
@@ -239,7 +251,7 @@ import {
               transition={'all .3s ease'}
               _groupHover={{ color: 'red.400' }}
               fontWeight={500}
-              fontSize={'md'}
+              fontSize={'lg'}
               color={subLabelColor}
             >
               {label}
@@ -288,7 +300,7 @@ import {
           <Flex py={2} as={"a"} justify={'space-between'} align={'center'} _hover={{textDecoration: 'none'}}>
           <Text
             fontWeight={600}
-            fontSize={'md'}
+            fontSize={'lg'}
             color={colorMode === 'light' ? 'black' : 'white'} // Set the text color based on the current color mode
           >
             {label}
