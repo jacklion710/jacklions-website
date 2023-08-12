@@ -11,6 +11,7 @@ interface User {
   email: string | null;
   displayName: string | null;
   username: string | null;
+  isSubscribedToEmail: boolean;
 }
 
 const Profile = () => {
@@ -44,19 +45,20 @@ const Profile = () => {
         if (userDoc.exists()) {
           const userData = userDoc.data();
           setUser({
-              email: currentUser.email,
-              displayName: currentUser.displayName,
-              username: userData.username || null,
+            email: currentUser.email,
+            displayName: currentUser.displayName,
+            username: userData.username || null,
+            isSubscribedToEmail: userData.isSubscribedToEmail || false
           });
           setBio(userData.bio || null);
-
-          setBio(userData.bio || null); // Set the bio here
         } else {
           setUser({
             email: currentUser.email,
             displayName: currentUser.displayName,
             username: null,
+            isSubscribedToEmail: false,  // Add this line
           });
+          
         }
       } else {
         setUser(null);
@@ -133,6 +135,7 @@ const Profile = () => {
                                     <Button mt={2} size="sm" onClick={handleSaveBio}>Save</Button>
                                 </Box>
                             )}
+                            <Text color="white">Subscribed to Emails: {user.isSubscribedToEmail ? "Yes" : "No"}</Text>
                             
                             {/* Delete Account Button */}
                             <Button colorScheme="red" onClick={handleDeleteAccount}>Delete Account</Button>

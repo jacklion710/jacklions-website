@@ -180,12 +180,12 @@ import {
 
                 <FormControl mt={4}>
                   <Flex justify="center">
-                      <Checkbox 
-                          isChecked={isOptedIn} 
-                          onChange={(e) => setIsOptedIn(e.target.checked)}
-                      >
-                          Sign me up for the email list
-                      </Checkbox>
+                    <Checkbox 
+                        isChecked={isOptedIn} 
+                        onChange={(e) => setIsOptedIn(e.target.checked)}
+                    >
+                        Sign me up for the email list
+                    </Checkbox>
                   </Flex>
                </FormControl>
 

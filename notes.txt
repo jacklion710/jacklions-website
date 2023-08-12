@@ -3,6 +3,8 @@ opt out (firebase)
 
 profile picture (firebase)
 
+fix email list opt on sign up
+
 calendly?
 
 password requirements
