@@ -1,4 +1,4 @@
-import { Box, ChakraProvider, Flex, Heading, Text, VStack, HStack, Input, Button, useToast } from '@chakra-ui/react';
+import { Box, Checkbox, ChakraProvider, Flex, Heading, Text, VStack, HStack, Input, Button, useToast } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import { onAuthStateChanged, deleteUser } from 'firebase/auth';
 import { useState, useEffect } from 'react';
@@ -12,7 +12,7 @@ interface User {
   displayName: string | null;
   username: string | null;
   isSubscribedToEmail: boolean;
-  isOptedIn?: boolean; // If it wasn't here before, add it.
+  isOptedIn?: boolean;
 }
 
 const Profile = () => {
@@ -24,6 +24,21 @@ const Profile = () => {
   const [bio, setBio] = useState<string | null>(null);
   const [editing, setEditing] = useState<boolean>(false);
   const [tempBio, setTempBio] = useState<string>('');
+
+  const handleOptInChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!user || !auth.currentUser) return;
+
+    const optedIn = e.target.checked;
+    
+    // Update Firestore with the new opt-in status
+    const db = getFirestore();
+    const userDocRef = doc(db, 'users', auth.currentUser.uid);
+    
+    await setDoc(userDocRef, { isOptedIn: optedIn }, { merge: true });
+
+    // Update the local user state
+    setUser(prev => prev ? { ...prev, isOptedIn: optedIn } : null);
+};
 
   const handleSaveBio = async () => {
     if (user && auth.currentUser) {
@@ -50,7 +65,7 @@ const Profile = () => {
             displayName: currentUser.displayName,
             username: userData.username || null,
             isSubscribedToEmail: userData.isSubscribedToEmail || false,
-            isOptedIn: userData.isOptedIn || false  // Add this line
+            isOptedIn: userData.isOptedIn || false  
         });
         
 
@@ -61,7 +76,7 @@ const Profile = () => {
             displayName: currentUser.displayName,
             username: null,
             isSubscribedToEmail: false,
-            isOptedIn: false  // Add this line
+            isOptedIn: false  
         });
         
           
@@ -139,7 +154,13 @@ const Profile = () => {
                                 </Box>
                             )}
 
-                            <Text color="white">Opted into Email List: {user.isOptedIn ? "Yes" : "No"}</Text>  // Add this line
+                                <Checkbox 
+                                    isChecked={user.isOptedIn}
+                                    onChange={handleOptInChange}
+                                    colorScheme="teal"  // Add any color scheme you prefer from Chakra UI
+                                >
+                                    Email List
+                                </Checkbox>
                             
                             <Text 
                               mt={4} 
