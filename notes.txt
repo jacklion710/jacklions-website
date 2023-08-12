@@ -1,18 +1,18 @@
 todo list:
-opt out (firebase)
+fix email list opt on sign up bug
+
+opt out on user profile(firebase)
+
+Redirect home after signup
 
 profile picture (firebase)
-
-fix email list opt on sign up
-
-calendly?
 
 password requirements
 
 Confirmation email (firebase)
 
-UI cleanup
-
 RNBO
 
-Redirect home after signup
+UI cleanup
+
+calendly?
