@@ -27,15 +27,15 @@ export default function BookingPage() {
 
               <Flex direction="row" align="center" width="100%" justify="center">
                 <Box mr={[2, 4]} textAlign="center" fontSize="md" mb={[2, 0]}>
-                  <Text>Online</Text>
-                  <Text>30/hr</Text>
+                  <Text><strong>Online</strong></Text>
+                  <Text><strong>$30/hr</strong></Text>
                 </Box>
 
-                <Box height="4em" width="1px" bg="gray.300" mx={2}></Box>
+                <Box height="4em" width="1px" bg="gray.300" mx={16}></Box>
 
-                <Box textAlign="center" fontSize="md" ml={[2, 0]}>
-                  <Text>Onsite</Text>
-                  <Text>50/hr</Text>
+                <Box textAlign="center" fontSize="md" ml={[4, 0]}>
+                  <Text><strong>Onsite</strong></Text>
+                  <Text><strong>$50/hr</strong></Text>
                 </Box>
               </Flex>
 
