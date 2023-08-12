@@ -17,6 +17,7 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '@/utils/firebase';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
+import Footer from '../components/Footer';
 
 type CustomError = {
     message: string;
@@ -88,6 +89,7 @@ export default function ResetPassword() {
                 </Box>
             </Stack>
         </Flex>
+      <Footer />
     </ChakraProvider >
 );
 }

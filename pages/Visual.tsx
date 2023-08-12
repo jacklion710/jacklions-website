@@ -1,5 +1,6 @@
 import { Box, Heading, VStack, ChakraProvider, SimpleGrid, Flex, Button, useDisclosure } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function HomePage() {
   const { isOpen, onToggle } = useDisclosure()  // Sidebar visibility state
@@ -9,7 +10,7 @@ export default function HomePage() {
     <ChakraProvider>
       <Navbar />
       <Flex justify="center" my={8} ml={0} flexGrow={1}>
-        <Flex direction={["column", "row"]} width="100%">
+        <Flex direction={["column", "row"]} width="100%" pb="100px">
             <Box p={2} flexGrow={1}>
               <VStack spacing={8} align="center">
                 <Heading size="xl" borderBottom="1px solid">Visuals</Heading>
@@ -76,6 +77,7 @@ export default function HomePage() {
           <Box w={{ base: "0%", md: "1%" }} />
         </Flex>
       </Flex>
-    </ChakraProvider>
-  );
+    <Footer/>
+  </ChakraProvider>
+);
 }

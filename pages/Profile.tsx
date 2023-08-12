@@ -6,6 +6,7 @@ import { getFirestore, doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore
 import { auth } from '@/utils/firebase';
 import { useRouter } from 'next/router';
 import React from 'react';
+import Footer from '../components/Footer';
 
 interface User {
   email: string | null;
@@ -17,7 +18,7 @@ interface User {
 
 const Profile = () => {
   const [user, setUser] = useState<User | null>(null);
-  const backgroundColor = 'gray.900'; 
+  const backgroundColor = 'gray.800'; 
   const boxColor = 'gray.700';  
   const toast = useToast();
   const router = useRouter();
@@ -129,7 +130,7 @@ useEffect(() => {
         <Box bgColor={backgroundColor} minH="100vh">
             <Navbar />
 
-            <Flex direction="column" align="center" justify="center" minHeight="calc(100vh - 64px)">
+            <Flex direction="column" align="center" justify="center" minHeight="calc(100vh - 64px)" pb="100px">
                 <Heading mb={4} color="white">Your Profile</Heading>
 
                 <Box w="full" maxW="600px" p={4} bgColor={boxColor} borderWidth={1} borderRadius="lg" boxShadow="lg">
@@ -181,8 +182,9 @@ useEffect(() => {
                 </Box>
             </Flex>
         </Box>
+      <Footer />
     </ChakraProvider>
-);
+  );
 }
 
 export default Profile;

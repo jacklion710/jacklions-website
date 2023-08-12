@@ -7,12 +7,13 @@ import {
   Text
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function SamplePacksPage() {
   return (
     <ChakraProvider>
       <Navbar />
-      <Flex justify="center" my={8} ml={0} flexGrow={1}>
+      <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
         <VStack spacing={10} width="100%" maxW="1000px">
           <Heading size="xl" borderBottom="1px solid">Sample Packs</Heading>
 
@@ -85,6 +86,7 @@ export default function SamplePacksPage() {
 
         </VStack>
       </Flex>
+      <Footer />
     </ChakraProvider>
   );
 }

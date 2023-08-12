@@ -10,11 +10,13 @@ import {
   List
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
 export default function EngineeringPage() {
   return (
       <ChakraProvider>
           <Navbar />
-          <Flex justify="center" my={8} ml={0} flexGrow={1}>
+          <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
               <VStack spacing={10} width="100%" maxW="600px">
                   <Heading size="xl" borderBottom="1px solid">Recording Studio Catalog</Heading>
 
@@ -93,6 +95,7 @@ export default function EngineeringPage() {
 
               </VStack>
           </Flex>
+        <Footer />  
       </ChakraProvider>
   );
 }

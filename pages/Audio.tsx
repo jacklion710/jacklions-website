@@ -1,6 +1,7 @@
 import { Box, Heading, Link, VStack, HStack, IconButton, ChakraProvider, SimpleGrid, Flex, useDisclosure, useColorMode } from '@chakra-ui/react';
 import { FaSpotify, FaApple, FaSoundcloud, FaBandcamp, FaCompactDisc } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function HomePage() {
   const { isOpen, onToggle } = useDisclosure()  // Sidebar visibility state
@@ -9,7 +10,7 @@ export default function HomePage() {
   return (
     <ChakraProvider>
       <Navbar />
-      <Flex justify="center" my={8} ml={0} flexGrow={1}>
+      <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
         <Flex direction={["column", "row"]} width="100%">
           {/* Left Sidebar for Discography */}
             <Box display="flex" flexDirection="column" alignItems="center" bg={isOpen ? "gray.455" : "transparent"} 
@@ -200,6 +201,7 @@ export default function HomePage() {
           <Box w={{ base: "0%", md: "1%" }} />
         </Flex>
       </Flex>
+      <Footer />
     </ChakraProvider>
   );
 }

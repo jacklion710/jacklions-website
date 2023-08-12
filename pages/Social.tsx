@@ -4,8 +4,8 @@ import {
 import {
   FaSpotify, FaApple, FaSoundcloud, FaYoutube, FaInstagram, FaPatreon, FaGithub
 } from 'react-icons/fa';
-
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function SocialPage() {
   const bg = useColorModeValue('white', 'gray.800');
@@ -66,6 +66,7 @@ export default function SocialPage() {
 
               </HStack>
            </Flex>
+        <Footer />
     </ChakraProvider>
   );
 }

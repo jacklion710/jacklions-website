@@ -19,7 +19,8 @@ import {
   import { auth } from '@/utils/firebase'; 
   import dynamic from "next/dynamic";
   import NextLink from 'next/link';
-
+  import Footer from '@/components/Footer'
+  
   function SignInPage() {
     const { colorMode } = useColorMode();
     console.log(colorMode)
@@ -114,7 +115,9 @@ import {
                 </Stack>
               </Box>
             </Stack>
+            <Footer/>
           </Flex>
+          
       );
     }
 

@@ -9,12 +9,13 @@ import {
   Button 
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function BookingPage() {
   return (
     <ChakraProvider resetCSS>
       <Navbar />
-      <Flex direction="column" align="center" justify="center" minH="100vh" p={4}>
+      <Flex direction="column" align="center" justify="center" minH="100vh" p={4} pb="100px">
         <Flex direction={["column", "row"]} width="100%" maxWidth="1200px">
           <Box p={2} flexGrow={1}>
             <VStack spacing={8} align="center">
@@ -84,6 +85,7 @@ export default function BookingPage() {
           </Box>
         </Flex>
       </Flex>
+      <Footer /> 
     </ChakraProvider>
   );
 }

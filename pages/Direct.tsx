@@ -15,8 +15,8 @@ import {
   FaInstagram,
   FaEnvelope
 } from "react-icons/fa";
-
 import Navbar from "../components/Navbar";
+import Footer from '../components/Footer';
 
 export default function SocialPage() {
   const bg = useColorModeValue("white", "gray.800");
@@ -84,6 +84,7 @@ export default function SocialPage() {
           </VStack>
         </Box>
       </Flex>
+      <Footer />  
     </ChakraProvider>
   );
 }

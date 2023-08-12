@@ -11,7 +11,8 @@ import {
     ChakraProvider
   } from '@chakra-ui/react';
   import Navbar from '../components/Navbar';
-  
+  import Footer from '../components/Footer'
+
   export default function UnderConstructionPage() {
     const { colorMode } = useColorMode();
     const bgColor = useColorModeValue("gray.50", "gray.900");
@@ -25,7 +26,7 @@ import {
         <ChakraProvider>
             <Box minHeight="100vh" backgroundColor={bgColor} color={textColor}>
                 <Navbar />
-                <Center height="100vh">
+                <Center height="70vh">
                 <VStack spacing={6}>
                     <Image src={logo} boxSize="150px" objectFit="cover" alt="Logo" />
                     <Heading size="xl">Under Construction</Heading>
@@ -34,6 +35,7 @@ import {
                 </VStack>
                 </Center>
             </Box>
+            <Footer/>
         </ChakraProvider>
     );
 }

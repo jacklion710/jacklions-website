@@ -8,6 +8,7 @@ import {
   useColorModeValue
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function DevicesPage() {
 
@@ -79,8 +80,8 @@ export default function DevicesPage() {
   return (
     <ChakraProvider>
         <Navbar />
-        <Box mb={60}>
-            <Flex justify="center" my={4} ml={0} flexGrow={1}>
+        <Box mb={50}>
+            <Flex justify="center" my={4} ml={0} flexGrow={1} pb="100px">
               <VStack spacing={16} width={["100%", "80%", "70%", "50%"]} maxW="1000px">
 
 
@@ -115,6 +116,7 @@ export default function DevicesPage() {
                 </VStack>
             </Flex>
         </Box>
+      <Footer />  
     </ChakraProvider>
   );
 }

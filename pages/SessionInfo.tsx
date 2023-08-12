@@ -11,7 +11,8 @@ import {
     Link
   } from '@chakra-ui/react';
   import Navbar from '../components/Navbar';
-  
+  import Footer from '../components/Footer';
+
   export default function BookingInstructionsPage() {
     return (
         <ChakraProvider>
@@ -48,7 +49,8 @@ import {
                     </Box>
                 </VStack>
             </Flex>
-        </ChakraProvider>
-    );
-  }
+        <Footer />
+    </ChakraProvider>
+);
+}
   
