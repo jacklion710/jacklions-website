@@ -44,33 +44,84 @@ export default function SocialPage() {
             />
           </Box>
           
-          <HStack spacing={{ base: 4, md: 8 }} justify="center">
-              <Link href="https://open.spotify.com/artist/35foCh1HOk7XwvVzuiFmzc" isExternal>
-                  <IconButton aria-label="Spotify" icon={<FaSpotify />} size="lg" colorScheme="green" />
-              </Link>
+          <HStack spacing={{ base: 4, md: 8 }} justify="center" wrap="wrap">
+            <Link href="https://open.spotify.com/artist/35foCh1HOk7XwvVzuiFmzc" isExternal>
+              <IconButton
+                aria-label="Spotify"
+                icon={<FaSpotify />}
+                fontSize="64px" 
+                colorScheme="green"
+                padding="20px"
+                paddingX="24px" 
+                paddingY="40px"
+              />
+            </Link>
 
-              <Link href="https://music.apple.com/us/artist/jack-lion/1470477992" isExternal>
-                  <IconButton aria-label="Apple Music" icon={<FaApple />} size="lg" colorScheme="gray" />
-              </Link>
+            <Link href="https://music.apple.com/us/artist/jack-lion/1470477992" isExternal>
+              <IconButton
+                aria-label="Apple Music"
+                icon={<FaApple />}
+                fontSize="64px" 
+                colorScheme="gray"
+                padding="20px"
+                paddingX="24px" 
+                paddingY="40px"
+              />
+            </Link>
 
               <Link href="https://soundcloud.com/jack0lion" isExternal>
-                  <IconButton aria-label="SoundCloud" icon={<FaSoundcloud />} size="lg" colorScheme="red" />
+                  <IconButton aria-label="SoundCloud" 
+                  icon={<FaSoundcloud />} 
+                  size="lg" 
+                  colorScheme="red" 
+                  fontSize="64px" 
+                  padding="20px"
+                  paddingX="24px" 
+                  paddingY="40px"/>
               </Link>
 
               <Link href="https://www.youtube.com/channel/UCbTxhDz-oFPdbKl5-rpi4gQ" isExternal>
-                  <IconButton aria-label="YouTube" icon={<FaYoutube />} size="lg" colorScheme="red" />
+                  <IconButton aria-label="YouTube" 
+                  icon={<FaYoutube />} 
+                  size="lg" 
+                  colorScheme="red" 
+                  fontSize="64px" 
+                  padding="20px" 
+                  paddingX="24px" 
+                  paddingY="40px"/>
               </Link>
 
               <Link href="https://www.instagram.com/jack.lion/?hl=en" isExternal>
-                  <IconButton aria-label="Instagram" icon={<FaInstagram />} size="lg" colorScheme="pink" />
+                  <IconButton aria-label="Instagram"
+                    icon={<FaInstagram />} 
+                    size="lg" 
+                    colorScheme="pink" 
+                    fontSize="64px" 
+                    padding="20px" 
+                    paddingX="24px" 
+                    paddingY="40px"/>
               </Link>
 
               <Link href="https://www.patreon.com/jacklion" isExternal>
-                  <IconButton aria-label="Patreon" icon={<FaPatreon />} size="lg" colorScheme="purple" />
+                  <IconButton aria-label="Patreon" 
+                  icon={<FaPatreon />} 
+                  size="lg" 
+                  colorScheme="purple" 
+                  fontSize="64px" 
+                  padding="20px" 
+                  paddingX="24px" 
+                  paddingY="40px"/>
               </Link>
 
               <Link href="https://github.com/jacklion710" isExternal>
-                  <IconButton aria-label="GitHub" icon={<FaGithub />} size="lg" colorScheme="gray" />
+                  <IconButton aria-label="GitHub" 
+                  icon={<FaGithub />} 
+                  size="lg" 
+                  colorScheme="gray" 
+                  fontSize="64px" 
+                  padding="20px" 
+                  paddingX="24px" 
+                  paddingY="40px"/>
               </Link>
 
             </HStack>
