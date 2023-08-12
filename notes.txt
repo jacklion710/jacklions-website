@@ -1,13 +1,7 @@
 todo list:
-opt out and user profile info (firebase)
-
-user bio (firebase)
+opt out (firebase)
 
 profile picture (firebase)
-
-display username (firebase)
-
-Finish discography and Music links on Audio page
 
 calendly?
 
