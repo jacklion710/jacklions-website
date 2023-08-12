@@ -7,9 +7,7 @@ import {
   Text,
   useColorModeValue,
   VisuallyHidden,
-  Image,
-  IconButton,
-  ImageProps
+  Image
 } from '@chakra-ui/react'
 import { FaSpotify, FaApple, FaSoundcloud, FaYoutube, FaInstagram, FaPatreon, FaGithub } from 'react-icons/fa';
 import { ReactNode } from 'react'
@@ -17,7 +15,7 @@ import { ReactNode } from 'react'
 const Logo = (props: any) => {
     const colorMode = useColorModeValue('light', 'dark');
     const logoSrc = colorMode === 'light' ? '/assets/jack.lion_dark.png' : '/assets/jack.lion_light.png';
-    return <Image src={logoSrc} alt="Jack's Logo" w={12} h={12} {...props} />;
+    return <Image src={logoSrc} alt="Jack's Logo" w={8} h={8} {...props} />;
 };
 
 const SocialButton = ({
@@ -67,7 +65,7 @@ export default function SmallWithLogoLeft() {
             justify={{ base: 'center', md: 'space-between' }}
             align={{ base: 'center', md: 'center' }}>
             <Logo />
-            <Text fontSize="sm">© 2023 Jack. All rights reserved</Text> 
+            <Text fontSize="sm">© 2023 Jack.Lion. All rights reserved</Text> 
             <Stack direction={'row'} spacing={4}>  
           <SocialButton label={'Spotify'} href={'#'}>
             <FaSpotify />
