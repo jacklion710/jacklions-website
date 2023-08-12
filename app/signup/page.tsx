@@ -25,7 +25,7 @@ import {
   import { updateProfile } from 'firebase/auth';
   import { doc, setDoc, getDoc } from 'firebase/firestore';
   import { db } from '../../utils/firebase'; 
-  import { User as FirebaseUser } from 'firebase/auth';
+  import { User as FirebaseUser, sendEmailVerification } from 'firebase/auth';
 
   type User = {
     email: string;
@@ -44,11 +44,16 @@ import {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [isOptedIn, setIsOptedIn] = useState(true);
+    const [emailSent, setEmailSent] = useState(false);
 
     const handleSignup = async () => {
       try {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
           if (userCredential.user) {
+              // Send email verification to the new user
+              await sendEmailVerification(userCredential.user);
+              setEmailSent(true);  // Set the emailSent state to true
+  
               await updateProfile(userCredential.user, {
                   displayName: `${firstName} ${lastName}`,
               });
@@ -65,11 +70,11 @@ import {
               // Store user data in Firestore
               const userDocRef = doc(db, 'users', userCredential.user.uid);
               await setDoc(userDocRef, userData, { merge: true }); // merge true will make sure we only update/add these fields
+            }
+          } catch (err: any) {
+              setError(err.message);
           }
-      } catch (err: any) {
-          setError(err.message);
-      }
-  };
+      };
 
   useEffect(() => {
     // Set an authentication state observer and get user data
@@ -165,6 +170,12 @@ import {
                 </InputGroup>
               </FormControl>
               <Stack spacing={10} pt={2}>
+              {emailSent && (
+                  <Text color="green.500">
+                      Verification email sent! Please check your inbox.
+                  </Text>
+              )}
+
               {error && <Text color="red.500">{error}</Text>}
                 <Button
                     onClick={handleSignup}

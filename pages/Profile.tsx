@@ -53,9 +53,9 @@ const Profile = () => {
 };
 
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    if (currentUser && currentUser.emailVerified) {
         const db = getFirestore();
         const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
         if (userDoc.exists()) {
@@ -176,7 +176,7 @@ const Profile = () => {
                             </Text>
                         </VStack>
                     ) : (
-                        <Text color="white">Loading or not logged in...</Text>
+                        <Text color="white">Please verify your email</Text>
                     )}
                 </Box>
             </Flex>
