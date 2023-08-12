@@ -137,8 +137,18 @@ const Profile = () => {
                             )}
                             <Text color="white">Subscribed to Emails: {user.isSubscribedToEmail ? "Yes" : "No"}</Text>
                             
-                            {/* Delete Account Button */}
-                            <Button colorScheme="red" onClick={handleDeleteAccount}>Delete Account</Button>
+                            <Text 
+                              mt={4} 
+                              color="red.500" 
+                              fontWeight="bold" 
+                              cursor="pointer"
+                              _hover={{
+                                textDecoration: 'underline',
+                              }}
+                              onClick={handleDeleteAccount}
+                            >
+                              Delete Account
+                            </Text>
                         </VStack>
                     ) : (
                         <Text color="white">Loading or not logged in...</Text>
