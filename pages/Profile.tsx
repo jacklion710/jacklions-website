@@ -1,9 +1,10 @@
 import { Box, ChakraProvider, Flex, Heading, Text, HStack, Button, useToast } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
-import { getAuth, onAuthStateChanged, deleteUser } from 'firebase/auth';
+import { onAuthStateChanged, deleteUser } from 'firebase/auth';
 import { useState, useEffect } from 'react';
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
 import { auth } from '@/utils/firebase';
+import { useRouter } from 'next/router';
 
 interface User {
   email: string | null;
@@ -16,6 +17,7 @@ const Profile = () => {
   const backgroundColor = 'gray.900'; 
   const boxColor = 'gray.700';  
   const toast = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -47,14 +49,26 @@ const Profile = () => {
   const handleDeleteAccount = async () => {
     if (user && auth.currentUser && window.confirm('Are you sure you want to delete your account?')) {
       try {
+        const db = getFirestore();
+        const userDocRef = doc(db, 'users', auth.currentUser.uid);
+  
+        // First, delete the user's document from Firestore
+        await deleteDoc(userDocRef);
+  
+        // Then, delete the user from Firebase Auth
         await deleteUser(auth.currentUser);
+  
         toast({
           title: "Account deleted.",
-          description: "Your account has been successfully deleted.",
+          description: "Your account and associated data have been successfully deleted.",
           status: "success",
           duration: 5000,
           isClosable: true,
         });
+  
+        // Redirect to root path
+        router.push('/');
+  
       } catch (error: any) {
         toast({
           title: "Error.",
@@ -66,6 +80,7 @@ const Profile = () => {
       }
     }
   };
+  
 
   return (
     <ChakraProvider>
