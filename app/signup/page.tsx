@@ -45,8 +45,32 @@ import {
     const [error, setError] = useState<string | null>(null);
     const [isOptedIn, setIsOptedIn] = useState(true);
     const [emailSent, setEmailSent] = useState(false);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
+
+    const isPasswordValid = (): boolean => {
+      if (password.length < 6) {
+        setPasswordError('Password should be at least 6 characters.');
+        return false;
+      }
+      if (!/[a-z]/.test(password)) {
+        setPasswordError('Password should contain at least one lowercase letter.');
+        return false;
+      }
+      if (!/[A-Z]/.test(password)) {
+        setPasswordError('Password should contain at least one uppercase letter.');
+        return false;
+      }
+      if (!/[0-9]/.test(password)) {
+        setPasswordError('Password should contain at least one number.');
+        return false;
+      }
+  
+      setPasswordError(null);
+      return true;
+    };
 
     const handleSignup = async () => {
+    if (!isPasswordValid()) return;
       try {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
           if (userCredential.user) {
@@ -152,22 +176,20 @@ import {
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
-                <Input 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    type={showPassword ? "text" : "password"} 
-                />
-
+                  <Input 
+                      value={password} 
+                      onChange={(e) => setPassword(e.target.value)} 
+                      type={showPassword ? "text" : "password"} 
+                  />
                   <InputRightElement h={'full'}>
                     <Button
                       variant={'ghost'}
-                      onClick={() =>
-                        setShowPassword((showPassword) => !showPassword)
-                      }>
+                      onClick={() => setShowPassword((showPassword) => !showPassword)}>
                       {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                {passwordError && <Text color="red.500">{passwordError}</Text>} {/* Show password error here */}
               </FormControl>
               <Stack spacing={10} pt={2}>
               {emailSent && (
