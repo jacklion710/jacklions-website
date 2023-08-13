@@ -1,4 +1,5 @@
 todo list:
-profile picture (firebase)
+
+Collect email list emails
 
 RNBO
