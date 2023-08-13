@@ -57,9 +57,9 @@ export default function SocialPage() {
             Connect with Me
           </Heading>
           <Text mb={6}>
-            Want to ask a question or collaborate? Reach out to me directly on any of the
-            platforms below or shoot me an email.
-          </Text>
+            Want to ask a question or book me for a gig? Reach out to me directly on any{' '}
+            <Link href="/Direct" color="teal.500">platform</Link> or send me an <Link href="mailto:jack.lion710@gmail.com" color="teal.500">email</Link>
+        </Text>
           <HStack spacing={4} justify="center" wrap="wrap" mb={4}>
             <Link href="https://www.instagram.com/jack.lion/?hl=en" isExternal>
               <IconButton aria-label="Spotify" icon={<FaInstagram />} size="lg" colorScheme="pink" />
