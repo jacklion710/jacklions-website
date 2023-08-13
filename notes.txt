@@ -6,7 +6,3 @@ Handle username duplicates
 Center labels on navbar
 
 RNBO
-
-UI cleanup
-
-calendly?
