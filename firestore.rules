@@ -19,5 +19,20 @@ service cloud.firestore {
                      !exists(/databases/$(database)/documents/usernames/$(username)) &&
                      request.resource.data.uid == request.auth.uid;
     }
+
+    // If you need to have a separate emailList collection, set proper permissions here.
+    match /emailList/{emailId} {
+      allow read; // Read access to everyone.
+      allow write: if request.auth != null; // Only authenticated users can write.
+    }
   }
 }
+
+//rules_version = '2';
+//service cloud.firestore {
+//  match /databases/{database}/documents {
+//    match /{document=**} {
+//      allow read, write: if true;
+//    }
+//  }
+//}
