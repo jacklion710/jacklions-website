@@ -17,7 +17,7 @@ import {
     return (
         <ChakraProvider>
             <Navbar />
-            <Flex justify="center" my={8} ml={0} flexGrow={1}>
+            <Flex justify="center" my={8} ml={0} flexGrow={1} pb="460px">
                 <VStack spacing={10} width="100%" maxW="800px">
                     <Heading size="xl" borderBottom="1px solid">Booking Instructions</Heading>
   
