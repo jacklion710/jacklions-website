@@ -47,6 +47,12 @@ import {
     const [emailSent, setEmailSent] = useState(false);
     const [passwordError, setPasswordError] = useState<string | null>(null);
 
+    const doesUsernameExist = async (desiredUsername: string): Promise<boolean> => {
+      const usernameRef = doc(db, 'usernames', desiredUsername);
+      const usernameSnap = await getDoc(usernameRef);
+      return usernameSnap.exists();
+    };
+
     const isPasswordValid = (): boolean => {
       if (password.length < 6) {
         setPasswordError('Password should be at least 6 characters.');
@@ -70,9 +76,22 @@ import {
     };
 
     const handleSignup = async () => {
-    if (!isPasswordValid()) return;
+      if (!isPasswordValid()) return;
+    
+      // Check if username exists
+      const usernameExists = await doesUsernameExist(username);
+      
+      if (usernameExists) {
+        setError("This username is already taken. Please choose another one.");
+        return;
+      }
+      
       try {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          
+          // Once the userCredential is defined, you can then save the username
+          const usernameDocRef = doc(db, 'usernames', username);
+          await setDoc(usernameDocRef, { uid: userCredential.user.uid });
           if (userCredential.user) {
               // Send email verification to the new user
               await sendEmailVerification(userCredential.user);
@@ -93,7 +112,8 @@ import {
   
               // Store user data in Firestore
               const userDocRef = doc(db, 'users', userCredential.user.uid);
-              await setDoc(userDocRef, userData, { merge: true }); // merge true will make sure we only update/add these fields
+              await setDoc(userDocRef, userData, { merge: true });
+
             }
           } catch (err: any) {
             // Check the error code and set a user-friendly message

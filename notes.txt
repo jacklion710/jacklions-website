@@ -1,8 +1,4 @@
 todo list:
 profile picture (firebase)
 
-Handle username duplicates
-
-Center labels on navbar
-
 RNBO
