@@ -99,7 +99,3 @@ export default function EngineeringPage() {
       </ChakraProvider>
   );
 }
-
-
-// Add dropdowns within each box with sound examples
-// Add a page with instructions for booking an appointment
