@@ -29,6 +29,6 @@
     "**/*.tsx", 
     ".next/types/**/*.ts", 
     "components/src/**/*.tsx"
-, "utils/firebase.ts" ],
+, "utils/firebase.ts", "pages/av/RNBO-Temp/js/guardrails.js", "pages/av/RNBO-Temp/js/app.js" ],
   "exclude": ["node_modules"]
 }
