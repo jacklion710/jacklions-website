@@ -18,7 +18,7 @@ class MyDocument extends Document {
           <NextScript />
 
           {/* Scripts loaded at the end of the body */}
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+          {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script> */}
           <script type="text/javascript" src="/js/guardrails.js"></script>
           <script type="text/javascript" src="/js/app.js"></script>
         </body>
