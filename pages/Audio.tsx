@@ -1,5 +1,23 @@
-import { Box, Heading, Link, VStack, HStack, IconButton, ChakraProvider, SimpleGrid, Flex, useDisclosure, useColorMode } from '@chakra-ui/react';
-import { FaSpotify, FaApple, FaSoundcloud, FaBandcamp, FaCompactDisc } from 'react-icons/fa';
+import { 
+  Box, 
+  Heading, 
+  Link, 
+  VStack, 
+  HStack, 
+  IconButton, 
+  ChakraProvider, 
+  SimpleGrid, 
+  Flex, 
+  useDisclosure, 
+  useColorMode 
+} from '@chakra-ui/react';
+import { 
+  FaSpotify, 
+  FaApple, 
+  FaSoundcloud, 
+  FaBandcamp, 
+  FaCompactDisc 
+} from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 

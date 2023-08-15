@@ -1,8 +1,20 @@
 import {
-  Box, Flex, Heading, Link, HStack, IconButton, ChakraProvider
+  Box, 
+  Flex, 
+  Heading, 
+  Link, 
+  HStack, 
+  IconButton, 
+  ChakraProvider
 } from '@chakra-ui/react';
 import {
-  FaSpotify, FaApple, FaSoundcloud, FaYoutube, FaInstagram, FaPatreon, FaGithub
+  FaSpotify, 
+  FaApple, 
+  FaSoundcloud, 
+  FaYoutube, 
+  FaInstagram, 
+  FaPatreon, 
+  FaGithub
 } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';

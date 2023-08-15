@@ -1,5 +1,9 @@
 "use client"
-import { ChakraProvider, Flex, Box } from '@chakra-ui/react'
+import { 
+  ChakraProvider, 
+  Flex, 
+  Box 
+} from '@chakra-ui/react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Inter } from 'next/font/google'

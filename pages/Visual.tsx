@@ -1,4 +1,11 @@
-import { Box, Heading, VStack, ChakraProvider, SimpleGrid, Flex } from '@chakra-ui/react';
+import { 
+  Box, 
+  Heading, 
+  VStack, 
+  ChakraProvider, 
+  SimpleGrid, 
+  Flex 
+} from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 

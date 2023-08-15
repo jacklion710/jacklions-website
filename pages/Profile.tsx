@@ -1,4 +1,15 @@
-import { Box, Checkbox, ChakraProvider, Flex, Heading, Text, VStack, HStack, Input, Button, useToast } from '@chakra-ui/react';
+import { 
+  Box, 
+  Checkbox, 
+  ChakraProvider, 
+  Flex, 
+  Heading, 
+  Text, 
+  VStack, 
+  Input, 
+  Button, 
+  useToast 
+} from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import { onAuthStateChanged, deleteUser } from 'firebase/auth';
 import { useState, useEffect } from 'react';
