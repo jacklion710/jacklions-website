@@ -18,7 +18,7 @@
       {
         "name": "next"
       }
-    ],
+    ], 
     "paths": {
       "@/*": ["./*"]
     }
@@ -29,6 +29,6 @@
     "**/*.tsx", 
     ".next/types/**/*.ts", 
     "components/src/**/*.tsx"
-, "utils/firebase.ts", "pages/av/RNBO-Temp/js/guardrails.js", "pages/av/RNBO-Temp/js/app.js" ],
+, "utils/firebase.ts", "pages/av/RNBO-Temp/js/guardrails.js", "pages/av/RNBO/js/app.js", "components/P5Wrapper.tsx", "public/js/sketch.js" ],
   "exclude": ["node_modules"]
 }
