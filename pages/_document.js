@@ -10,7 +10,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="stylesheet" href="/style/RNBOStyle.module.css" />
           {/* Other meta tags and stylesheets can go here */}
         </Head>
         <body>
@@ -19,8 +18,8 @@ class MyDocument extends Document {
 
           {/* Scripts loaded at the end of the body */}
           {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script> */}
-          <script type="text/javascript" src="/js/guardrails.js"></script>
-          <script type="text/javascript" src="/js/app.js"></script>
+          <script async type="text/javascript" src="/js/guardrails.js"></script>
+          <script async type="text/javascript" src="/js/app.js"></script>
         </body>
       </Html>
     );
