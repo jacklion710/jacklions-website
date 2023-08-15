@@ -1,5 +1,3 @@
-import '/style/RNBOStyle.module.css';
-
 async function setup() {
     const patchExportURL = "/export/patch.simple-sampler.json";
 
