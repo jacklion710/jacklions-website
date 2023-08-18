@@ -168,36 +168,69 @@ function makeP5jsSliders(p: p5, deviceIndex: number) {
 const P5WrapperWithNoSSR = dynamic(() => import('@/components/P5Wrapper'), {
   ssr: false
 });
+
+let ellipseX = 250; // Initial x position of the ellipse
+let ellipseY = 250; // Initial y position of the ellipse
+let dragging = false; // Whether the ellipse is being dragged
   
 const sketch = (p: p5) => {
-    let canvasWidth = 0;
-    let canvasHeight = 0;
-
     p.setup = function() {
-        canvasWidth = document.getElementById("canvasBox")?.clientWidth || 0;
-        canvasHeight = document.getElementById("canvasBox")?.clientHeight || 0;
-
-
-        p.createCanvas(canvasWidth, canvasHeight);
+        p.createCanvas(500, 500);
         p.background(200);
-
         if (devices.length) {
             makeP5jsSliders(p, devices.length - 1);
         }
     };
 
     p.draw = function() {
+        p.background(200); // Redraw background to clear previous ellipse position
         p.fill(255, 0, 0);
-        p.ellipse(50, 50, 50, 50);
+        p.ellipse(ellipseX, ellipseY, 50, 50);
     };
 
-    p.windowResized = function() {
-        canvasWidth = document.getElementById("canvasBox")?.clientWidth || 0;
-        canvasHeight = document.getElementById("canvasBox")?.clientWidth || 0;
-        p.resizeCanvas(canvasWidth, canvasHeight);
-    }
-};
+    p.mousePressed = function() {
+        const d = p.dist(p.mouseX, p.mouseY, ellipseX, ellipseY);
+        if (d < 25) { // Check if mouse is inside the ellipse (radius is 25)
+            dragging = true;
+        }
+    };
 
+    p.mouseReleased = function() {
+        dragging = false;
+    };
+
+    p.mouseDragged = function() {
+        if (dragging) {
+            ellipseX = p.mouseX;
+            ellipseY = p.mouseY;
+        }
+    };
+
+    p.touchStarted = function() {
+        if (p.touches.length > 0) {
+            const touchPoint = p.touches[0] as { x: number, y: number };
+            const d = p.dist(touchPoint.x, touchPoint.y, ellipseX, ellipseY);
+            if (d < 25) {
+                dragging = true;
+            }
+        }
+        return false; // prevent default
+    };
+
+    p.touchEnded = function() {
+        dragging = false;
+        return false; // prevent default
+    };
+
+    p.touchMoved = function() {
+        if (dragging && p.touches.length > 0) {
+            const touchPoint = p.touches[0] as { x: number, y: number };
+            ellipseX = touchPoint.x;
+            ellipseY = touchPoint.y;
+        }
+        return false; // prevent default
+    };
+};
   
 const Index = () => {
     const [isAudioActive, setIsAudioActive] = useState(false);
