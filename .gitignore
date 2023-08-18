@@ -36,6 +36,7 @@ next-env.d.ts
 
 # Ignore EmailList page
 EmailList.tsx
+
 .DS_STORE
 
 # Logs
@@ -145,3 +146,6 @@ dist
 
 # Ignore exported files
 export/*.json
+
+
+/pages/av/RNBO/_prototypes/
