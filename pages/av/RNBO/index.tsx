@@ -286,7 +286,16 @@ const Index = () => {
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
             {/* <Navbar /> */}
             <Flex direction="column" minHeight="100vh" alignItems="center" width="100%">
-                <Box ref={canvasContainerRef} id="p5CanvasContainer" border="1px solid gray" width="100%" maxW="500px" height="500px" my="20px">
+            <Box 
+                ref={canvasContainerRef} 
+                id="p5CanvasContainer" 
+                border="1px solid gray" 
+                width={["80%", "80%", "90%", "90%"]} 
+                height={["60vh", "50vh", "80vh", "80vh"]} 
+                maxW={["100%", "100%", "90vw", "90vw"]} 
+                maxH={["60vh", "50vh", "80vh", "80vh"]} 
+                my="20px"
+                >
                     <P5WrapperWithNoSSR sketch={sketch} />
                 </Box>
 
