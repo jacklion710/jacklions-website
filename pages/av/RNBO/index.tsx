@@ -80,11 +80,16 @@ function createOutputNode() {
 async function RNBOsetup(patchFileURL: string, context: AudioContext): Promise<any> {
     console.log("RNBO setup working");
 
+    if (devices.length > 0) {
+        console.warn("Devices already exist. Cleaning up before creating a new device.");
+        devices[devices.length - 1].node.disconnect();
+        devices = [];
+    }
+
     let response = await fetch(patchFileURL);
     let patcher = await response.json();
     
     if (!window.RNBO) {
-        // Ensure that the function awaits the completion of loadRNBOScript
         await loadRNBOScript(patcher.desc.meta.rnboversion);
     }
 
@@ -133,48 +138,6 @@ function loadRNBOScript(version: string) {
     });
 }
 
-function makeP5jsSliders(p: p5, deviceIndex: number) {
-    console.log("makeP5jsSliders is being invoked");
-
-    const device = devices[deviceIndex];
-
-    // Check if sliders are already created. If they are, do not proceed.
-    if (sliders.length > 0) return;
-
-    console.log("Number of parameters (sliders):", device.parameters.length);
-
-    // Use the 'slidersContainer' for appending sliders
-    const targetContainer = document.getElementById('slidersContainer');
-    if(!targetContainer) {
-        console.error("Target container not found!");
-        return;
-    }
-    console.log(`Appending sliders to slidersContainer`, targetContainer);
-
-    device.parameters.forEach((param: any, index: number) => {
-        console.log(`Creating slider for parameter ${index + 1}`);
-        let slider = p.createSlider(param.min, param.max, param.min);
-        targetContainer.appendChild(slider.elt);
-        slider.position(10, index * 30);
-        if(targetContainer) {
-            targetContainer.appendChild(slider.elt);
-        }
-
-        (slider as any).input(() => {
-            let parameterValue = slider.value();
-            console.log("Device structure:", device);
-            console.log("Is setParameter a prototype method?", 'setParameter' in device && !device.hasOwnProperty('setParameter'));
-            console.log("device.parameters structure:", device.parameters);
-            device.parameters[index].value = parameterValue;
-            console.log(`Parameter ${param.name} set to ${parameterValue}`);
-        });
-
-        sliders.push(slider);
-    });
-    console.log("Device used in makeP5jsSliders:", device);
-}
-
-
 const P5WrapperWithNoSSR = dynamic(() => import('@/components/P5Wrapper'), {
   ssr: false
 });
@@ -182,24 +145,27 @@ const P5WrapperWithNoSSR = dynamic(() => import('@/components/P5Wrapper'), {
 const Index = () => {
     const [isAudioActive, setIsAudioActive] = useState(false);
     const p5Ref = useRef<p5 | null>(null);
+    const canvasContainerRef = useRef<HTMLDivElement | null>(null);
     let ellipseX = 250; // Initial x position of the ellipse
     let ellipseY = 250; // Initial y position of the ellipse
     let dragging = false; // Whether the ellipse is being dragged
       
     const sketch = (p: p5) => {
+        const updateCanvasSize = () => {
+            const canvasWidth = canvasContainerRef.current?.clientWidth ?? 500;
+            const canvasHeight = canvasContainerRef.current?.clientHeight ?? 500;
+            p.resizeCanvas(canvasWidth, canvasHeight);
+        };
+        
         p.setup = function() {
             p5Ref.current = p;
-            const canvasWidth = document.getElementById('canvasBox')?.clientWidth || 500;
-            const canvasHeight = 500;
-            const canvas = p.createCanvas(canvasWidth, canvasHeight);
-            canvas.parent('canvasBox'); // Ensure the canvas is appended to the correct container
+            updateCanvasSize();
             p.background(200);
-        
             console.log("Devices length:", devices.length);
-        
-            if (devices.length) {
-                makeP5jsSliders(p, devices.length - 1);
-            }
+        };        
+
+        p.windowResized = function() {
+            updateCanvasSize();
         };
     
         p.draw = function() {
@@ -221,21 +187,17 @@ const Index = () => {
     
         p.mouseDragged = function() {
             if (dragging) {
-                ellipseX = p.mouseX;
-                ellipseY = p.mouseY;
-                
-                console.log("Dragging Ellipse to:", ellipseX, ellipseY); // Log the updated position
-                
+                ellipseX = p.constrain(p.mouseX, 0, p.width); // Keep ellipse within canvas width
+                ellipseY = p.constrain(p.mouseY, 0, p.height); // Keep ellipse within canvas height
+        
                 // Update the RNBO device's parameters when the ellipse is dragged
-                if (devices.length && numberOfDeviceParameters >= 2) {
-                    console.log("Setting RNBO Parameters to:", ellipseX, ellipseY); // Log the values being set
-                    devices[0].setParameter(devices[0].parameters[0].name, ellipseX);
-                    devices[0].setParameter(devices[0].parameters[1].name, ellipseY);
+                if (devices.length) {
+                    devices[0].parameters[0].value = ellipseX;
+                    devices[0].parameters[1].value = ellipseY;
                 }
             }
         };
-    
-    
+        
         p.touchStarted = function() {
             if (p.touches.length > 0) {
                 const touchPoint = p.touches[0] as { x: number, y: number };
@@ -255,80 +217,92 @@ const Index = () => {
         p.touchMoved = function() {
             if (dragging && p.touches.length > 0) {
                 const touchPoint = p.touches[0] as { x: number, y: number };
-                ellipseX = touchPoint.x;
-                ellipseY = touchPoint.y;
-                
+                ellipseX = p.constrain(touchPoint.x, 0, p.width); // Keep ellipse within canvas width
+                ellipseY = p.constrain(touchPoint.y, 0, p.height); // Keep ellipse within canvas height
+        
                 // Update the RNBO device's parameters when the ellipse is dragged
-                if (devices.length && numberOfDeviceParameters >= 2) {
-                    devices[0].setParameter(devices[0].parameters[0].name, ellipseX);
-                    devices[0].setParameter(devices[0].parameters[1].name, ellipseY);
+                if (devices.length) {
+                    devices[0].parameters[0].value = ellipseX;
+                    devices[0].parameters[1].value = ellipseY;
                 }
             }
             return false; // prevent default
         };
     };
+
     useEffect(() => {
         // Setup code that relies on external scripts
     }, []);
 
-    async function handleStartButtonClick() {
-        // Ensure audio context is set up
-        if (!context) {
-            webAudioContextSetup();
-        }
-        
-        // If audio isn't active and no devices are set up yet, initiate RNBO setup
-        if (!isAudioActive && devices.length === 0) {
-            await RNBOsetup("/export/patch.simple-sampler.json", context);
-            
-            // Only proceed to make sliders if p5Ref is currently set
-            if (p5Ref.current) {
-                makeP5jsSliders(p5Ref.current, devices.length - 1);
-            }
-        }
-        
-        // Audio start/stop logic
-        if (!isAudioActive) {
-            // Connect the RNBO device's node to the output node
-            if (devices.length && devices[devices.length - 1].node && outputNode) {
-                devices[devices.length - 1].node.connect(outputNode);
-            }
-            setIsAudioActive(true);
-        } else {
-            // Logic to stop the audio
-            if (devices.length && devices[devices.length - 1].node) {
-                devices[devices.length - 1].node.disconnect(); // Disconnect the RNBO device's node from the output node
-            }
-            
-            // Clear the existing sliders
-            sliders.forEach(slider => slider.remove());
-            sliders = [];
+    async function handleStartButtonClick(event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) {
+    event.preventDefault();
     
-            setIsAudioActive(false);
-        }
+    // Ensure audio context is set up
+    if (!context) {
+        webAudioContextSetup();
+    }
+
+    // Resume the AudioContext if it's suspended
+    if (context.state === "suspended") {
+        await context.resume();
     }
     
+    // Audio start/stop logic
+    if (!isAudioActive) {
+        // If no devices are set up yet, initiate RNBO setup
+        if (devices.length === 0) {
+            console.log("Initializing RNBO setup...");
+            await RNBOsetup("/export/patch.simple-sampler.json", context);
+            console.log("RNBO setup completed.");
+        }
+        
+        // Connect the RNBO device's node to the output node
+        if (devices.length && devices[devices.length - 1].node && outputNode) {
+            devices[devices.length - 1].node.connect(outputNode);
+        }
+        setIsAudioActive(true);
+    } else {
+        console.log("Stopping audio...");
+        
+        // Logic to stop the audio
+        if (devices.length && devices[devices.length - 1].node) {
+            devices[devices.length - 1].node.disconnect(); // Disconnect the RNBO device's node from the output node
+        }
+        
+        // Clear the existing sliders
+        sliders.forEach(slider => slider.remove());
+        sliders = [];
+        
+        // Clear the devices array
+        devices = [];
+
+        setIsAudioActive(false);
+    }
+}
+
     return (
         <ChakraProvider>
             <Script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" />
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
             {/* <Navbar /> */}
-            <Flex direction="column" minHeight="100vh">
-                <Box id="p5CanvasContainer" display="flex" mt="auto" justifyContent="center" border="1px solid gray" width="100%" height="500px" margin="20px auto" flexGrow={1}>
-                    <Box id="canvasBox" width="100%" maxW="500px">
-                        <P5WrapperWithNoSSR sketch={sketch} />
-                    </Box>
+            <Flex direction="column" minHeight="100vh" alignItems="center">
+                <Box ref={canvasContainerRef} id="p5CanvasContainer" border="1px solid gray" width="100%" maxW="500px" height="500px" my="20px">
+                    <P5WrapperWithNoSSR sketch={sketch} />
                 </Box>
-                <Box id="slidersContainer" display="flex" flexDirection="column" alignItems="center" mt="20px" width="100%" maxW="500px" mb="20px">
+
+                <Box id="slidersContainer" mt="20px" width="100%" maxW="500px" mb="20px">
                     {/* This will contain the sliders */}
                 </Box>
-                <Box display="flex" mt="auto" justifyContent="center" width="100%" flexDirection="column" alignItems="center">
-                    <Box mb="20px">
-                        <button id="startButton" onClick={handleStartButtonClick}>
-                            {isAudioActive ? "Stop Audio" : "Start Audio"}
-                        </button> 
-                    </Box>
+
+                <Box mb="20px">
+                    <button id="startButton" 
+                    onClick={handleStartButtonClick}
+                    onTouchStart={handleStartButtonClick}
+                    >
+                        {isAudioActive ? "Stop Audio" : "Start Audio"}
+                    </button> 
                 </Box>
+                
                 <Footer />
             </Flex>
         </ChakraProvider>
