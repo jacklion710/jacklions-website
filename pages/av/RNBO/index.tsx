@@ -7,7 +7,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import p5 from 'p5';
 import { createDevice, MessageEvent } from "@rnbo/js";
-import patcher from "@/public/export/patch.simple-sampler.json"
 
 let context: AudioContext;
 let devices: any[] = [];
@@ -44,8 +43,6 @@ function webAudioContextSetup() {
         });
     }
 }
-
-
 
 function createOutputNode() {
     if (!context || context.state !== 'running') {
@@ -112,6 +109,10 @@ async function RNBOsetup(patchFileURL: string, context: AudioContext): Promise<a
                 await device.loadDataBufferDependencies(dependencies);
             }
 
+            console.log(device.parameters);  
+
+            
+
             numberOfDeviceParameters = device.parameters.length;
 
         } else {
@@ -122,8 +123,6 @@ async function RNBOsetup(patchFileURL: string, context: AudioContext): Promise<a
     }
     return device;
 }
-
-
 
 function loadRNBOScript(version: string) {
     return new Promise((resolve, reject) => { 
@@ -142,36 +141,48 @@ function loadRNBOScript(version: string) {
 }
 
 function makeP5jsSliders(p: p5, deviceIndex: number) {
+    console.log("Creating sliders...");
+
     const device = devices[deviceIndex];
 
     device.parameters.forEach((param: any, index: number) => {
         let slider = p.createSlider(param.min, param.max, param.min);
-        slider.position(10, offset);
+        
+        
+        // Set the position of the slider
+        slider.position(10, index * 30); // Adjusting y-position based on the index
+        
+        // Set the parent container for the slider
+        slider.parent('slidersContainer');
 
-        (slider as any).input(() => {  // Type assertion to 'any'
+        (slider as any).input(() => {
             let parameterValue = slider.value();
             device.setParameter(param.name, parameterValue);
             console.log(`Parameter ${param.name} set to ${parameterValue}`);
         });
 
         sliders.push(slider);
-        offset += 30;
     });
 }
-
-
 
 const P5WrapperWithNoSSR = dynamic(() => import('@/components/P5Wrapper'), {
   ssr: false
 });
   
 const sketch = (p: p5) => {
+    let canvasWidth = 0;
+    let canvasHeight = 0;
+
     p.setup = function() {
-        p.createCanvas(400, 400);
+        canvasWidth = document.getElementById("canvasBox")?.clientWidth || 0;
+        canvasHeight = document.getElementById("canvasBox")?.clientHeight || 0;
+
+
+        p.createCanvas(canvasWidth, canvasHeight);
         p.background(200);
 
         if (devices.length) {
-            makeP5jsSliders(p, devices.length - 1); // This should be inside the sketch function
+            makeP5jsSliders(p, devices.length - 1);
         }
     };
 
@@ -179,8 +190,13 @@ const sketch = (p: p5) => {
         p.fill(255, 0, 0);
         p.ellipse(50, 50, 50, 50);
     };
-};
 
+    p.windowResized = function() {
+        canvasWidth = document.getElementById("canvasBox")?.clientWidth || 0;
+        canvasHeight = document.getElementById("canvasBox")?.clientWidth || 0;
+        p.resizeCanvas(canvasWidth, canvasHeight);
+    }
+};
 
   
 const Index = () => {
@@ -223,19 +239,30 @@ const Index = () => {
             <Script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" />
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
             {/* <Navbar /> */}
+    
+            <Flex direction="column" minHeight="100vh">
+                <Box id="p5CanvasContainer" display="flex" mt="auto" justifyContent="space-between" border="1px solid gray" width="100%" height="500px" margin="20px auto" flexGrow={1}>
+                    <Box id="slidersContainer" width="50%">
+                        {/* This will contain your sliders */}
+                    </Box>
+    
+                    <Box id="canvasBox" width="50%">
+                        <P5WrapperWithNoSSR sketch={sketch} />
+                    </Box>
+    
+                    
+                </Box>
+                
 
-            <Box id="p5CanvasContainer" border="1px solid gray" width="100%" height="500px" margin="20px auto">
-
-                <P5WrapperWithNoSSR sketch={sketch} />
-
-                {/* Attach the event handler directly to the button */}
-                <button id="startButton" onClick={handleStartButtonClick}>
-                    {isAudioActive ? "Stop Audio" : "Start Audio"}
-                </button>
-
-            </Box>
-
-            <Footer />
+                <Box display="flex" mt="auto" justifyContent="space-between" border="1px solid gray" width="10%" height="100px" margin="20px auto">
+                    {/* Attach the event handler directly to the button */}
+                     <button id="startButton" onClick={handleStartButtonClick}>
+                        {isAudioActive ? "Stop Audio" : "Start Audio"}
+                    </button> 
+                </Box>
+    
+                <Footer /> {/* This pushes the footer to the bottom */}
+            </Flex>
         </ChakraProvider>
     );
 }
