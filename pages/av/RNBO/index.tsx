@@ -1,21 +1,16 @@
 import { Box, Flex, ChakraProvider } from '@chakra-ui/react';
 import React, { useEffect, useState, useRef } from 'react';
-import Head from 'next/head';
 import dynamic from "next/dynamic";
 import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import p5 from 'p5';
-import { createDevice, MessageEvent } from "@rnbo/js";
 
 let context: AudioContext;
 let devices: any[] = [];
 let numberOfDeviceParameters: number;
 let sliders: any[] = [];
-let offset: number = 0;
 let outputNode: GainNode | null = null;
-
-declare function createSlider(min: number, max: number, value: number, step?: number): any;
 
 declare global {
     interface Window {
@@ -147,18 +142,22 @@ function makeP5jsSliders(p: p5, deviceIndex: number) {
     if (sliders.length > 0) return;
 
     console.log("Number of parameters (sliders):", device.parameters.length);
-    console.log("Total height required:", device.parameters.length * 30, "px");
 
-    const containerExists = !!document.getElementById('slidersContainer');
-    console.log("Does slidersContainer exist?", containerExists); 
+    // Use the 'slidersContainer' for appending sliders
+    const targetContainer = document.getElementById('slidersContainer');
+    if(!targetContainer) {
+        console.error("Target container not found!");
+        return;
+    }
+    console.log(`Appending sliders to slidersContainer`, targetContainer);
 
     device.parameters.forEach((param: any, index: number) => {
         console.log(`Creating slider for parameter ${index + 1}`);
         let slider = p.createSlider(param.min, param.max, param.min);
+        targetContainer.appendChild(slider.elt);
         slider.position(10, index * 30);
-        const slidersContainer = document.getElementById('slidersContainer');
-        if(slidersContainer) {
-            slidersContainer.appendChild(slider.elt);
+        if(targetContainer) {
+            targetContainer.appendChild(slider.elt);
         }
 
         (slider as any).input(() => {
@@ -190,13 +189,12 @@ const Index = () => {
     const sketch = (p: p5) => {
         p.setup = function() {
             p5Ref.current = p;
-            p.createCanvas(500, 500);
+            const canvasWidth = document.getElementById('canvasBox')?.clientWidth || 500;
+            const canvasHeight = 500;
+            const canvas = p.createCanvas(canvasWidth, canvasHeight);
+            canvas.parent('canvasBox'); // Ensure the canvas is appended to the correct container
             p.background(200);
         
-            // Test code to check if p5.js is functioning correctly
-            const canvasTest = p.createCanvas(100, 100);
-            canvasTest.parent('slidersContainer');
-    
             console.log("Devices length:", devices.length);
         
             if (devices.length) {
@@ -270,8 +268,7 @@ const Index = () => {
         };
     };
     useEffect(() => {
-        // Your setup code that relies on external scripts
-        // Moved RNBOsetup to the button click, so no need to call it here
+        // Setup code that relies on external scripts
     }, []);
 
     async function handleStartButtonClick() {
@@ -310,17 +307,6 @@ const Index = () => {
             setIsAudioActive(false);
         }
     }
-
-    function setFixedRNBOValues() {
-        if (devices.length && numberOfDeviceParameters >= 2) {
-            const fixedX = 150;  // Arbitrary value for testing
-            const fixedY = 150;  // Arbitrary value for testing
-
-            console.log("Setting RNBO Parameters to Fixed Values:", fixedX, fixedY);
-            devices[0].setParameter(devices[0].parameters[0].name, fixedX);
-            devices[0].setParameter(devices[0].parameters[1].name, fixedY);
-        }
-    }
     
     return (
         <ChakraProvider>
@@ -328,32 +314,22 @@ const Index = () => {
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
             {/* <Navbar /> */}
             <Flex direction="column" minHeight="100vh">
-                <Box id="p5CanvasContainer" display="flex" mt="auto" justifyContent="space-between" border="1px solid gray" width="100%" height="500px" margin="20px auto" flexGrow={1} flexDirection={{ base: "column", md: "row" }}>
-                    
-                    <Box id="canvasBox" width={{ base: "100%", md: "50%" }}>
+                <Box id="p5CanvasContainer" display="flex" mt="auto" justifyContent="center" border="1px solid gray" width="100%" height="500px" margin="20px auto" flexGrow={1}>
+                    <Box id="canvasBox" width="100%" maxW="500px">
                         <P5WrapperWithNoSSR sketch={sketch} />
                     </Box>
-
-                    <Box id="slidersContainer" width={{ base: "100%", md: "50%" }}>
-                        {/* This will contain your sliders */}
-                    </Box>
-                    
                 </Box>
-                
-                <Box display="flex" mt="auto" justifyContent="space-between" border="1px solid gray" width="10%" height="100px" margin="20px auto" flexDirection={{ base: "column", md: "row" }}>
-                    <Box id="slidersContainerMobile" display={{ base: "block", md: "none" }}>
-                        {/* This will contain your sliders for mobile view */}
-                    </Box>
-
-                    {/* Attach the event handler directly to the button */}
-                    <Box>
+                <Box id="slidersContainer" display="flex" flexDirection="column" alignItems="center" mt="20px" width="100%" maxW="500px" mb="20px">
+                    {/* This will contain the sliders */}
+                </Box>
+                <Box display="flex" mt="auto" justifyContent="center" width="100%" flexDirection="column" alignItems="center">
+                    <Box mb="20px">
                         <button id="startButton" onClick={handleStartButtonClick}>
                             {isAudioActive ? "Stop Audio" : "Start Audio"}
                         </button> 
                     </Box>
                 </Box>
-
-                <Footer /> {/* This pushes the footer to the bottom */}
+                <Footer />
             </Flex>
         </ChakraProvider>
     );
