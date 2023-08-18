@@ -146,14 +146,7 @@ function makeP5jsSliders(p: p5, deviceIndex: number) {
     console.log("Total height required:", device.parameters.length * 30, "px");
 
     const containerExists = !!document.getElementById('slidersContainer');
-    console.log("Does slidersContainer exist?", containerExists);
-    
-    let testSlider = p.createSlider(0, 100, 50);
-    testSlider.position(10, 10);
-    const slidersContainer = document.getElementById('slidersContainer');
-    if(slidersContainer) {
-        slidersContainer.appendChild(testSlider.elt);
-    }    
+    console.log("Does slidersContainer exist?", containerExists); 
 
     device.parameters.forEach((param: any, index: number) => {
         console.log(`Creating slider for parameter ${index + 1}`);
@@ -164,16 +157,13 @@ function makeP5jsSliders(p: p5, deviceIndex: number) {
             slidersContainer.appendChild(slider.elt);
         }
 
-        sliders.forEach(slider => {
-            slider.input(() => {
-                let parameterValue = slider.value();
-                if (device && device.parameters && device.parameters[param.name]) {
-                    device.parameters[param.name].value = parameterValue;
-                    console.log(`Parameter ${param.name} set to ${parameterValue}`);
-                } else {
-                    console.error('Could not set parameter value or device is not initialized', device);
-                }
-            });
+        (slider as any).input(() => {
+            let parameterValue = slider.value();
+            console.log("Device structure:", device);
+            console.log("Is setParameter a prototype method?", 'setParameter' in device && !device.hasOwnProperty('setParameter'));
+            console.log("device.parameters structure:", device.parameters);
+            device.parameters[index].value = parameterValue;
+            console.log(`Parameter ${param.name} set to ${parameterValue}`);
         });
 
         sliders.push(slider);
@@ -281,26 +271,27 @@ const Index = () => {
     }, []);
 
     async function handleStartButtonClick() {
+        // Ensure audio context is set up
         if (!context) {
             webAudioContextSetup();
         }
         
-        if (!isAudioActive) {
-            if (devices.length === 0) {
-                // Wait for the RNBOsetup to complete
-                await RNBOsetup("/export/patch.simple-sampler.json", context);
-                
-                // Only proceed to make sliders if p5Ref is currently set
-                if (p5Ref.current) {
-                    makeP5jsSliders(p5Ref.current, devices.length - 1);
-                }
-            }
+        // If audio isn't active and no devices are set up yet, initiate RNBO setup
+        if (!isAudioActive && devices.length === 0) {
+            await RNBOsetup("/export/patch.simple-sampler.json", context);
             
+            // Only proceed to make sliders if p5Ref is currently set
+            if (p5Ref.current) {
+                makeP5jsSliders(p5Ref.current, devices.length - 1);
+            }
+        }
+        
+        // Audio start/stop logic
+        if (!isAudioActive) {
             // Connect the RNBO device's node to the output node
             if (devices.length && devices[devices.length - 1].node && outputNode) {
                 devices[devices.length - 1].node.connect(outputNode);
             }
-            
             setIsAudioActive(true);
         } else {
             // Logic to stop the audio
