@@ -142,6 +142,10 @@ function makeP5jsSliders(p: p5, deviceIndex: number) {
     console.log("makeP5jsSliders is being invoked");
 
     const device = devices[deviceIndex];
+
+    // Check if sliders are already created. If they are, do not proceed.
+    if (sliders.length > 0) return;
+
     console.log("Number of parameters (sliders):", device.parameters.length);
     console.log("Total height required:", device.parameters.length * 30, "px");
 
@@ -169,8 +173,8 @@ function makeP5jsSliders(p: p5, deviceIndex: number) {
         sliders.push(slider);
     });
     console.log("Device used in makeP5jsSliders:", device);
-
 }
+
 
 const P5WrapperWithNoSSR = dynamic(() => import('@/components/P5Wrapper'), {
   ssr: false
@@ -298,6 +302,11 @@ const Index = () => {
             if (devices.length && devices[devices.length - 1].node) {
                 devices[devices.length - 1].node.disconnect(); // Disconnect the RNBO device's node from the output node
             }
+            
+            // Clear the existing sliders
+            sliders.forEach(slider => slider.remove());
+            sliders = [];
+    
             setIsAudioActive(false);
         }
     }
