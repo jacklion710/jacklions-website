@@ -199,6 +199,15 @@ const Index = () => {
             const d = p.dist(p.mouseX, p.mouseY, ellipseX!, ellipseY!);
             if (d < 25) { // Check if mouse is inside the ellipse (radius is 25)
                 dragging = true;
+        
+                // Randomize the third parameter of the RNBO export
+                if (devices.length && devices[0].parameters[2]) {
+                    const min = devices[0].parameters[2].min;  // Assuming the parameter has a defined min value
+                    const max = devices[0].parameters[2].max;  // Assuming the parameter has a defined max value
+        
+                    const randomValue = p.random(min, max);
+                    devices[0].parameters[2].value = randomValue;
+                }
             }
         };
     
@@ -225,10 +234,20 @@ const Index = () => {
                 const d = p.dist(touchPoint.x, touchPoint.y, ellipseX!, ellipseY!);
                 if (d < 25) {
                     dragging = true;
+        
+                    // Randomize the third parameter of the RNBO export
+                    if (devices.length && devices[0].parameters[2]) {
+                        const min = devices[0].parameters[0].min;  
+                        const max = devices[0].parameters[1].max;  
+        
+                        const randomValue = p.random(min, max);
+                        devices[0].parameters[2].value = randomValue;
+                    }
                 }
             }
             return false; // prevent default
         };
+        
     
         p.touchEnded = function() {
             dragging = false;
