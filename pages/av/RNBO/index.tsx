@@ -8,9 +8,8 @@ import Footer from '@/components/Footer';
 import p5 from 'p5';
 import { FaPlay, FaStop } from 'react-icons/fa';
 
-let context: AudioContext;
+let context: AudioContext | null = null;
 let devices: any[] = [];
-let numberOfDeviceParameters: number;
 let sliders: any[] = [];
 let outputNode: GainNode | null = null;
 let analyser: AnalyserNode;
@@ -39,13 +38,25 @@ function webAudioContextSetup() {
 
     // Define the event listener
     resumeContextListener = () => {
-        context.resume().then(() => {
-            console.log("Audio Context State After Click:", context.state);
-        });
+        if (context) {
+            const currentContext = context;
+            currentContext.resume().then(() => {
+                console.log("Audio Context State After Click:", currentContext.state);
+            });
+        } else {
+            console.error("Audio Context is not initialized.");
+        }
     }
 
-    document.body.addEventListener('click', resumeContextListener);
-    document.body.addEventListener('touchstart', resumeContextListener);  // add this line
+    document.body.removeEventListener('click', resumeContextListener);
+    document.body.removeEventListener('touchstart', resumeContextListener);
+
+
+    if ('ontouchstart' in window) {
+        document.body.addEventListener('touchstart', resumeContextListener);
+    } else {
+        document.body.addEventListener('click', resumeContextListener);
+    }    
 
 }
 
@@ -80,20 +91,26 @@ function createOutputNode() {
             const currentGain = outputNode.gain.value;
             const targetGain = isVolumeOn ? 1 : 0;
             const rampDuration = 0.1;
-            outputNode.gain.cancelScheduledValues(context.currentTime);
-            outputNode.gain.setValueAtTime(currentGain, context.currentTime);
-            outputNode.gain.linearRampToValueAtTime(targetGain, context.currentTime + rampDuration);
+    
+            // Check for context existence before accessing its properties
+            if (context) {
+                outputNode.gain.cancelScheduledValues(context.currentTime);
+                outputNode.gain.setValueAtTime(currentGain, context.currentTime);
+                outputNode.gain.linearRampToValueAtTime(targetGain, context.currentTime + rampDuration);
+            } else {
+                console.error("Audio Context is not initialized.");
+            }
         }
-    }); 
+    });
 }
 
 async function RNBOsetup(patchFileURL: string, context: AudioContext): Promise<any> {
     console.log("RNBO setup working");
 
+    // If devices exist, return the existing device rather than reinitializing
     if (devices.length > 0) {
-        console.warn("Devices already exist. Cleaning up before creating a new device.");
-        devices[devices.length - 1].node.disconnect();
-        devices = [];
+        console.log("Using existing RNBO device.");
+        return devices[0]; // Assuming only one device
     }
 
     let response = await fetch(patchFileURL);
@@ -524,9 +541,14 @@ const Index = () => {
             webAudioContextSetup();
         }
     
-        // Resume the AudioContext if it's suspended
-        if (context.state === "suspended") {
-            await context.resume();
+        // Check for context existence before accessing its properties or methods
+        if (context) {
+            // Resume the AudioContext if it's suspended
+            if (context.state === "suspended") {
+                await context.resume();
+            }
+        } else {
+            console.error("Audio Context is not initialized.");
         }
         
         // Audio start/stop logic
@@ -534,8 +556,12 @@ const Index = () => {
             // If no devices are set up yet, initiate RNBO setup
             if (devices.length === 0) {
                 console.log("Initializing RNBO setup...");
-                await RNBOsetup("/export/patch.simple-sampler.json", context);
-                console.log("RNBO setup completed.");
+                if (context) {
+                    await RNBOsetup("/export/patch.simple-sampler.json", context);
+                    console.log("RNBO setup completed.");
+                } else {
+                    console.error("Audio Context is not initialized, cannot set up RNBO.");
+                }
             }
             
             // Connect the RNBO device's node to the output node
@@ -545,22 +571,37 @@ const Index = () => {
             setIsAudioActive(true);
         } else {
             console.log("Stopping audio...");
+
+            // If on mobile, simply refresh the page
+            if ('ontouchstart' in window) {
+                location.reload();
+            }
             
             if (resumeContextListener) {
                 document.body.removeEventListener('click', resumeContextListener);
+                document.body.removeEventListener('touchstart', resumeContextListener);
             }
-            // Logic to stop the audio
-            if (devices.length && devices[devices.length - 1].node) {
-                devices[devices.length - 1].node.disconnect();
-            }
-            
+    
+            // Logic to stop the audio: Disconnect ALL device nodes, but do NOT clear the devices array
+            devices.forEach(device => {
+                if (device.node) {
+                    device.node.disconnect();
+                }
+            });
+    
             // Clear the existing sliders
             sliders.forEach(slider => slider.remove());
             sliders = [];
             
             // Clear the devices array
             devices = [];
-
+    
+            // Close the current audio context and create a new one to avoid clashes when replaying
+            if (context) {
+                context.close();
+                context = null;
+            }
+            
             setIsAudioActive(false);
         }
     }
@@ -593,7 +634,7 @@ const Index = () => {
                     <P5WrapperWithNoSSR sketch={sketch} />
                 </Box>
 
-                <Box id="slidersContainer" mt="20px" width="100%" maxW="500px" mb="5px">
+                <Box id="slidersContainer" mt="20px" width="100%" maxW="500px" mb="0px">
                     {/* This will contain the sliders */}
                 </Box>
 
