@@ -1,4 +1,4 @@
-import { Box, Flex, ChakraProvider } from '@chakra-ui/react';
+import { Box, Flex, ChakraProvider, useColorMode } from '@chakra-ui/react';
 import React, { useEffect, useState, useRef } from 'react';
 import dynamic from "next/dynamic";
 import Head from 'next/head';
@@ -156,6 +156,7 @@ const P5WrapperWithNoSSR = dynamic(() => import('@/components/P5Wrapper'), {
 });
   
 const Index = () => {
+    const { setColorMode } = useColorMode();
     const [isAudioActive, setIsAudioActive] = useState(false);
     const p5Ref = useRef<p5 | null>(null);
     const canvasContainerRef = useRef<HTMLDivElement | null>(null);
@@ -573,12 +574,9 @@ const Index = () => {
                 </Box>
 
                 <Box mb="20px">
-                    <button id="startButton" 
-                    onClick={handleStartButtonClick}
-                    onTouchStart={handleStartButtonClick}
-                    >
-                        {isAudioActive ? "Stop Audio" : "Start Audio"}
-                    </button> 
+                <button id="startButton" onClick={handleStartButtonClick}>
+                    {isAudioActive ? "Stop Audio" : "Start Audio"}
+                </button>
                 </Box>
                 
                 {/* This will push the footer to the bottom and stretch it */}
