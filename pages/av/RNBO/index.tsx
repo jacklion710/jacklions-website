@@ -6,7 +6,7 @@ import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import p5 from 'p5';
-import { FaPlay, FaStop } from 'react-icons/fa';
+import { FaPlay, FaStop, FaVolumeUp } from 'react-icons/fa';
 
 let context: AudioContext | null = null;
 let devices: any[] = [];
@@ -533,6 +533,8 @@ const Index = () => {
         // Setup code that relies on external scripts
     }, []);
 
+    const [showAudioIndicator, setShowAudioIndicator] = useState(true);
+
     async function handleStartButtonClick(event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) {
         event.preventDefault();
         
@@ -604,6 +606,7 @@ const Index = () => {
             
             setIsAudioActive(false);
         }
+        setShowAudioIndicator(false);
     }
 
     const playButtonBg = useColorModeValue("green.500", "green.200");
@@ -626,10 +629,10 @@ const Index = () => {
                 id="p5CanvasContainer" 
                 border="1px solid gray" 
                 width={["80%", "80%", "90%", "90%"]} 
-                height={["60vh", "50vh", "80vh", "80vh"]} 
+                height={["55vh", "50vh", "75vh", "80vh"]} 
                 maxW={["100%", "100%", "90vw", "90vw"]} 
-                maxH={["60vh", "50vh", "80vh", "80vh"]} 
-                my="20px"
+                maxH={["55vh", "50vh", "80vh", "80vh"]} 
+                my="10px"
                 >
                     <P5WrapperWithNoSSR sketch={sketch} />
                 </Box>
@@ -649,9 +652,29 @@ const Index = () => {
                     justifyContent="center"
                     backgroundColor={isAudioActive ? stopButtonBg : playButtonBg}
                     borderRadius="md"
+                    mt="10px"
                 >
                     {isAudioActive ? <FaStop size="24px" color="white"/> : <FaPlay size="24px" color="white"/>}
                 </Box>
+
+                {showAudioIndicator && (
+                    <Box 
+                        backgroundColor="gray.200" 
+                        color="gray.700" 
+                        p="5px" 
+                        mt="10px" 
+                        borderRadius="md" 
+                        textAlign="center" 
+                        fontSize="sm" 
+                        border="1px solid gray.300"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <FaVolumeUp color="gray.500" style={{ marginRight: '5px' }}/>
+                        Ensure audio is enabled on your device
+                    </Box>
+                )}
                 
                 {/* This will push the footer to the bottom and stretch it */}
                 <Box marginTop="auto" width="100%">
