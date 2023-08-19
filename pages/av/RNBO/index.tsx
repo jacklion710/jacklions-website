@@ -432,25 +432,34 @@ const Index = () => {
         
 
         // Utility function to check if a point is inside the canvas
-        function isInsideCanvas(touchX: number, touchY: number): boolean {
-            if (touchX >= 0 && touchX <= p.width && touchY >= 0 && touchY <= p.height) {
-                return true;
-            }
-            return false;
+        function isInsideCanvas(x: number, y: number): boolean {
+            const withinWidth = x >= 0 && x <= p.width;
+            const withinHeight = y >= 0 && y <= p.height;
+            console.log("Within Width:", withinWidth, "Within Height:", withinHeight);
+            return withinWidth && withinHeight;
         }
+        
+                 
         
         p.touchStarted = function() {
             if (p.touches.length > 0) {
                 const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
-                touchX = touchPoint.x;
-                touchY = touchPoint.y;
                 
+                const rect = (p as any).canvas.getBoundingClientRect();
+                
+                // Translate touch point to relative canvas coordinates
+                const touchX = touchPoint.x - rect.left;
+                const touchY = touchPoint.y - rect.top;
+        
+                console.log("Relative Touch X:", touchX, "Relative Touch Y:", touchY);
+        
                 if (isInsideCanvas(touchX, touchY)) {
                     updateParameters(touchX, touchY);
                     return false; // prevent default only if inside the canvas
                 }
             }
-        };
+            return true;  // Default return in case you want the event to propagate
+        };        
         
         let previousTouchY = 0;  // Outside of any function to persist across calls
 
@@ -472,7 +481,14 @@ const Index = () => {
                 }
             }
         };
-        
+
+        p.touchEnded = function() {
+            // If touch ends outside of the canvas, ignore it
+            if (p.mouseX < 0 || p.mouseX > p.width || p.mouseY < 0 || p.mouseY > p.height) {
+                return false;
+            }   
+            return true;
+        };
         
         function updateParameters(touchX: number, touchY: number) {
             let constrainedTouchX = p.constrain(touchX, 0, p.width);
