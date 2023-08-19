@@ -262,9 +262,12 @@ const Index = () => {
         };
 
         p.mouseDragged = function() {
+            let constrainedMouseX = p.constrain(p.mouseX, 0, p.width);
+            let constrainedMouseY = p.constrain(p.mouseY, 0, p.height);
+        
             if (dragging) {
-                glitchFactor = p.map(p.mouseX, 0, p.width, -1, 1);
-                protrusionFactor = p.map(p.mouseY, 0, p.height, 0, 1);
+                glitchFactor = p.map(constrainedMouseX, 0, p.width, -1, 1);
+                protrusionFactor = p.map(constrainedMouseY, 0, p.height, 0, 1);
                 
                 // Update the RNBO device's parameters
                 if (devices.length) {
@@ -276,12 +279,14 @@ const Index = () => {
         };
 
         p.mouseMoved = function() {
-            // Map the mouseX to the glitchFactor
-            glitchFactor = p.map(p.mouseX, 0, p.width, -1, 1);
-            console.log("mouseX:", p.mouseX, "glitchFactor:", glitchFactor);
+            let constrainedMouseX = p.constrain(p.mouseX, 0, p.width);
+            let constrainedMouseY = p.constrain(p.mouseY, 0, p.height);
+        
+            // Map the constrainedMouseX to the glitchFactor
+            glitchFactor = p.map(constrainedMouseX, 0, p.width, -1, 1);
             
-            // Map the mouseY directly to devices[0].parameters[2].value
-            const yMappedToParam = p.map(p.mouseY, 0, p.height, 0, 6000); // Assuming the range you want is [0, 1]
+            // Map the constrainedMouseY directly to devices[0].parameters[2].value
+            const yMappedToParam = p.map(constrainedMouseY, 0, p.height, 0, 6000);        
         
             // Update the RNBO device's parameters
             if (devices.length) {
@@ -332,10 +337,13 @@ const Index = () => {
         };
         
         function updateParameters(touchX: number, touchY: number) {
-            // Map touchX to glitchFactor and touchY to protrusionFactor
-            const glitchFactor = p.map(touchX, 0, p.width, 0, 1);
-            const protrusionFactor = p.map(touchY, 0, p.height, 0, 1);
-            const yMappedToParam = p.map(touchY, 0, p.height, 0, 6000);
+            let constrainedTouchX = p.constrain(touchX, 0, p.width);
+            let constrainedTouchY = p.constrain(touchY, 0, p.height);
+            // Map constrainedTouchX to glitchFactor and constrainedTouchY to protrusionFactor
+            const glitchFactor = p.map(constrainedTouchX, 0, p.width, 0, 1);
+            const protrusionFactor = p.map(constrainedTouchY, 0, p.height, 0, 1);
+            const yMappedToParam = p.map(constrainedTouchY, 0, p.height, 0, 6000);
+
             // Update the RNBO device's parameters
             if (devices.length) {
                 devices[0].parameters[0].value = glitchFactor;
@@ -343,7 +351,6 @@ const Index = () => {
                 devices[0].parameters[2].value = yMappedToParam;
             }
         }        
-        
     };
 
     useEffect(() => {
