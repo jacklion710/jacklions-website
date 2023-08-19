@@ -156,9 +156,20 @@ const Index = () => {
     let dragging = false; // Whether the ellipse is being dragged
       
     const sketch = (p: p5) => {
+        let startColor = p.color(0, 128, 255);
+        let endColor = p.color(255, 0, 128);
+        let amplitude = 100;  // You can adjust this based on the audio input
+        let glitchFactor = 0;
+        let protrusionFactor = 0;
+        let dnaFactor = 0;
+
         const updateCanvasSize = () => {
             const canvasWidth = canvasContainerRef.current?.clientWidth ?? 500;
             const canvasHeight = canvasContainerRef.current?.clientHeight ?? 500;
+            let startColor: p5.Color;
+            let endColor: p5.Color;
+            let amplitude: number;
+            
             p.resizeCanvas(canvasWidth, canvasHeight);
 
             // If the ellipse position hasn't been set yet, center it.
@@ -178,10 +189,11 @@ const Index = () => {
         
         p.setup = function() {
             p5Ref.current = p;
-            updateCanvasSize();
-            p.background(200);
-
-            console.log("Devices length:", devices.length);
+            p.createCanvas(p.windowWidth, p.windowHeight);
+            updateCanvasSize(); // Adjust the canvas size right after its creation
+            startColor = p.color(0, 128, 255);
+            endColor = p.color(255, 0, 128);
+            amplitude = 200;  // Adjust this based on the audio input
         };
 
         p.windowResized = function() {
@@ -189,22 +201,42 @@ const Index = () => {
         };
     
         p.draw = function() {
-            p.background(200); // Redraw background to clear previous ellipse position
-            p.fill(255, 0, 0);
-            // Assert that ellipseX and ellipseY are not null using the ! operator.
-            p.ellipse(ellipseX!, ellipseY!, 50, 50);
-        };
+            p.background(30); // Dark background
+        
+            let timeScaleFactor = p.map(p.mouseY, 0, p.height, 0.5, 1.5);
+            let time = p.millis() * 0.001 * timeScaleFactor;
+        
+            let strokeScaleFactor = p.map(p.mouseX, 0, p.width, 1, 4);
+        
+            for (let y = 0; y < p.height; y += 40) {
+                let sinValue = p.sin(time + y * 0.1) + glitchFactor * p.random(-1, 1);
+                let cosValue = p.cos(time + y * 0.1) + protrusionFactor * p.sin(time + y * 0.05);
+        
+                let x1 = p.width / 2 + sinValue * amplitude;
+                let x2 = p.width / 2 + cosValue * amplitude;
+        
+                if (p.keyIsPressed && p.key === 'Shift') {
+                    x1 += dnaFactor * p.sin(y * 0.05);
+                    x2 += dnaFactor * p.sin(y * 0.05);
+                }
+        
+                let lerpedColor = p.lerpColor(startColor, endColor, y / p.height);
+                p.stroke(lerpedColor);
+                p.strokeWeight(2 * strokeScaleFactor);
+        
+                p.line(x1, y, x2, y);
+            };
+        };    
     
         p.mousePressed = function() {
-            const d = p.dist(p.mouseX, p.mouseY, ellipseX!, ellipseY!);
-            if (d < 25) { // Check if mouse is inside the ellipse (radius is 25)
+            if (p.mouseX >= 0 && p.mouseX <= p.width && p.mouseY >= 0 && p.mouseY <= p.height) {
                 dragging = true;
-        
+                
                 // Randomize the third parameter of the RNBO export
                 if (devices.length && devices[0].parameters[2]) {
-                    const min = devices[0].parameters[2].min;  // Assuming the parameter has a defined min value
-                    const max = devices[0].parameters[2].max;  // Assuming the parameter has a defined max value
-        
+                    const min = devices[0].parameters[2].min;
+                    const max = devices[0].parameters[2].max;
+    
                     const randomValue = p.random(min, max);
                     devices[0].parameters[2].value = randomValue;
                 }
@@ -217,14 +249,30 @@ const Index = () => {
     
         p.mouseDragged = function() {
             if (dragging) {
-                ellipseX = p.constrain(p.mouseX, 0, p.width); // Keep ellipse within canvas width
-                ellipseY = p.constrain(p.mouseY, 0, p.height); // Keep ellipse within canvas height
-        
+                ellipseX = p.constrain(p.mouseX, 0, p.width);
+                ellipseY = p.constrain(p.mouseY, 0, p.height);
+
+                glitchFactor = p.abs(ellipseX! - p.width / 2) / p.width;
+                protrusionFactor = p.abs(ellipseY! - p.height / 2) / p.height;
+
                 // Update the RNBO device's parameters when the ellipse is dragged
                 if (devices.length) {
                     devices[0].parameters[0].value = ellipseX;
                     devices[0].parameters[1].value = ellipseY;
+                    devices[0].parameters[2].value = (glitchFactor + protrusionFactor) / 2;  // Mapping the average of glitch and protrusion to the third parameter
                 }
+            }
+        };
+
+        p.keyPressed = function() {
+            if (p.key === 'Shift') {
+                dnaFactor = 20;
+            }
+        };
+
+        p.keyReleased = function() {
+            if (p.key === 'Shift') {
+                dnaFactor = 0;
             }
         };
         
@@ -268,6 +316,7 @@ const Index = () => {
             }
             return false; // prevent default
         };
+        
     };
 
     useEffect(() => {
