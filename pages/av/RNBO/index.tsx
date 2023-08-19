@@ -161,17 +161,24 @@ const Index = () => {
     let ellipseX: number | null = null; 
     let ellipseY: number | null = null; 
     let dragging = false; // Whether the ellipse is being dragged
+
+    function toneMap(y: number, p: p5): p5.Color {
+        const mappedBrightness = p.map(y, 0, p.height, 0, 1);
+        const baseColor = p.color(255, 25, 0); // Gold color
+        return p.color(p.red(baseColor) * mappedBrightness, p.green(baseColor) * mappedBrightness, p.blue(baseColor) * mappedBrightness);
+    }
       
     const sketch = (p: p5) => {
         let startColor = p.color(0, 128, 255);
         let endColor = p.color(255, 0, 128);
-        let amplitude = 100;  // You can adjust this based on the audio input
+        let amplitude = 100; 
         let glitchFactor = 0;
         let protrusionFactor = 0;
         let dnaFactor = 0;
         let time = 0;
         let touchX = null;
         let touchY = null;
+        let vhsGlitch = false; 
 
         const updateCanvasSize = () => {
             const canvasWidth = canvasContainerRef.current?.clientWidth ?? 500;
@@ -209,51 +216,129 @@ const Index = () => {
         p.windowResized = function() {
             updateCanvasSize();
         };
+
+        interface Particle {
+            x: number;
+            y: number;
+            speedX: number;
+            speedY: number;
+        }
+        
+        let particles: Particle[] = [];
     
         p.draw = function() {
             // Updated Colors
             let tealColor = p.color(0, 64, 128);
             let orangeColor = p.color(255, 105, 0);
         
-            // Create a radial gradient centered around the ellipse
+            // Background Gradient
+            p.background(50, 50, 50, 0.5);
             for (let y = 0; y < p.height; y++) {
                 let distanceFromEllipse = p.dist(ellipseX!, ellipseY!, p.width/2, y);
                 let lerpAmt = p.map(distanceFromEllipse, 0, p.width, 0, 1);
                 lerpAmt = p.constrain(lerpAmt, 0, 1);
-                let gradientColor = p.lerpColor(tealColor, orangeColor, lerpAmt);
+                let gradientNoise = p.noise(y * 0.1);
+                let gradientColor = p.lerpColor(tealColor, orangeColor, lerpAmt + gradientNoise * 0.3);
+        
                 p.stroke(gradientColor);
                 p.line(0, y, p.width, y);
             }
         
             let timeScaleFactor = p.map(p.mouseY, 0, p.height, 0.5, 2);
             time = p.millis() * 0.001 * timeScaleFactor;
+            let lineSpacing = p.map(p.mouseY, 0, p.height, 15, 30);  // Adjust line spacing
         
-            let lineSpacing = p.map(p.mouseY, 0, p.height, 15, 30);  // Smaller line spacing for more prominence
-            let strokeScaleFactor = p.map(p.mouseX, 0, p.width, 1, 4);
+            // DNA Drawing
+            let dnaStrokeWeight = 4;
+            let dnaStrokeColor = p.color(255, 255, 255);
+        
+            if (dnaFactor > 0) {
+                dnaStrokeWeight = 6;
+                dnaStrokeColor = p.color(255, 210, 0);  // Glowing color
+            }
         
             for (let y = 0; y < p.height; y += lineSpacing) {
-                let noiseValue = p.noise(y * 0.05, time * 0.2);  // Reduced granularity of noise for smoother transitions
-                let sinValue = p.sin(time + y * 0.05) * noiseValue * 1.5 + glitchFactor * p.random(-1, 1);  // Increased amplitude
-                let cosValue = p.cos(time + y * 0.05) * noiseValue * 1.5 + protrusionFactor * p.sin(time + y * 0.025);  // More harmonious waves
-        
-                let x1 = p.width / 2 + sinValue * amplitude;
-                let x2 = p.width / 2 + cosValue * amplitude;
-        
-                if (p.keyIsPressed && p.key === 'Shift') {
-                    x1 += dnaFactor * p.sin(y * 0.025 + noiseValue * 2);  // Increased complexity in DNA pattern
-                    x2 += dnaFactor * p.sin(y * 0.025 + noiseValue * 2);
-                }
-        
-                let lerpedColor = p.lerpColor(tealColor, orangeColor, noiseValue);
+                let noiseValue = p.noise(y * 0.05, time * 0.2);
+                
+                // Tweak the sin and cos values to better represent the double helix structure
+                let sinValue = p.sin(time + y * 0.1) * noiseValue * amplitude * 0.7;  // Modified frequency for more turns
+                let cosValue = p.cos(time + y * 0.1 + Math.PI/2) * noiseValue * amplitude * 0.7;  // Added a phase difference of PI/2 to make the helix structure more evident
+            
+                let glitchShift = glitchFactor * p.noise(time * 0.1, y * 0.05) * 50;
+            
+                let x1 = p.width / 2 + sinValue + glitchShift;
+                let x2 = p.width / 2 + cosValue + glitchShift;
+            
+                let mappedColor = toneMap(y, p);
+                let lerpedColor = p.lerpColor(dnaStrokeColor, mappedColor, noiseValue); // Gold color for the "god-like" appearance
                 p.stroke(lerpedColor);
-                p.strokeWeight(3 * strokeScaleFactor);  // Thicker lines for more prominence
+                p.strokeWeight(dnaStrokeWeight);
+            
+                // Enhanced Glow effect for DNA for a more "god-like" appearance
+                p.drawingContext.shadowBlur = 15;  // Increased blur for more glow
+                p.drawingContext.shadowColor = "rgba(255, 215, 0, 0.5)";  // Gold glow color
+            
                 p.line(x1, y, x2, y);
+            }
+            // Calculate mouse proximity to the left or right edge
+            let distanceToLeft = p.mouseX;
+            let distanceToRight = p.width - p.mouseX;
+
+            let closestEdgeDistance = Math.min(distanceToLeft, distanceToRight);
+            let proximityFactor = p.map(closestEdgeDistance, 0, p.width / 2, 1, 0);
+            proximityFactor = p.constrain(proximityFactor, 0, 1);
+
+            let numSpirals = p.floor(p.map(proximityFactor, 0, 4, 2, 1));  // Increase number of spirals based on proximity
+
+            // Enhanced glow based on proximity
+            let glowIntensity = p.map(proximityFactor, 0, 1, 300, 80);
+            p.drawingContext.shadowBlur = glowIntensity;
+            p.drawingContext.shadowColor = "rgba(255, 215, 0, 0.5)";
+            // Introduce an offset factor to create the illusion of DNA splitting.
+            let splitOffset = p.map(proximityFactor, 0, 2, 0, amplitude / 2);
+
+            // Modify the DNA drawing to incorporate the split effect.
+            for (let spiral = 0; spiral < numSpirals; spiral++) {
+                for (let y = 0; y < p.height; y += lineSpacing) {
+                    let noiseValue = p.noise(y * 0.05, time * 0.2);
+                    let sinValue = p.sin(time + y * 0.1 + spiral * Math.PI/numSpirals) * noiseValue * amplitude * 0.7;
+                    let cosValue = p.cos(time + y * 0.1 + spiral * Math.PI/numSpirals + Math.PI/2) * noiseValue * amplitude * 0.7;
+                    let glitchShift = glitchFactor * p.noise(time * 0.1, y * 0.05) * 50;
+
+                    let x1 = p.width / 2 + sinValue + glitchShift - splitOffset;  // subtract splitOffset from x1
+                    let x2 = p.width / 2 + cosValue + glitchShift + splitOffset;  // add splitOffset to x2
+
+                    let lerpedColor = p.lerpColor(dnaStrokeColor, p.color(255, 215, 0), noiseValue);
+                    p.stroke(lerpedColor);
+                    p.strokeWeight(dnaStrokeWeight);
+
+                    p.line(x1, y, x2, y);
+                }
+            }
+            // Resetting shadow after drawing DNA
+            p.drawingContext.shadowBlur = 0;
+        
+            // Update and draw particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let particle = particles[i];
+                particle.x += particle.speedX;
+                particle.y += particle.speedY;
+        
+                let particleColor = p.color(255, 255, 255, 150);
+                p.fill(particleColor);
+                p.ellipse(particle.x, particle.y, 2, 2);
+        
+                // Remove particles if they move off the canvas
+                if (particle.x < 0 || particle.x > p.width || particle.y < 0 || particle.y > p.height) {
+                    particles.splice(i, 1);
+                }
             }
         };
     
         p.mousePressed = function() {
             if (p.mouseX >= 0 && p.mouseX <= p.width && p.mouseY >= 0 && p.mouseY <= p.height) {
                 dragging = true;
+                amplitude += p.random(-100, 100); // randomly change the amplitude
             }
         };
 
@@ -293,6 +378,9 @@ const Index = () => {
                 devices[0].parameters[0].value = glitchFactor;
                 devices[0].parameters[2].value = yMappedToParam; // directly using the y position
             }
+            // Visual distortion based on mouse position
+            let distortion = p.map(p.mouseX, 0, p.width, 0, 0.5); 
+            dnaFactor += distortion;
         };
         
         p.keyPressed = function() {
