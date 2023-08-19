@@ -151,8 +151,8 @@ const Index = () => {
     const [isAudioActive, setIsAudioActive] = useState(false);
     const p5Ref = useRef<p5 | null>(null);
     const canvasContainerRef = useRef<HTMLDivElement | null>(null);
-    let ellipseX = 250; // Initial x position of the ellipse
-    let ellipseY = 250; // Initial y position of the ellipse
+    let ellipseX: number | null = null; 
+    let ellipseY: number | null = null; 
     let dragging = false; // Whether the ellipse is being dragged
       
     const sketch = (p: p5) => {
@@ -160,14 +160,29 @@ const Index = () => {
             const canvasWidth = canvasContainerRef.current?.clientWidth ?? 500;
             const canvasHeight = canvasContainerRef.current?.clientHeight ?? 500;
             p.resizeCanvas(canvasWidth, canvasHeight);
+
+            // If the ellipse position hasn't been set yet, center it.
+            if (ellipseX === null) {
+                ellipseX = p.width / 2;
+            } else {
+                // If the ellipse has been moved by the user, make sure it stays within the canvas bounds.
+                ellipseX = p.constrain(ellipseX!, 0, p.width);  // The ! after ellipseX asserts that it's not null.
+            }
+
+            if (ellipseY === null) {
+                ellipseY = p.height / 2;
+            } else {
+                ellipseY = p.constrain(ellipseY!, 0, p.height);  // The ! after ellipseY asserts that it's not null.
+            }
         };
         
         p.setup = function() {
             p5Ref.current = p;
             updateCanvasSize();
             p.background(200);
+
             console.log("Devices length:", devices.length);
-        };        
+        };
 
         p.windowResized = function() {
             updateCanvasSize();
@@ -176,11 +191,12 @@ const Index = () => {
         p.draw = function() {
             p.background(200); // Redraw background to clear previous ellipse position
             p.fill(255, 0, 0);
-            p.ellipse(ellipseX, ellipseY, 50, 50);
+            // Assert that ellipseX and ellipseY are not null using the ! operator.
+            p.ellipse(ellipseX!, ellipseY!, 50, 50);
         };
     
         p.mousePressed = function() {
-            const d = p.dist(p.mouseX, p.mouseY, ellipseX, ellipseY);
+            const d = p.dist(p.mouseX, p.mouseY, ellipseX!, ellipseY!);
             if (d < 25) { // Check if mouse is inside the ellipse (radius is 25)
                 dragging = true;
             }
@@ -206,7 +222,7 @@ const Index = () => {
         p.touchStarted = function() {
             if (p.touches.length > 0) {
                 const touchPoint = p.touches[0] as { x: number, y: number };
-                const d = p.dist(touchPoint.x, touchPoint.y, ellipseX, ellipseY);
+                const d = p.dist(touchPoint.x, touchPoint.y, ellipseX!, ellipseY!);
                 if (d < 25) {
                     dragging = true;
                 }
