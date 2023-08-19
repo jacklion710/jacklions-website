@@ -56,7 +56,7 @@ import { AiFillEye } from 'react-icons/ai';
   export default function Features() {
     return (
       <Container maxW={'5xl'} py={6}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 10, md: 60 }}>
           <Stack spacing={4} alignItems="center"> 
             <Link href="/Engineering">
               <Text
