@@ -658,22 +658,16 @@ const Index = () => {
                 </Box>
 
                 {showAudioIndicator && (
-                    <Box 
-                        backgroundColor="gray.200" 
-                        color="gray.700" 
-                        p="5px" 
+                    <Flex 
                         mt="10px" 
-                        borderRadius="md" 
-                        textAlign="center" 
-                        fontSize="sm" 
-                        border="1px solid gray.300"
-                        display="flex"
+                        color="gray.400"
+                        fontSize="sm"
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <FaVolumeUp color="gray.500" style={{ marginRight: '5px' }}/>
-                        Enable audio on your device
-                    </Box>
+                        <FaVolumeUp color="gray.400" style={{ marginRight: '5px' }}/>
+                        Ensure audio is enabled on your device for the best experience.
+                    </Flex>
                 )}
                 
                 {/* This will push the footer to the bottom and stretch it */}
