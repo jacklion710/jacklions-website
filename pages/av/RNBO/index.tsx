@@ -20,6 +20,8 @@ declare global {
     }
 }
 
+let resumeContextListener: (() => void) | null = null;
+
 function webAudioContextSetup() {
     context = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -32,11 +34,14 @@ function webAudioContextSetup() {
         outputNode.connect(context.destination);
     }
 
-    document.body.onclick = () => {
+    // Define the event listener
+    resumeContextListener = () => {
         context.resume().then(() => {
             console.log("Audio Context State After Click:", context.state);
         });
     }
+
+    document.body.addEventListener('click', resumeContextListener);
 }
 
 function createOutputNode() {
@@ -235,50 +240,53 @@ const Index = () => {
     }, []);
 
     async function handleStartButtonClick(event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>) {
-    event.preventDefault();
+        event.preventDefault();
+        
+        // Ensure audio context is set up
+        if (!context) {
+            webAudioContextSetup();
+        }
     
-    // Ensure audio context is set up
-    if (!context) {
-        webAudioContextSetup();
-    }
+        // Resume the AudioContext if it's suspended
+        if (context.state === "suspended") {
+            await context.resume();
+        }
+        
+        // Audio start/stop logic
+        if (!isAudioActive) {
+            // If no devices are set up yet, initiate RNBO setup
+            if (devices.length === 0) {
+                console.log("Initializing RNBO setup...");
+                await RNBOsetup("/export/patch.simple-sampler.json", context);
+                console.log("RNBO setup completed.");
+            }
+            
+            // Connect the RNBO device's node to the output node
+            if (devices.length && devices[devices.length - 1].node && outputNode) {
+                devices[devices.length - 1].node.connect(outputNode);
+            }
+            setIsAudioActive(true);
+        } else {
+            console.log("Stopping audio...");
+            
+            if (resumeContextListener) {
+                document.body.removeEventListener('click', resumeContextListener);
+            }
+            // Logic to stop the audio
+            if (devices.length && devices[devices.length - 1].node) {
+                devices[devices.length - 1].node.disconnect(); // Disconnect the RNBO device's node from the output node
+            }
+            
+            // Clear the existing sliders
+            sliders.forEach(slider => slider.remove());
+            sliders = [];
+            
+            // Clear the devices array
+            devices = [];
 
-    // Resume the AudioContext if it's suspended
-    if (context.state === "suspended") {
-        await context.resume();
+            setIsAudioActive(false);
+        }
     }
-    
-    // Audio start/stop logic
-    if (!isAudioActive) {
-        // If no devices are set up yet, initiate RNBO setup
-        if (devices.length === 0) {
-            console.log("Initializing RNBO setup...");
-            await RNBOsetup("/export/patch.simple-sampler.json", context);
-            console.log("RNBO setup completed.");
-        }
-        
-        // Connect the RNBO device's node to the output node
-        if (devices.length && devices[devices.length - 1].node && outputNode) {
-            devices[devices.length - 1].node.connect(outputNode);
-        }
-        setIsAudioActive(true);
-    } else {
-        console.log("Stopping audio...");
-        
-        // Logic to stop the audio
-        if (devices.length && devices[devices.length - 1].node) {
-            devices[devices.length - 1].node.disconnect(); // Disconnect the RNBO device's node from the output node
-        }
-        
-        // Clear the existing sliders
-        sliders.forEach(slider => slider.remove());
-        sliders = [];
-        
-        // Clear the devices array
-        devices = [];
-
-        setIsAudioActive(false);
-    }
-}
 
     return (
         <ChakraProvider>
