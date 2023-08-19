@@ -439,7 +439,7 @@ import {
         {
           label: 'Playground',
           subLabel: 'Take a journey',
-          href: '/wip',
+          href: '/av/RNBO',
         }
       ],
     }
