@@ -444,7 +444,7 @@ const Index = () => {
                 const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
                 touchX = touchPoint.x;
                 touchY = touchPoint.y;
-        
+                
                 if (isInsideCanvas(touchX, touchY)) {
                     updateParameters(touchX, touchY);
                     return false; // prevent default only if inside the canvas
@@ -459,22 +459,19 @@ const Index = () => {
                 let firstTouch = p.touches[0] as TouchPoint;
                 let normalizedTouchY = p.map(firstTouch.y, 0, p.height, 0, 6000);
                 
-                // Use the previous value to limit the change
-                let smoothTouchY = limitChange(previousTouchY, normalizedTouchY, 50);  // For example, max change of 50
-        
-                // Update the previous value for the next call
+                let smoothTouchY = limitChange(previousTouchY, normalizedTouchY, 50);
                 previousTouchY = smoothTouchY;
-                
-            if (p.touches.length > 0) {
+        
                 const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
                 touchX = touchPoint.x;
                 touchY = touchPoint.y;
                 
-                updateParameters(touchX, touchY);
+                if (isInsideCanvas(touchX, touchY)) {
+                    updateParameters(touchX, touchY);
+                    return false; // prevent default
+                }
             }
-            return false; // prevent default
         };
-    }
         
         
         function updateParameters(touchX: number, touchY: number) {
