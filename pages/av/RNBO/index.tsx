@@ -430,7 +430,6 @@ const Index = () => {
             id: number;
         };
         
-
         // Utility function to check if a point is inside the canvas
         function isInsideCanvas(x: number, y: number): boolean {
             const withinWidth = x >= 0 && x <= p.width;
@@ -438,9 +437,7 @@ const Index = () => {
             console.log("Within Width:", withinWidth, "Within Height:", withinHeight);
             return withinWidth && withinHeight;
         }
-        
-                 
-        
+                                 
         p.touchStarted = function() {
             if (p.touches.length > 0) {
                 const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
@@ -483,10 +480,17 @@ const Index = () => {
         };
 
         p.touchEnded = function() {
-            // If touch ends outside of the canvas, ignore it
-            if (p.mouseX < 0 || p.mouseX > p.width || p.mouseY < 0 || p.mouseY > p.height) {
-                return false;
-            }   
+            // Check if there are any touches
+            if (p.touches.length > 0) {
+                const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+                const touchX = touchPoint.x;
+                const touchY = touchPoint.y;
+        
+                // If touch ends outside of the canvas, ignore it
+                if (touchX < 0 || touchX > p.width || touchY < 0 || touchY > p.height) {
+                    return false;
+                }   
+            }
             return true;
         };
         
@@ -569,9 +573,9 @@ const Index = () => {
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
             <Navbar />
             <Flex direction="column" minHeight="100vh" alignItems="center" width="100%">
-            <Text fontSize={["2xl", "3xl", "4xl", "5xl"]} textDecoration="underline" my="10px">
+            {/* <Text fontSize={["xl", "2xl", "3xl", "4xl"]} textDecoration="underline" my="10px">
                 DNA
-            </Text>
+            </Text> */}
             <Box 
                 ref={canvasContainerRef} 
                 id="p5CanvasContainer" 
