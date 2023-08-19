@@ -1,6 +1,7 @@
 import { Box, Flex, ChakraProvider } from '@chakra-ui/react';
 import React, { useEffect, useState, useRef } from 'react';
 import dynamic from "next/dynamic";
+import Head from 'next/head';
 import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -400,17 +401,26 @@ const Index = () => {
             y: number;
             // You can add other properties if needed
         }
+
+        // Utility function to check if a point is inside the canvas
+        function isInsideCanvas(touchX: number, touchY: number): boolean {
+            if (touchX >= 0 && touchX <= p.width && touchY >= 0 && touchY <= p.height) {
+                return true;
+            }
+            return false;
+        }
         
         p.touchStarted = function() {
-            // Initial touch logic remains the same
             if (p.touches.length > 0) {
                 const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
                 touchX = touchPoint.x;
                 touchY = touchPoint.y;
-                
-                updateParameters(touchX, touchY);
+        
+                if (isInsideCanvas(touchX, touchY)) {
+                    updateParameters(touchX, touchY);
+                    return false; // prevent default only if inside the canvas
+                }
             }
-            return false; // prevent default
         };
         
         p.touchMoved = function() {
@@ -418,10 +428,12 @@ const Index = () => {
                 const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
                 touchX = touchPoint.x;
                 touchY = touchPoint.y;
-                
-                updateParameters(touchX, touchY);
+        
+                if (isInsideCanvas(touchX, touchY)) {
+                    updateParameters(touchX, touchY);
+                    return false; // prevent default only if inside the canvas
+                }
             }
-            return false; // prevent default
         };
         
         function updateParameters(touchX: number, touchY: number) {
@@ -496,6 +508,9 @@ const Index = () => {
 
     return (
         <ChakraProvider>
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Head>
             <Script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" />
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
             <Navbar />
