@@ -163,6 +163,12 @@ const Index = () => {
     let ellipseY: number | null = null; 
     let dragging = false; // Whether the ellipse is being dragged
 
+    function limitChange(oldValue: number, newValue: number, maxChange: number): number {
+        let change = newValue - oldValue;
+        change = Math.max(-maxChange, Math.min(maxChange, change));
+        return oldValue + change;
+    }    
+
     function toneMap(y: number, p: p5): p5.Color {
         const mappedBrightness = p.map(y, 0, p.height, 0, 1);
         const baseColor = p.color(255, 25, 0); // Gold color
@@ -364,7 +370,28 @@ const Index = () => {
             }
         };
 
+        let previousNormalizedMouseX = 0;  // Outside of mouseMoved to persist across calls
+        let previousMouseY = 0;
+
         p.mouseMoved = function() {
+            // If RNBO parameter range is from 0 to 6000
+            let normalizedMouseY = p.map(p.mouseY, 0, p.height, 0, 6000);
+            
+            // Use the previous value to limit the change
+            let smoothMouseY = limitChange(previousMouseY, normalizedMouseY, 50);  // For example, max change of 50
+        
+            // Update the previous value for the next call
+            previousMouseY = smoothMouseY;
+            let normalizedMouseX = (p.mouseX - 0) / (p.width - 0);
+            
+            // Use the previous value to limit the change
+            let smoothMouseX = limitChange(previousNormalizedMouseX, normalizedMouseX, 0.05);
+
+            // Update the previous value for the next call
+            previousNormalizedMouseX = smoothMouseX;
+        
+            glitchFactor = p.map(smoothMouseX, 0, 1, -1, 1);
+
             let constrainedMouseX = p.constrain(p.mouseX, 0, p.width);
             let constrainedMouseY = p.constrain(p.mouseY, 0, p.height);
         
@@ -396,11 +423,12 @@ const Index = () => {
             }
         };
         
-        interface TouchPoint {
+        type TouchPoint = {
             x: number;
             y: number;
-            // You can add other properties if needed
-        }
+            id: number;
+        };
+        
 
         // Utility function to check if a point is inside the canvas
         function isInsideCanvas(touchX: number, touchY: number): boolean {
@@ -423,18 +451,30 @@ const Index = () => {
             }
         };
         
+        let previousTouchY = 0;  // Outside of any function to persist across calls
+
         p.touchMoved = function() {
+            if (p.touches.length > 0) {
+                let firstTouch = p.touches[0] as TouchPoint;
+                let normalizedTouchY = p.map(firstTouch.y, 0, p.height, 0, 6000);
+                
+                // Use the previous value to limit the change
+                let smoothTouchY = limitChange(previousTouchY, normalizedTouchY, 50);  // For example, max change of 50
+        
+                // Update the previous value for the next call
+                previousTouchY = smoothTouchY;
+                
             if (p.touches.length > 0) {
                 const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
                 touchX = touchPoint.x;
                 touchY = touchPoint.y;
-        
-                if (isInsideCanvas(touchX, touchY)) {
-                    updateParameters(touchX, touchY);
-                    return false; // prevent default only if inside the canvas
-                }
+                
+                updateParameters(touchX, touchY);
             }
+            return false; // prevent default
         };
+    }
+        
         
         function updateParameters(touchX: number, touchY: number) {
             let constrainedTouchX = p.constrain(touchX, 0, p.width);
