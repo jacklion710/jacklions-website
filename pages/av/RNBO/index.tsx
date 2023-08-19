@@ -11,6 +11,7 @@ let devices: any[] = [];
 let numberOfDeviceParameters: number;
 let sliders: any[] = [];
 let outputNode: GainNode | null = null;
+let analyser: AnalyserNode;
 
 declare global {
     interface Window {
@@ -42,6 +43,8 @@ function webAudioContextSetup() {
     }
 
     document.body.addEventListener('click', resumeContextListener);
+    document.body.addEventListener('touchstart', resumeContextListener);  // add this line
+
 }
 
 function createOutputNode() {
@@ -108,7 +111,11 @@ async function RNBOsetup(patchFileURL: string, context: AudioContext): Promise<a
         if (device) {
             console.log("Directly connecting RNBO device to audio output for testing");
             device.node.connect(context.destination);
-        
+    
+            // Create an analyser node and connect the device's node to it
+            analyser = context.createAnalyser();
+            device.node.connect(analyser);
+    
             devices.push(device);
             
             if (dependencies.length) {
@@ -162,6 +169,9 @@ const Index = () => {
         let glitchFactor = 0;
         let protrusionFactor = 0;
         let dnaFactor = 0;
+        let time = 0;
+        let touchX = null;
+        let touchY = null;
 
         const updateCanvasSize = () => {
             const canvasWidth = canvasContainerRef.current?.clientWidth ?? 500;
@@ -201,69 +211,85 @@ const Index = () => {
         };
     
         p.draw = function() {
-            p.background(30); // Dark background
+            // Updated Colors
+            let tealColor = p.color(0, 64, 128);
+            let orangeColor = p.color(255, 105, 0);
         
-            let timeScaleFactor = p.map(p.mouseY, 0, p.height, 0.5, 1.5);
-            let time = p.millis() * 0.001 * timeScaleFactor;
+            // Create a radial gradient centered around the ellipse
+            for (let y = 0; y < p.height; y++) {
+                let distanceFromEllipse = p.dist(ellipseX!, ellipseY!, p.width/2, y);
+                let lerpAmt = p.map(distanceFromEllipse, 0, p.width, 0, 1);
+                lerpAmt = p.constrain(lerpAmt, 0, 1);
+                let gradientColor = p.lerpColor(tealColor, orangeColor, lerpAmt);
+                p.stroke(gradientColor);
+                p.line(0, y, p.width, y);
+            }
         
+            let timeScaleFactor = p.map(p.mouseY, 0, p.height, 0.5, 2);
+            time = p.millis() * 0.001 * timeScaleFactor;
+        
+            let lineSpacing = p.map(p.mouseY, 0, p.height, 15, 30);  // Smaller line spacing for more prominence
             let strokeScaleFactor = p.map(p.mouseX, 0, p.width, 1, 4);
         
-            for (let y = 0; y < p.height; y += 40) {
-                let sinValue = p.sin(time + y * 0.1) + glitchFactor * p.random(-1, 1);
-                let cosValue = p.cos(time + y * 0.1) + protrusionFactor * p.sin(time + y * 0.05);
+            for (let y = 0; y < p.height; y += lineSpacing) {
+                let noiseValue = p.noise(y * 0.05, time * 0.2);  // Reduced granularity of noise for smoother transitions
+                let sinValue = p.sin(time + y * 0.05) * noiseValue * 1.5 + glitchFactor * p.random(-1, 1);  // Increased amplitude
+                let cosValue = p.cos(time + y * 0.05) * noiseValue * 1.5 + protrusionFactor * p.sin(time + y * 0.025);  // More harmonious waves
         
                 let x1 = p.width / 2 + sinValue * amplitude;
                 let x2 = p.width / 2 + cosValue * amplitude;
         
                 if (p.keyIsPressed && p.key === 'Shift') {
-                    x1 += dnaFactor * p.sin(y * 0.05);
-                    x2 += dnaFactor * p.sin(y * 0.05);
+                    x1 += dnaFactor * p.sin(y * 0.025 + noiseValue * 2);  // Increased complexity in DNA pattern
+                    x2 += dnaFactor * p.sin(y * 0.025 + noiseValue * 2);
                 }
         
-                let lerpedColor = p.lerpColor(startColor, endColor, y / p.height);
+                let lerpedColor = p.lerpColor(tealColor, orangeColor, noiseValue);
                 p.stroke(lerpedColor);
-                p.strokeWeight(2 * strokeScaleFactor);
-        
+                p.strokeWeight(3 * strokeScaleFactor);  // Thicker lines for more prominence
                 p.line(x1, y, x2, y);
-            };
-        };    
+            }
+        };
     
         p.mousePressed = function() {
             if (p.mouseX >= 0 && p.mouseX <= p.width && p.mouseY >= 0 && p.mouseY <= p.height) {
                 dragging = true;
-                
-                // Randomize the third parameter of the RNBO export
-                if (devices.length && devices[0].parameters[2]) {
-                    const min = devices[0].parameters[2].min;
-                    const max = devices[0].parameters[2].max;
-    
-                    const randomValue = p.random(min, max);
-                    devices[0].parameters[2].value = randomValue;
-                }
             }
         };
-    
+
         p.mouseReleased = function() {
             dragging = false;
         };
-    
+
         p.mouseDragged = function() {
             if (dragging) {
-                ellipseX = p.constrain(p.mouseX, 0, p.width);
-                ellipseY = p.constrain(p.mouseY, 0, p.height);
-
-                glitchFactor = p.abs(ellipseX! - p.width / 2) / p.width;
-                protrusionFactor = p.abs(ellipseY! - p.height / 2) / p.height;
-
-                // Update the RNBO device's parameters when the ellipse is dragged
+                glitchFactor = p.map(p.mouseX, 0, p.width, 0, 1);
+                protrusionFactor = p.map(p.mouseY, 0, p.height, 0, 1);
+                
+                // Update the RNBO device's parameters
                 if (devices.length) {
-                    devices[0].parameters[0].value = ellipseX;
-                    devices[0].parameters[1].value = ellipseY;
-                    devices[0].parameters[2].value = (glitchFactor + protrusionFactor) / 2;  // Mapping the average of glitch and protrusion to the third parameter
+                    devices[0].parameters[0].value = glitchFactor;
+                    devices[0].parameters[1].value = protrusionFactor;
+                    devices[0].parameters[2].value = (glitchFactor + protrusionFactor) / 2;
                 }
             }
         };
 
+        p.mouseMoved = function() {
+            // Map the mouseX to the glitchFactor
+            glitchFactor = p.map(p.mouseX, 0, p.width, 0, 1);
+            console.log("mouseX:", p.mouseX, "glitchFactor:", glitchFactor);
+            
+            // Map the mouseY directly to devices[0].parameters[2].value
+            const yMappedToParam = p.map(p.mouseY, 0, p.height, 0, 1); // Assuming the range you want is [0, 1]
+        
+            // Update the RNBO device's parameters
+            if (devices.length) {
+                devices[0].parameters[0].value = glitchFactor;
+                devices[0].parameters[2].value = yMappedToParam; // directly using the y position
+            }
+        };
+        
         p.keyPressed = function() {
             if (p.key === 'Shift') {
                 dnaFactor = 20;
@@ -276,46 +302,46 @@ const Index = () => {
             }
         };
         
+        interface TouchPoint {
+            x: number;
+            y: number;
+            // You can add other properties if needed
+        }
+        
         p.touchStarted = function() {
+            // Initial touch logic remains the same
             if (p.touches.length > 0) {
-                const touchPoint = p.touches[0] as { x: number, y: number };
-                const d = p.dist(touchPoint.x, touchPoint.y, ellipseX!, ellipseY!);
-                if (d < 25) {
-                    dragging = true;
-        
-                    // Randomize the third parameter of the RNBO export
-                    if (devices.length && devices[0].parameters[2]) {
-                        const min = devices[0].parameters[0].min;  
-                        const max = devices[0].parameters[1].max;  
-        
-                        const randomValue = p.random(min, max);
-                        devices[0].parameters[2].value = randomValue;
-                    }
-                }
+                const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+                touchX = touchPoint.x;
+                touchY = touchPoint.y;
+                
+                updateParameters(touchX, touchY);
             }
             return false; // prevent default
         };
         
-    
-        p.touchEnded = function() {
-            dragging = false;
-            return false; // prevent default
-        };
-    
         p.touchMoved = function() {
-            if (dragging && p.touches.length > 0) {
-                const touchPoint = p.touches[0] as { x: number, y: number };
-                ellipseX = p.constrain(touchPoint.x, 0, p.width); // Keep ellipse within canvas width
-                ellipseY = p.constrain(touchPoint.y, 0, p.height); // Keep ellipse within canvas height
-        
-                // Update the RNBO device's parameters when the ellipse is dragged
-                if (devices.length) {
-                    devices[0].parameters[0].value = ellipseX;
-                    devices[0].parameters[1].value = ellipseY;
-                }
+            if (p.touches.length > 0) {
+                const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+                touchX = touchPoint.x;
+                touchY = touchPoint.y;
+                
+                updateParameters(touchX, touchY);
             }
             return false; // prevent default
         };
+        
+        function updateParameters(touchX: number, touchY: number) {
+            // Map touchX to glitchFactor and touchY to protrusionFactor
+            const glitchFactor = p.map(touchX, 0, p.width, 0, 1);
+            const protrusionFactor = p.map(touchY, 0, p.height, 0, 1);
+        
+            // Update the RNBO device's parameters
+            if (devices.length) {
+                devices[0].parameters[0].value = glitchFactor;
+                devices[0].parameters[1].value = protrusionFactor;
+            }
+        }        
         
     };
 
@@ -376,7 +402,7 @@ const Index = () => {
         <ChakraProvider>
             <Script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" />
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
-            {/* <Navbar /> */}
+            <Navbar />
             <Flex direction="column" minHeight="100vh" alignItems="center" width="100%">
             <Box 
                 ref={canvasContainerRef} 
