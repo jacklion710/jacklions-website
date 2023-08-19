@@ -31,12 +31,13 @@ import { AiFillEye } from 'react-icons/ai';
     return (
       <Link href={href} passHref>
         <Stack 
-          direction={['column', 'row']} 
+          direction={'column'} 
           align={'center'} 
-          justify={['center', 'start']} 
+          justify={'center'} 
           cursor="pointer"
           spacing={2} 
         >
+
           <Flex
             w={8}
             h={8}
@@ -46,7 +47,7 @@ import { AiFillEye } from 'react-icons/ai';
             bg={iconBg}>
             {icon}
           </Flex>
-          <Text textAlign={['center', 'inherit']} fontWeight={600}>{text}</Text> 
+          <Text textAlign='center' fontWeight={600}>{text}</Text>
         </Stack>
       </Link>
     );
@@ -54,7 +55,7 @@ import { AiFillEye } from 'react-icons/ai';
   
   export default function Features() {
     return (
-      <Container maxW={'5xl'} py={12}>
+      <Container maxW={'5xl'} py={6}>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
           <Stack spacing={4} alignItems="center"> 
             <Link href="/Engineering">
