@@ -134,7 +134,7 @@ import { AiFillEye } from 'react-icons/ai';
               />
 
               <Feature
-                href="/wip"
+                href="/av/RNBO"
                 icon={
                     <Icon as={AiFillEye} color={'teal.500'} w={5} h={5} />
                 }
