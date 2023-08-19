@@ -550,7 +550,7 @@ const Index = () => {
             }
             // Logic to stop the audio
             if (devices.length && devices[devices.length - 1].node) {
-                devices[devices.length - 1].node.disconnect(); // Disconnect the RNBO device's node from the output node
+                devices[devices.length - 1].node.disconnect();
             }
             
             // Clear the existing sliders
@@ -594,8 +594,20 @@ const Index = () => {
                 </Box>
 
                 <Box mb="20px">
-                <button id="startButton" onClick={handleStartButtonClick}>
-                    {isAudioActive ? "Stop Audio" : "Start Audio"}
+                <button 
+                    onClick={handleStartButtonClick} 
+                    onTouchEnd={handleStartButtonClick}
+                    style={{
+                        backgroundColor: isAudioActive ? 'red' : 'green',
+                        color: 'white',
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: 'pointer'
+                    }}
+                >
+                    {isAudioActive ? 'Stop' : 'Play'}
                 </button>
                 </Box>
                 
