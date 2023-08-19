@@ -672,7 +672,7 @@ const Index = () => {
                         justifyContent="center"
                     >
                         <FaVolumeUp color="gray.500" style={{ marginRight: '5px' }}/>
-                        Ensure audio is enabled on your device
+                        Enable audio on your device
                     </Box>
                 )}
                 
