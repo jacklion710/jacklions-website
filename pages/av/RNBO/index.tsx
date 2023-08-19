@@ -1,4 +1,4 @@
-import { Box, Flex, ChakraProvider, useColorMode, Text } from '@chakra-ui/react';
+import { Box, Flex, ChakraProvider, useColorMode, useColorModeValue, Text } from '@chakra-ui/react';
 import React, { useEffect, useState, useRef } from 'react';
 import dynamic from "next/dynamic";
 import Head from 'next/head';
@@ -6,6 +6,7 @@ import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import p5 from 'p5';
+import { FaPlay, FaStop } from 'react-icons/fa';
 
 let context: AudioContext;
 let devices: any[] = [];
@@ -187,7 +188,7 @@ const Index = () => {
         let touchX = null;
         let touchY = null;
         let vhsGlitch = false; 
-
+    
         const updateCanvasSize = () => {
             const canvasWidth = canvasContainerRef.current?.clientWidth ?? 500;
             const canvasHeight = canvasContainerRef.current?.clientHeight ?? 500;
@@ -564,6 +565,9 @@ const Index = () => {
         }
     }
 
+    const playButtonBg = useColorModeValue("green.500", "green.200");
+    const stopButtonBg = useColorModeValue("red.500", "red.200");
+
     return (
         <ChakraProvider>
             <Head>
@@ -589,26 +593,23 @@ const Index = () => {
                     <P5WrapperWithNoSSR sketch={sketch} />
                 </Box>
 
-                <Box id="slidersContainer" mt="20px" width="100%" maxW="500px" mb="20px">
+                <Box id="slidersContainer" mt="20px" width="100%" maxW="500px" mb="5px">
                     {/* This will contain the sliders */}
                 </Box>
 
-                <Box mb="20px">
-                <button 
+                <Box 
+                    as="button" 
                     onClick={handleStartButtonClick} 
                     onTouchEnd={handleStartButtonClick}
-                    style={{
-                        backgroundColor: isAudioActive ? 'red' : 'green',
-                        color: 'white',
-                        padding: '10px 20px',
-                        fontSize: '16px',
-                        border: 'none',
-                        borderRadius: '8px',
-                        cursor: 'pointer'
-                    }}
+                    w="50px" // Adjust as needed
+                    h="50px" // Adjust as needed
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    backgroundColor={isAudioActive ? stopButtonBg : playButtonBg}
+                    borderRadius="md"
                 >
-                    {isAudioActive ? 'Stop' : 'Play'}
-                </button>
+                    {isAudioActive ? <FaStop size="24px" color="white"/> : <FaPlay size="24px" color="white"/>}
                 </Box>
                 
                 {/* This will push the footer to the bottom and stretch it */}
