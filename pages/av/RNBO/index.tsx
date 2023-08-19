@@ -281,7 +281,7 @@ const Index = () => {
             console.log("mouseX:", p.mouseX, "glitchFactor:", glitchFactor);
             
             // Map the mouseY directly to devices[0].parameters[2].value
-            const yMappedToParam = p.map(p.mouseY, 0, p.height, 0, 1); // Assuming the range you want is [0, 1]
+            const yMappedToParam = p.map(p.mouseY, 0, p.height, 0, 6000); // Assuming the range you want is [0, 1]
         
             // Update the RNBO device's parameters
             if (devices.length) {
@@ -335,7 +335,7 @@ const Index = () => {
             // Map touchX to glitchFactor and touchY to protrusionFactor
             const glitchFactor = p.map(touchX, 0, p.width, 0, 1);
             const protrusionFactor = p.map(touchY, 0, p.height, 0, 1);
-            const yMappedToParam = p.map(touchY, 0, p.height, 0, 1);
+            const yMappedToParam = p.map(touchY, 0, p.height, 0, 6000);
             // Update the RNBO device's parameters
             if (devices.length) {
                 devices[0].parameters[0].value = glitchFactor;

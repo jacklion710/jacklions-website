@@ -8,7 +8,7 @@
         "paramId": "rate",
         "minimum": -2,
         "maximum": 2,
-        "exponent": 2,
+        "exponent": 4,
         "steps": 0,
         "initialValue": 1,
         "isEnum": false,
