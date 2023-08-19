@@ -1,4 +1,4 @@
-import { Box, Flex, ChakraProvider, useColorMode } from '@chakra-ui/react';
+import { Box, Flex, ChakraProvider, useColorMode, Text } from '@chakra-ui/react';
 import React, { useEffect, useState, useRef } from 'react';
 import dynamic from "next/dynamic";
 import Head from 'next/head';
@@ -553,6 +553,9 @@ const Index = () => {
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
             <Navbar />
             <Flex direction="column" minHeight="100vh" alignItems="center" width="100%">
+            <Text fontSize={["2xl", "3xl", "4xl", "5xl"]} textDecoration="underline" my="10px">
+                DNA
+            </Text>
             <Box 
                 ref={canvasContainerRef} 
                 id="p5CanvasContainer" 
