@@ -529,8 +529,14 @@ const Index = () => {
         }        
     };
 
-    useEffect(() => {
-        // Setup code that relies on external scripts
+    const [showFlashMessage, setShowFlashMessage] = useState(true);
+
+    useEffect(() => { 
+        const timer = setTimeout(() => {
+            setShowFlashMessage(false);
+        }, 5000);
+
+        return () => clearTimeout(timer); // Clear the timeout if the component unmounts before the timeout finishes
     }, []);
 
     const [showAudioIndicator, setShowAudioIndicator] = useState(true);
@@ -657,18 +663,25 @@ const Index = () => {
                     {isAudioActive ? <FaStop size="24px" color="white"/> : <FaPlay size="24px" color="white"/>}
                 </Box>
 
-                {showAudioIndicator && (
+                {showFlashMessage && (
                     <Flex 
-                        mt="10px" 
-                        color="gray.400"
-                        fontSize="sm"
+                        position="fixed" 
+                        top={0} 
+                        left={0} 
+                        right={0} 
+                        bottom={0} 
+                        zIndex={1000} 
                         alignItems="center"
                         justifyContent="center"
+                        backgroundColor="rgba(0, 0, 0, 0.7)" // Semi-transparent background
+                        flexDirection="column" // Stack the icon and the text vertically
                     >
-                        <FaVolumeUp color="gray.400" style={{ marginRight: '5px' }}/>
-                        Ensure audio is enabled on your device for the best experience.
-                    </Flex>
-                )}
+                        <FaVolumeUp color="white" size="80px" style={{ marginBottom: '10px' }} />
+                    <Text color="white" fontSize="xl" textAlign="center"> 
+                        For the best experience, enable the audio by setting the audio switch on your mobile device on.
+                    </Text>
+                </Flex>
+            )}
                 
                 {/* This will push the footer to the bottom and stretch it */}
                 <Box marginTop="auto" width="100%">
