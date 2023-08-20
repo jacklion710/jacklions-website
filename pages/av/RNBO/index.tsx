@@ -711,7 +711,9 @@ const Index = () => {
                             {'ontouchstart' in window ? 
                                 "Ensure audio (for iOS users) is enabled by setting your ringer switch to on and adjusting your volume to comfortable listening levels for the best experience."
                                 : 
-                                "Ensure audio is enabled and set your volume to comfortable listening levels for the best experience."
+                                <>
+                                 Ensure audio is enabled.<br />Set your volume to comfortable listening levels for the best experience.
+                                </>
                             }
                         </Text>
 
