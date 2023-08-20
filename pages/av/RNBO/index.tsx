@@ -6,7 +6,7 @@ import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import p5 from 'p5';
-import { FaPlay, FaStop, FaVolumeUp } from 'react-icons/fa';
+import { FaPlay, FaStop, FaVolumeUp, FaMousePointer, FaHandPointer, FaBell, FaBellSlash, FaArrowRight } from 'react-icons/fa';
 
 let context: AudioContext | null = null;
 let devices: any[] = [];
@@ -531,12 +531,20 @@ const Index = () => {
 
     const [showFlashMessage, setShowFlashMessage] = useState(true);
 
-    useEffect(() => { 
-        const timer = setTimeout(() => {
-            setShowFlashMessage(false);
-        }, 5000);
+    const hideMessage = () => {
+        setShowFlashMessage(false);
+    }
 
-        return () => clearTimeout(timer); // Clear the timeout if the component unmounts before the timeout finishes
+    useEffect(() => {
+        // Add the event listeners when the component mounts
+        document.addEventListener('click', hideMessage);
+        document.addEventListener('touchstart', hideMessage);
+    
+        // Remove the event listeners when the component unmounts
+        return () => {
+            document.removeEventListener('click', hideMessage);
+            document.removeEventListener('touchstart', hideMessage);
+        };
     }, []);
 
     const [showAudioIndicator, setShowAudioIndicator] = useState(true);
@@ -650,45 +658,85 @@ const Index = () => {
                     {/* This will contain the sliders */}
                 </Box>
 
-                <Box 
-                    as="button" 
-                    onClick={handleStartButtonClick} 
-                    onTouchEnd={handleStartButtonClick}
-                    w="50px" // Adjust as needed
-                    h="50px" // Adjust as needed
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    backgroundColor={isAudioActive ? stopButtonBg : playButtonBg}
-                    borderRadius="md"
+                <Flex 
+                    width="100%" 
+                    maxWidth="500px" 
+                    justifyContent="center" 
+                    alignItems="center" 
                     mt="10px"
                 >
-                    {isAudioActive ? <FaStop size="24px" color="white"/> : <FaPlay size="24px" color="white"/>}
-                </Box>
+                    <Box 
+                        as="button" 
+                        onClick={handleStartButtonClick} 
+                        onTouchEnd={handleStartButtonClick}
+                        w="50px"
+                        h="50px"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        backgroundColor={isAudioActive ? stopButtonBg : playButtonBg}
+                        borderRadius="md"
+                    >
+                        {isAudioActive ? <FaStop size="24px" color="white"/> : <FaPlay size="24px" color="white"/>}
+                    </Box>
+
+                </Flex>
 
                 {showFlashMessage && (
-                <Flex 
-                    position="fixed" 
-                    top={0} 
-                    left={0} 
-                    right={0} 
-                    bottom={0} 
-                    zIndex={1000} 
-                    alignItems="center"
-                    justifyContent="center"
-                    backgroundColor="rgba(0, 0, 0, 0.7)" // Semi-transparent background
-                    flexDirection="column" // Stack the icon and the text vertically
-                >
-                    <FaVolumeUp color="white" size="80px" style={{ marginBottom: '10px' }} />
-                    <Text color="white" fontSize="xl" textAlign="center"> 
-                        { 'ontouchstart' in window 
-                            ? "For the best experience on iOS, enable the audio by setting the ring/silent switch on your mobile to ring and turning the volume up to a comfortable level."
-                            : "For the best desktop experience, ensure that your audio is configured and turn the volume up to a comfortable level."
+                    <Flex 
+                        position="fixed" 
+                        top={0} 
+                        left={0} 
+                        right={0} 
+                        bottom={0} 
+                        zIndex={1000} 
+                        alignItems="center"
+                        justifyContent="center"
+                        backgroundColor="rgba(0, 0, 0, 0.7)" // Semi-transparent background
+                        flexDirection="column" // Stack the icons and the text vertically
+                    >
+                        {'ontouchstart' in window ? 
+                            <Flex alignItems="center" style={{ marginBottom: '10px' }}>
+                                <FaBellSlash color="white" size="80px" />
+                                <FaArrowRight color="white" size="30px" />
+                                <FaBell color="white" size="80px" style={{ marginLeft: '4px', marginRight: '4px' }} /> 
+                                <FaArrowRight color="white" size="30px" />
+                                <FaVolumeUp color="white" size="80px" style={{ marginLeft: '4px' }} />  
+                            </Flex>
+                            :
+                            <FaVolumeUp color="white" size="80px" style={{ marginBottom: '10px' }} />
                         }
-                    </Text>
-                </Flex>
-            )}
-                
+
+                        <Text color="white" fontSize="xl" textAlign="center" style={{ marginBottom: '20px' }}>
+                            {'ontouchstart' in window ? 
+                                "Ensure audio (for iOS users) is enabled by setting your ringer switch to on and adjusting your volume to comfortable listening levels for the best experience."
+                                : 
+                                "Ensure audio is enabled and set your volume to comfortable listening levels for the best experience."
+                            }
+                        </Text>
+
+                        {'ontouchstart' in window ? 
+                            <>
+                                <FaHandPointer color="white" size="80px" style={{ marginBottom: '10px' }} />
+                                <Text color="white" fontSize="xl" textAlign="center"> 
+                                    Touch and slide across the screen to interact.<br />
+                                    When you are ready for immersion<br />
+                                    tap the screen.
+                                </Text>
+                            </>
+                            :
+                            <>
+                                <FaMousePointer color="white" size="80px" style={{ marginBottom: '10px' }} />
+                                <Text color="white" fontSize="xl" textAlign="center"> 
+                                    Use your mouse to interact.<br />
+                                    When you are ready for immersion<br />
+                                    click the screen.
+                                </Text>
+                            </>
+                        }
+                    </Flex>
+                )}
+        
                 {/* This will push the footer to the bottom and stretch it */}
                 <Box marginTop="auto" width="100%">
                     <Footer />
