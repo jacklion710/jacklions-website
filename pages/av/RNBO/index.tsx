@@ -580,9 +580,12 @@ const Index = () => {
         } else {
             console.log("Stopping audio...");
 
-            // If on mobile, simply refresh the page
-            if ('ontouchstart' in window) {
-                location.reload();
+            // Refresh the page for all users, both mobile and desktop
+            location.reload();
+
+            if (resumeContextListener) {
+                document.body.removeEventListener('click', resumeContextListener);
+                document.body.removeEventListener('touchstart', resumeContextListener);
             }
             
             if (resumeContextListener) {
@@ -664,21 +667,24 @@ const Index = () => {
                 </Box>
 
                 {showFlashMessage && (
-                    <Flex 
-                        position="fixed" 
-                        top={0} 
-                        left={0} 
-                        right={0} 
-                        bottom={0} 
-                        zIndex={1000} 
-                        alignItems="center"
-                        justifyContent="center"
-                        backgroundColor="rgba(0, 0, 0, 0.7)" // Semi-transparent background
-                        flexDirection="column" // Stack the icon and the text vertically
-                    >
-                        <FaVolumeUp color="white" size="80px" style={{ marginBottom: '10px' }} />
+                <Flex 
+                    position="fixed" 
+                    top={0} 
+                    left={0} 
+                    right={0} 
+                    bottom={0} 
+                    zIndex={1000} 
+                    alignItems="center"
+                    justifyContent="center"
+                    backgroundColor="rgba(0, 0, 0, 0.7)" // Semi-transparent background
+                    flexDirection="column" // Stack the icon and the text vertically
+                >
+                    <FaVolumeUp color="white" size="80px" style={{ marginBottom: '10px' }} />
                     <Text color="white" fontSize="xl" textAlign="center"> 
-                        For the best experience, enable the audio by setting the audio switch on your mobile device on.
+                        { 'ontouchstart' in window 
+                            ? "For the best experience on iOS, enable the audio by setting the ring/silent switch on your mobile to ring and turning the volume up to a comfortable level."
+                            : "For the best desktop experience, ensure that your audio is configured and turn the volume up to a comfortable level."
+                        }
                     </Text>
                 </Flex>
             )}
