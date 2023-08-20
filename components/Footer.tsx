@@ -67,25 +67,25 @@ export default function SmallWithLogoLeft() {
             <Logo />
             <Text fontSize="sm">© 2023 Jack.Lion. All rights reserved</Text> 
             <Stack direction={'row'} spacing={4}>  
-          <SocialButton label={'Spotify'} href={'#'}>
+          <SocialButton label={'Spotify'} href={'https://open.spotify.com/artist/35foCh1HOk7XwvVzuiFmzc'}>
             <FaSpotify />
           </SocialButton>
-          <SocialButton label={'Apple'} href={'#'}>
+          <SocialButton label={'Apple'} href={'https://music.apple.com/us/artist/jack-lion/1470477992'}>
             <FaApple />
           </SocialButton>
-          <SocialButton label={'Soundcloud'} href={'#'}>
+          <SocialButton label={'Soundcloud'} href={'https://soundcloud.com/jack0lion'}>
             <FaSoundcloud />
           </SocialButton>
-          <SocialButton label={'Youtube'} href={'#'}>
+          <SocialButton label={'Youtube'} href={'https://www.youtube.com/channel/UCbTxhDz-oFPdbKl5-rpi4gQ'}>
             <FaYoutube />
           </SocialButton>
-          <SocialButton label={'Patreon'} href={'#'}>
+          <SocialButton label={'Patreon'} href={'patreon.com/jacklion'}>
             <FaPatreon />
           </SocialButton>
-          <SocialButton label={'Instagram'} href={'#'}>
+          <SocialButton label={'Instagram'} href={'https://www.instagram.com/jack.lion/?hl=en'}>
             <FaInstagram />
             </SocialButton>
-          <SocialButton label={'Github'} href={'#'}>
+          <SocialButton label={'Github'} href={'https://github.com/jacklion710'}>
             <FaGithub />
           </SocialButton>
         </Stack>
