@@ -1,3 +1,0 @@
-todo list:
-
-Mobile rnbo - fix glitch where you cant use Navbar
