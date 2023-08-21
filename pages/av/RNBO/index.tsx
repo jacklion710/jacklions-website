@@ -539,13 +539,22 @@ const Index = () => {
         // Add the event listeners when the component mounts
         document.addEventListener('click', hideMessage);
         document.addEventListener('touchstart', hideMessage);
-    
-        // Remove the event listeners when the component unmounts
+        
+        // Remove the event listeners and stop/close the Audio Context when the component unmounts
         return () => {
             document.removeEventListener('click', hideMessage);
             document.removeEventListener('touchstart', hideMessage);
+    
+            if (context) {
+                // If you want to simply suspend the audio
+                context.suspend();
+    
+                // If you want to close the audio context completely
+                context.close();
+                console.log("Audio Context Stopped/Closed");
+            }
         };
-    }, []);
+    }, []); 
 
     const [showAudioIndicator, setShowAudioIndicator] = useState(true);
 
