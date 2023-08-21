@@ -31,14 +31,25 @@ export default function HomePage() {
       <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
         <Flex direction={["column", "row"]} width="100%">
           {/* Left Sidebar for Discography */}
-            <Box display="flex" flexDirection="column" alignItems="center" bg={isOpen ? "gray.455" : "transparent"} 
-                w={{ base: isOpen ? "60%" : "70px", md: isOpen ? "20%" : "50px" }}
-                p={2} transition="width 0.2s" overflow="hidden">
+            <Box 
+                position="sticky"
+                top="10px" // Adjust this value to position the icon from the top
+                maxHeight="calc(100vh - 20px)" // Adjust this value based on the top positioning
+                overflowY="auto"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                bg={isOpen ? "gray.455" : "transparent"} 
+                w={{ base: isOpen ? "250px" : "70px", md: isOpen ? "300px" : "50px" }}
+                p={2}
+                transition="width 0.2s"
+                overflow="hidden"
+            >
               <Box w="100%" display="flex" justifyContent="center" alignItems="center" padding={2}>
               <IconButton
                 onClick={onToggle}
                 mb={2}
-                size="lg"
+                size="med"
                 isRound
                 icon={isOpen ? <FaCompactDisc /> : <FaCompactDisc />}
                 aria-label="Toggle Discography"
@@ -48,7 +59,7 @@ export default function HomePage() {
               </Box>
               {isOpen && 
                 <Box w="100%">
-                  <VStack align="start" spacing={4}>
+                  <VStack align="start" spacing={5}>
                   <Heading size="md" borderBottom="1px solid">Discography</Heading>
                   <Link href="https://soundcloud.com/jack0lion/velocity" isExternal>Velocity</Link>
 
@@ -120,9 +131,9 @@ export default function HomePage() {
           </Flex>
         {/* Embed SoundCloud Player */}
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={20}>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
@@ -130,9 +141,9 @@ export default function HomePage() {
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1485160441&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
@@ -140,9 +151,9 @@ export default function HomePage() {
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/946294501&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
@@ -150,9 +161,9 @@ export default function HomePage() {
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1084610464&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
@@ -160,9 +171,9 @@ export default function HomePage() {
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1288232401&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
@@ -170,9 +181,9 @@ export default function HomePage() {
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496975455&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
@@ -180,9 +191,9 @@ export default function HomePage() {
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1340902525&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
@@ -190,9 +201,9 @@ export default function HomePage() {
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1023379591&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
@@ -200,9 +211,9 @@ export default function HomePage() {
                 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/758811643&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
               ></iframe>
           </Box>
-          <Box>
+          <Box width={{ base: "100%", md: "300px" }}>
               <iframe
-                width="300"
+                width="100%"
                 height="300"
                 scrolling="no"
                 frameBorder="no"
