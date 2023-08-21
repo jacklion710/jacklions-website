@@ -1,4 +1,12 @@
-import { Box, Flex, ChakraProvider, useColorMode, useColorModeValue, Text } from '@chakra-ui/react';
+import { 
+ Box, 
+ Flex, 
+ ChakraProvider, 
+ useColorMode, 
+ useColorModeValue, 
+ Text, 
+ Button 
+} from '@chakra-ui/react';
 import React, { useEffect, useState, useRef } from 'react';
 import dynamic from "next/dynamic";
 import Head from 'next/head';
@@ -205,6 +213,7 @@ const Index = () => {
         let touchX = null;
         let touchY = null;
         let vhsGlitch = false; 
+        let previousTouchY: number = 0;
     
         const updateCanvasSize = () => {
             const canvasWidth = canvasContainerRef.current?.clientWidth ?? 500;
@@ -229,7 +238,7 @@ const Index = () => {
                 ellipseY = p.constrain(ellipseY!, 0, p.height);  // The ! after ellipseY asserts that it's not null.
             }
         };
-        
+
         p.setup = function() {
             p5Ref.current = p;
             p.createCanvas(p.windowWidth, p.windowHeight);
@@ -237,6 +246,27 @@ const Index = () => {
             startColor = p.color(0, 128, 255);
             endColor = p.color(255, 0, 128);
             amplitude = 200;  // Adjust this based on the audio input
+            
+            // Get the canvas DOM element
+            const canvasElement = (p as any).canvas;
+
+            // Attach touchstart event listener to canvas
+            canvasElement.addEventListener('touchstart', (event: TouchEvent) => {
+                const touch = event.touches[0];
+                updateParameters(touch.clientX, touch.clientY);
+                event.preventDefault();
+            });
+
+            // Attach touchmove event listener to canvas
+            canvasElement.addEventListener('touchmove', (event: TouchEvent) => {
+                const touch = event.touches[0];
+                let normalizedTouchY = p.map(touch.clientY, 0, p.height, 0, 6000);
+                let smoothTouchY = limitChange(previousTouchY, normalizedTouchY, 50);
+                previousTouchY = smoothTouchY;
+                
+                updateParameters(touch.clientX, touch.clientY);
+                event.preventDefault();
+            });
         };
 
         p.windowResized = function() {
@@ -452,65 +482,68 @@ const Index = () => {
         function isInsideCanvas(x: number, y: number): boolean {
             const withinWidth = x >= 0 && x <= p.width;
             const withinHeight = y >= 0 && y <= p.height;
-            console.log("Within Width:", withinWidth, "Within Height:", withinHeight);
             return withinWidth && withinHeight;
         }
+        
                                  
-        p.touchStarted = function() {
-            if (p.touches.length > 0) {
-                const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+        // p.touchStarted = function() {
+        //     if (p.touches.length > 0) {
+        //         const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+        //         const rect = (p as any).canvas.getBoundingClientRect();
                 
-                const rect = (p as any).canvas.getBoundingClientRect();
-                
-                // Translate touch point to relative canvas coordinates
-                const touchX = touchPoint.x - rect.left;
-                const touchY = touchPoint.y - rect.top;
+        //         // Translate touch point to relative canvas coordinates
+        //         const touchX = touchPoint.x - rect.left;
+        //         const touchY = touchPoint.y - rect.top;
         
-                console.log("Relative Touch X:", touchX, "Relative Touch Y:", touchY);
+        //         if (isInsideCanvas(touchX, touchY)) {
+        //             updateParameters(touchX, touchY);
+        //             return false; // prevent default only if inside the canvas
+        //         }
+        //     }
+        //     return true;
+        // };          
         
-                if (isInsideCanvas(touchX, touchY)) {
-                    updateParameters(touchX, touchY);
-                    return false; // prevent default only if inside the canvas
-                }
-            }
-            return true;  // Default return in case you want the event to propagate
-        };        
-        
-        let previousTouchY = 0;  // Outside of any function to persist across calls
+        // let previousTouchY = 0;  // Outside of any function to persist across calls
 
-        p.touchMoved = function() {
-            if (p.touches.length > 0) {
-                let firstTouch = p.touches[0] as TouchPoint;
-                let normalizedTouchY = p.map(firstTouch.y, 0, p.height, 0, 6000);
-                
-                let smoothTouchY = limitChange(previousTouchY, normalizedTouchY, 50);
-                previousTouchY = smoothTouchY;
+        // p.touchMoved = function() {
+        //     if (p.touches.length > 0) {
+        //         const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+        //         const rect = (p as any).canvas.getBoundingClientRect();
         
-                const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
-                touchX = touchPoint.x;
-                touchY = touchPoint.y;
-                
-                if (isInsideCanvas(touchX, touchY)) {
-                    updateParameters(touchX, touchY);
-                    return false; // prevent default
-                }
-            }
-        };
+        //         // Translate touch point to relative canvas coordinates
+        //         const touchX = touchPoint.x - rect.left;
+        //         const touchY = touchPoint.y - rect.top;
+        
+        //         if (isInsideCanvas(touchX, touchY)) {
+        //             let normalizedTouchY = p.map(touchY, 0, p.height, 0, 6000);
+        //             let smoothTouchY = limitChange(previousTouchY, normalizedTouchY, 50);
+        //             previousTouchY = smoothTouchY;
+        
+        //             updateParameters(touchX, touchY);
+        //             return false; // prevent default
+        //         }
+        //     }
+        //     return true;
+        // };
+              
 
-        p.touchEnded = function() {
-            // Check if there are any touches
-            if (p.touches.length > 0) {
-                const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
-                const touchX = touchPoint.x;
-                const touchY = touchPoint.y;
+        // p.touchEnded = function() {
+        //     // Check if there are any touches
+        //     if (p.touches.length > 0) {
+        //         const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+        //         const rect = (p as any).canvas.getBoundingClientRect();
         
-                // If touch ends outside of the canvas, ignore it
-                if (touchX < 0 || touchX > p.width || touchY < 0 || touchY > p.height) {
-                    return false;
-                }   
-            }
-            return true;
-        };
+        //         // Translate touch point to relative canvas coordinates
+        //         const touchX = touchPoint.x - rect.left;
+        //         const touchY = touchPoint.y - rect.top;
+        
+        //         // If touch ends outside of the canvas, ignore it
+        //         if (!isInsideCanvas(touchX, touchY)) {
+        //             return false;
+        //         }   
+        //     }
+        //     return true;
+        // };         
         
         function updateParameters(touchX: number, touchY: number) {
             let constrainedTouchX = p.constrain(touchX, 0, p.width);
@@ -647,9 +680,6 @@ const Index = () => {
             <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
             <Navbar />
             <Flex direction="column" minHeight="100vh" alignItems="center" width="100%">
-            {/* <Text fontSize={["xl", "2xl", "3xl", "4xl"]} textDecoration="underline" my="10px">
-                DNA
-            </Text> */}
             <Box 
                 ref={canvasContainerRef} 
                 id="p5CanvasContainer" 
