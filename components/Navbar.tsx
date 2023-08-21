@@ -98,17 +98,19 @@ import {
               color={useColorModeValue('gray.800', 'white')}
             >
               <NextLink href="/" passHref>
-                <Button variant="link">
-                    <Box>
-                        <Image 
-                            src={colorMode === "light" ? "/assets/jack.lion_text_dark.png" : "/assets/jack.lion_text_light.png"}
-                            alt="Logo"
-                            w={['100px', '50px', '660x']}  
-                            objectFit="cover"
-                        />
-                    </Box>
-                </Button>
-            </NextLink>
+                  <Button variant="link">
+                      <Box>
+                          <Image 
+                              src={colorMode === "light" ? "/assets/jack.lion_text_dark.png" : "/assets/jack.lion_text_light.png"}
+                              alt="Logo"
+                              w={['100px', '50px', '660x']}  
+                              objectFit="cover"
+                          />
+                      </Box>
+                  </Button>
+              </NextLink>
+
+
             </Text>
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
@@ -221,11 +223,12 @@ import {
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
-              <NextLink href={navItem.href ?? '#'}>
+              <NextLink href={navItem.href ?? '#'} passHref>
                   <Box p={2}>
                       {navItem.label}
                   </Box>
               </NextLink>
+
   
               </PopoverTrigger>
   
@@ -266,17 +269,19 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       >
           <Stack direction={'row'} align={'center'}>
               <Box>
-                  <NextLink href={href ?? '#'} passHref>
-                      <ChakraLink
-                          transition={'all .3s ease'}
-                          _groupHover={{ color: 'red.400' }}
-                          fontWeight={500}
-                          fontSize={'lg'}
-                          color={subLabelColor}
-                      >
-                          {label}
-                      </ChakraLink>
-                  </NextLink>
+                <NextLink href={href ?? '#'} passHref>
+                    <Box
+                        transition={'all .3s ease'}
+                        _groupHover={{ color: 'red.400' }}
+                        fontWeight={500}
+                        fontSize={'lg'}
+                        color={subLabelColor}
+                    >
+                        {label}
+                    </Box>
+                </NextLink>
+
+
                   <Text fontSize={'sm'} color={subLabelColor}>{subLabel}</Text>
               </Box>
               <Flex
@@ -320,10 +325,13 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                 {/* If there's an href and no children, make it a link. Otherwise, just a text label. */}
                 {href && !children ? (
                     <NextLink href={href} passHref>
-                        <ChakraLink fontWeight={600} fontSize={'lg'} color={textColor}>
+                        <Box fontWeight={600} fontSize={'lg'} color={textColor}>
                             {label}
-                        </ChakraLink>
+                        </Box>
                     </NextLink>
+                
+                
+                
                 ) : (
                     <Text fontWeight={600} fontSize={'lg'} color={textColor}>
                         {label}
@@ -351,11 +359,13 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                 >
                     {children &&
                         children.map((child) => (
-                            <NextLink key={child.label} href={child.href ?? '#'}>
-                                <ChakraLink py={2} color={textColor}>
-                                    {child.label}
-                                </ChakraLink>
-                            </NextLink>
+                          <NextLink key={child.label} href={child.href ?? '#'} passHref>
+                              <Box py={2} color={textColor} transition="all .3s ease" _hover={{ textDecoration: 'underline' }}>
+                                  {child.label}
+                              </Box>
+                          </NextLink>
+
+                      
                         ))}
                 </Stack>
             </Collapse>
