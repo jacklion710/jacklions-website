@@ -27,7 +27,7 @@ export default function HomePage() {
 
   return (
     <ChakraProvider>
-      <Navbar />
+      <Navbar/>
       <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
         <Flex direction={["column", "row"]} width="100%">
           {/* Left Sidebar for Discography */}
@@ -130,8 +130,8 @@ export default function HomePage() {
             </HStack>
           </Flex>
         {/* Embed SoundCloud Player */}
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={20}>
-          <Box width={{ base: "100%", md: "300px" }}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, md: 100 }}>
+          <Box width={{ base: "90%", md: "300px" }}>
               <iframe
                 width="100%"
                 height="300"
