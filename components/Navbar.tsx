@@ -97,19 +97,18 @@ import {
               fontFamily={'heading'}
               color={useColorModeValue('gray.800', 'white')}
             >
-              <NextLink href="/">
-                <Button as={"a"} variant={"link"}>
-                  <Box>
-                    <Image 
-                      src={colorMode === "light" ? "/assets/jack.lion_text_dark.png" : "/assets/jack.lion_text_light.png"}
-                      alt="Logo"
-                      w={['100px', '50px', '660x']}  // Here's the change. '100px' for mobile, '50px' for the next breakpoint, and '660x' for larger screens.
-                      objectFit="cover"
-                  />
-
-                  </Box>
+              <NextLink href="/" passHref>
+                <Button variant="link">
+                    <Box>
+                        <Image 
+                            src={colorMode === "light" ? "/assets/jack.lion_text_dark.png" : "/assets/jack.lion_text_light.png"}
+                            alt="Logo"
+                            w={['100px', '50px', '660x']}  
+                            objectFit="cover"
+                        />
+                    </Box>
                 </Button>
-              </NextLink>
+            </NextLink>
             </Text>
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
@@ -253,46 +252,46 @@ import {
   );
 };
   
-  const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
-    const subLabelColor = useColorModeValue('black', 'white'); // White in dark mode, Black in light mode
-  
-    return (
-      <NextLink href={href ?? '#'}>
-        <Box
-            role={'group'}
-            display={'flex'}
-            alignItems="center"
-            p={2}
-            rounded={'md'}
-            _hover={{ bg: useColorModeValue('red.50', 'gray.900') }}
-        >
-        <Stack direction={'row'} align={'center'}>
-          <Box>
-            <Text
-              transition={'all .3s ease'}
-              _groupHover={{ color: 'red.400' }}
-              fontWeight={500}
-              fontSize={'lg'}
-              color={subLabelColor}
-            >
-              {label}
-            </Text>
-            <Text fontSize={'sm'} color={subLabelColor}>{subLabel}</Text>
-          </Box>
-          <Flex
-            transition={'all .3s ease'}
-            transform={'translateX(-10px)'}
-            opacity={0}
-            _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-            justify={'flex-end'}
-            align={'center'}
-            flex={1}
-          >
-            <Icon color={'red.400'} w={5} h={5} as={ChevronRightIcon} />
-          </Flex>
-        </Stack>
+const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+  const subLabelColor = useColorModeValue('black', 'white'); // White in dark mode, Black in light mode
+
+  return (
+      <Box
+          role={'group'}
+          display={'flex'}
+          alignItems="center"
+          p={2}
+          rounded={'md'}
+          _hover={{ bg: useColorModeValue('red.50', 'gray.900') }}
+      >
+          <Stack direction={'row'} align={'center'}>
+              <Box>
+                  <NextLink href={href ?? '#'} passHref>
+                      <ChakraLink
+                          transition={'all .3s ease'}
+                          _groupHover={{ color: 'red.400' }}
+                          fontWeight={500}
+                          fontSize={'lg'}
+                          color={subLabelColor}
+                      >
+                          {label}
+                      </ChakraLink>
+                  </NextLink>
+                  <Text fontSize={'sm'} color={subLabelColor}>{subLabel}</Text>
+              </Box>
+              <Flex
+                  transition={'all .3s ease'}
+                  transform={'translateX(-10px)'}
+                  opacity={0}
+                  _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+                  justify={'flex-end'}
+                  align={'center'}
+                  flex={1}
+              >
+                  <Icon color={'red.400'} w={5} h={5} as={ChevronRightIcon} />
+              </Flex>
+          </Stack>
       </Box>
-    </NextLink>
   );
 };
   
@@ -311,56 +310,58 @@ import {
   
   const MobileNavItem = ({ label, children, href }: NavItem) => {
     const { colorMode } = useColorMode();
-    const textColor = useColorModeValue('gray.600', 'gray.200'); // Default text color for light mode and dark mode
-  
-    const { isOpen, onToggle } = useDisclosure();
-  
-    return (
-      <Stack spacing={4} onClick={children && onToggle}>
-      <NextLink href={href ?? '#'}>
-          <Flex py={2} as={"a"} justify={'space-between'} align={'center'} _hover={{textDecoration: 'none'}}>
-          <Text
-            fontWeight={600}
-            fontSize={'lg'}
-            color={colorMode === 'light' ? 'black' : 'white'} // Set the text color based on the current color mode
-          >
-            {label}
-          </Text>
-          {children && (
-            <Icon
-              as={ChevronDownIcon}
-              transition={'all .25s ease-in-out'}
-              transform={isOpen ? 'rotate(180deg)' : ''}
-              w={6}
-              h={6}
-            />
-          )}
-        </Flex>
-    </NextLink>
-  
-        <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
-          <Stack
-            mt={2}
-            pl={4}
-            borderLeft={1}
-            borderStyle={'solid'}
-            borderColor={useColorModeValue('gray.200', 'gray.700')}
-            align={'start'}
-          >
-            {children &&
-              children.map((child) => (
-                <NextLink key={child.label} href={child.href ?? '#'}>
-                  <ChakraLink py={2} color={colorMode === 'light' ? 'black' : 'white'}>
-                    {child.label}
-                  </ChakraLink>
-                </NextLink>
-              ))}
+    const textColor = useColorModeValue('gray.600', 'gray.200');
 
-          </Stack>
-        </Collapse>
-      </Stack>
+    const { isOpen, onToggle } = useDisclosure();
+
+    return (
+        <Stack spacing={4} onClick={onToggle}>
+            <Flex py={2} justify={'space-between'} align={'center'} _hover={{ textDecoration: children ? 'none' : 'underline' }}>
+                {/* If there's an href and no children, make it a link. Otherwise, just a text label. */}
+                {href && !children ? (
+                    <NextLink href={href} passHref>
+                        <ChakraLink fontWeight={600} fontSize={'lg'} color={textColor}>
+                            {label}
+                        </ChakraLink>
+                    </NextLink>
+                ) : (
+                    <Text fontWeight={600} fontSize={'lg'} color={textColor}>
+                        {label}
+                    </Text>
+                )}
+                {children && (
+                    <Icon
+                        as={ChevronDownIcon}
+                        transition={'all .25s ease-in-out'}
+                        transform={isOpen ? 'rotate(180deg)' : ''}
+                        w={6}
+                        h={6}
+                    />
+                )}
+            </Flex>
+
+            <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+                <Stack
+                    mt={2}
+                    pl={4}
+                    borderLeft={1}
+                    borderStyle={'solid'}
+                    borderColor={useColorModeValue('gray.200', 'gray.700')}
+                    align={'start'}
+                >
+                    {children &&
+                        children.map((child) => (
+                            <NextLink key={child.label} href={child.href ?? '#'}>
+                                <ChakraLink py={2} color={textColor}>
+                                    {child.label}
+                                </ChakraLink>
+                            </NextLink>
+                        ))}
+                </Stack>
+            </Collapse>
+        </Stack>
     );
-  };
+};
 
   export default dynamic(() => Promise.resolve(Navbar), { ssr: false });
 
