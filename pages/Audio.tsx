@@ -6,7 +6,6 @@ import {
   HStack, 
   IconButton, 
   ChakraProvider, 
-  SimpleGrid, 
   Flex, 
   useDisclosure, 
   useColorMode 
