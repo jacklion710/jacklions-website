@@ -135,7 +135,7 @@ import { AiFillEye } from 'react-icons/ai';
               />
 
               <Feature
-                href="/av/RNBO/simple-sampler.dna"
+                href="/av/RNBO/simple-sampler-dna"
                 icon={
                     <Icon as={AiFillEye} color={'teal.500'} w={5} h={5} />
                 }

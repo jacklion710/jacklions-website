@@ -450,7 +450,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
         {
           label: 'Playground',
           subLabel: 'Take a journey',
-          href: '/av/RNBO/simple-sampler.dna',
+          href: '/av/RNBO/simple-sampler-dna',
         }
       ],
     }
