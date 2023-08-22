@@ -678,8 +678,8 @@ const Index = () => {
                 <title>Interactive Audio Experience | Jack Lions Studio</title>
                 <meta name="description" content="Dive into an interactive audio experience crafted by Jack Lion. Explore the dynamic DNA structures and immerse yourself in sound." />
                 <meta name="keywords" content="Jack Lion, Interactive Audio, DNA Visuals, Sound Experience, Dynamic Audio, Music Visualization" />
-                <meta property="og:url" content="https://jacklion.xyz/av/RNBO/simpl-sampler-dna" /> 
-                <link rel="canonical" href="https://jacklion.xyz/av/RNBO/simpl-sampler-dna" />
+                <meta property="og:url" content="https://jacklion.xyz/av/RNBO/simple-sampler-dna" /> 
+                <link rel="canonical" href="https://jacklion.xyz/av/RNBO/simple-sampler-dna" />
             </Helmet>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
