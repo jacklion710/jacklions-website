@@ -22,7 +22,7 @@ export default function DevicesPage() {
     },
     {
       name: "Tune Delay",
-      description: "A fun tool for mapping MIDI notes to delay periods that coincide with the input notes. Creative delay for 'tuned' delay times.",
+      description: "A fun tool for mapping MIDI notes to delay periods that coincide with the input notes. Creative delay for tuned delay times.",
       gumroadLink: "https://jacklion.gumroad.com/l/tunedelay"
     },
     {
@@ -81,7 +81,7 @@ export default function DevicesPage() {
   return (
     <ChakraProvider>
       <Helmet>
-        <title>Creative Devices | Jack Lion's Studio</title>
+        <title>Creative Devices | Jack Lions Studio</title>
         <meta name="description" content="Discover creative devices by Jack Lion. From M4L MAP Button to Stereo Pitch Shifter, explore a range of tools for your music production needs." />
         <meta name="keywords" content="Jack Lion, Creative Devices, M4L, Music Production, Ableton, Max for Live, Music Devices" />
         <meta property="og:url" content="https://jacklion.xyz/Devices" /> 
