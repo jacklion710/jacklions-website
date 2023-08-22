@@ -22,14 +22,27 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function HomePage() {
-  const { isOpen, onToggle } = useDisclosure()  // Sidebar visibility state
+  const { isOpen, onToggle } = useDisclosure() 
   const { colorMode } = useColorMode();
+  const soundCloudLinks = [
+    "https%3A//api.soundcloud.com/tracks/1485160441",
+    "https%3A//api.soundcloud.com/tracks/946294501",
+    "https%3A//api.soundcloud.com/tracks/1084610464",
+    "https%3A//api.soundcloud.com/tracks/1288232401",
+    "https%3A//api.soundcloud.com/tracks/1496975455",
+    "https%3A//api.soundcloud.com/tracks/1340902525",
+    "https%3A//api.soundcloud.com/tracks/1023379591",
+    "https%3A//api.soundcloud.com/tracks/758811643",
+    "https%3A//api.soundcloud.com/tracks/1259473852"
+  ];
+  const soundCloudParams = "&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true";
+
 
   return (
     <ChakraProvider>
       <Navbar/>
       <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
-        <Flex direction={["column", "row"]} width="100%">
+        <Flex direction="row" width="100%">
           {/* Left Sidebar for Discography */}
             <Box 
                 position="sticky"
@@ -43,7 +56,6 @@ export default function HomePage() {
                 w={{ base: isOpen ? "250px" : "70px", md: isOpen ? "300px" : "50px" }}
                 p={2}
                 transition="width 0.2s"
-                overflow="hidden"
             >
               <Box w="100%" display="flex" justifyContent="center" alignItems="center" padding={2}>
               <IconButton
@@ -58,7 +70,7 @@ export default function HomePage() {
               />
               </Box>
               {isOpen && 
-                <Box w="100%">
+                <Box w="40%">
                   <VStack align="start" spacing={5}>
                   <Heading size="md" borderBottom="1px solid">Discography</Heading>
                   <Link href="https://soundcloud.com/jack0lion/velocity" isExternal>Velocity</Link>
@@ -101,135 +113,62 @@ export default function HomePage() {
               }
             </Box>
 
-            <Box p={2} flexGrow={1}>
+            <Box p={2} flexGrow={1} width={isOpen ? "calc(100% - 300px)" : "100%"} transition="width 0.2s">
               <VStack spacing={8} align="center">
                 <Heading size="xl" borderBottom="1px solid">My Music</Heading>
-          {/* Links to other platforms */}
-        <Flex justifyContent="center" width="100%" mb={4}>
-            <HStack spacing={4}>
-                <Link href="https://open.spotify.com/artist/35foCh1HOk7XwvVzuiFmzc" isExternal>
-                    <IconButton aria-label="Spotify" icon={<FaSpotify />} size="lg" colorScheme="green" />
-                </Link>
-                <Link href="https://music.apple.com/us/artist/jack-lion/1470477992" isExternal>
-                  <IconButton 
-                      aria-label="Apple Music" 
-                      icon={<FaApple />} 
-                      size="lg" 
-                      bg={colorMode === "light" ? "gray.200" : "gray.700"}  // Change the background color based on mode
-                      color={colorMode === "light" ? "black" : "white"}     // Change the icon color based on mode
-                  />
+            
+            <Flex justifyContent="center" width="100%" mb={4}>
+                <HStack spacing={4}>
+                    <Link href="https://open.spotify.com/artist/35foCh1HOk7XwvVzuiFmzc" isExternal>
+                        <IconButton aria-label="Spotify" icon={<FaSpotify />} size="lg" colorScheme="green" />
+                    </Link>
+                    <Link href="https://music.apple.com/us/artist/jack-lion/1470477992" isExternal>
+                      <IconButton 
+                          aria-label="Apple Music" 
+                          icon={<FaApple />} 
+                          size="lg" 
+                          bg={colorMode === "light" ? "gray.200" : "gray.700"}  // Change the background color based on mode
+                          color={colorMode === "light" ? "black" : "white"}     // Change the icon color based on mode
+                      />
 
-                </Link>
-                <Link href="https://soundcloud.com/jack0lion" isExternal>
-                    <IconButton aria-label="SoundCloud" icon={<FaSoundcloud />} size="lg" colorScheme="red" />
-                </Link>
-                <Link href="https://jack0lion.bandcamp.com/" isExternal>
-                    <IconButton aria-label="Bandcamp" icon={<FaBandcamp />} size="lg" colorScheme="blue" />
-                </Link>
+                    </Link>
+                    <Link href="https://soundcloud.com/jack0lion" isExternal>
+                        <IconButton aria-label="SoundCloud" icon={<FaSoundcloud />} size="lg" colorScheme="red" />
+                    </Link>
+                    <Link href="https://jack0lion.bandcamp.com/" isExternal>
+                        <IconButton aria-label="Bandcamp" icon={<FaBandcamp />} size="lg" colorScheme="blue" />
+                    </Link>
 
-            </HStack>
-          </Flex>
-        {/* Embed SoundCloud Player */}
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, md: 100 }}>
-          <Box width={{ base: "90%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1485160441&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          <Box width={{ base: "100%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/946294501&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          <Box width={{ base: "100%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1084610464&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          <Box width={{ base: "100%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1288232401&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          <Box width={{ base: "100%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496975455&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          <Box width={{ base: "100%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1340902525&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          <Box width={{ base: "100%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1023379591&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          <Box width={{ base: "100%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/758811643&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          <Box width={{ base: "100%", md: "300px" }}>
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1259473852&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              ></iframe>
-          </Box>
-          {/* ... Add more as needed */}
-          
+                </HStack>
+              </Flex>
+              <SimpleGrid columns={{ base: 1, md: isOpen ? 2 : 3 }} spacing={16}>
+                  {soundCloudLinks.map((link, index) => (
+                    <Box
+                      width={{ base: "100%", md: "300px" }}
+                      mx={
+                        soundCloudLinks.length % 2 === 1 && index === soundCloudLinks.length - 1 && isOpen
+                          ? "auto"
+                          : 0
+                      }
+                      key={index}
+                    >
+                      <iframe
+                        width="100%"
+                        height="135%"
+                        scrolling="no"
+                        frameBorder="no"
+                        allow="autoplay"
+                        src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(link)}${soundCloudParams}`}
+                      ></iframe>
+                    </Box>
+                  ))}
                 </SimpleGrid>
-              </VStack>
-            </Box>
-          {/* Right empty panel */}
-          <Box w={{ base: "0%", md: "1%" }} />
+                </VStack>
+              </Box>
+            {/* Right empty panel */}
+            <Box display={{ base: "none", md: "block" }} w={{ base: "0%", md: "1%" }} />
+          </Flex>
         </Flex>
-      </Flex>
       <Footer />
     </ChakraProvider>
   );
