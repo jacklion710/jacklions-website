@@ -147,4 +147,8 @@ dist
 # Ignore exported files
 export/*.json
 
+# Ignore _prototypes
 /pages/av/RNBO/_prototypes/
+
+# Ignore patches
+/patches
