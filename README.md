@@ -19,19 +19,19 @@ To get this project up and running locally:
 1. Clone the repository.
 2. Install the dependencies:
 
-   \```
+   ```
    npm install
-   \```
+   ```
 
 3. Start the development server:
 
-   \```
+   ```
    npm run dev
    # or
    yarn dev
    # or
    pnpm dev
-   \```
+   ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
