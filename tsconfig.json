@@ -29,6 +29,6 @@
     "**/*.tsx", 
     ".next/types/**/*.ts", 
     "components/src/**/*.tsx"
-, "utils/firebase.ts", "pages/av/RNBO-Temp/js/guardrails.js", "pages/av/RNBO/js/app.js", "components/P5Wrapper.tsx", "public/js/sketch.js" ],
+, "utils/firebase.ts", "pages/av/RNBO/simple-sampler-dna.tsx","components/P5Wrapper.tsx" ],
   "exclude": ["node_modules"]
 }
