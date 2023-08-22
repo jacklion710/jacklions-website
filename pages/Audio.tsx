@@ -19,6 +19,7 @@ import {
 } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 export default function HomePage() {
   const { isOpen, onToggle } = useDisclosure() 
@@ -39,6 +40,13 @@ export default function HomePage() {
 
   return (
     <ChakraProvider>
+      <Helmet>
+        <title>Jack.Lion - Official Music Page</title>
+        <meta 
+          name="description" 
+          content="Official music page of Jack.Lion. Listen to tracks, explore discography, and connect on various music platforms." 
+        />
+      </Helmet>
       <Navbar/>
       <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
         <Flex direction="row" width="130%">
