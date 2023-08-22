@@ -1,7 +1,6 @@
 import {
   Box, 
   Flex, 
-  Heading, 
   Link, 
   HStack, 
   IconButton, 
@@ -41,17 +40,7 @@ export default function SocialPage() {
             mb={6}
             textAlign="center"
           >
-            <Heading size="xl">
-              Platforms
-            </Heading>
-            <Box 
-              position="absolute"
-              bottom="-5px"
-              left="50%"
-              transform="translateX(-50%)"
-              w="150px"   // Adjust this value to desired underline width
-              borderBottom="1px solid"
-            />
+
           </Box>
           
           <HStack spacing={{ base: 4, md: 8 }} justify="center" wrap="wrap">
