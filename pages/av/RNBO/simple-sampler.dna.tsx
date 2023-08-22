@@ -128,7 +128,7 @@ async function RNBOsetup(patchFileURL: string, context: AudioContext): Promise<a
         await loadRNBOScript(patcher.desc.meta.rnboversion);
     }
 
-    let dependenciesResponse = await fetch("/export/dependencies.json");
+    let dependenciesResponse = await fetch("/export/simple-sampler/dependencies.json");
     let dependencies = await dependenciesResponse.json();
     dependencies = dependencies.map((d: any) => d.file ? Object.assign({}, d, { file: d.file }) : d);
 
@@ -615,7 +615,7 @@ const Index = () => {
             if (devices.length === 0) {
                 console.log("Initializing RNBO setup...");
                 if (context) {
-                    await RNBOsetup("/export/patch.simple-sampler.json", context);
+                    await RNBOsetup("/export/simple-sampler/patch.simple-sampler.json", context);
                     console.log("RNBO setup completed.");
                 } else {
                     console.error("Audio Context is not initialized, cannot set up RNBO.");
