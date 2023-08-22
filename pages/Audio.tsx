@@ -36,13 +36,13 @@ export default function HomePage() {
     "https%3A//api.soundcloud.com/tracks/1259473852"
   ];
   const soundCloudParams = "&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true";
-
+  const isOdd = soundCloudLinks.length % 2 !== 0;
 
   return (
     <ChakraProvider>
       <Navbar/>
       <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
-        <Flex direction="row" width="100%">
+        <Flex direction="row" width="130%">
           {/* Left Sidebar for Discography */}
             <Box 
                 position="sticky"
@@ -141,28 +141,25 @@ export default function HomePage() {
 
                 </HStack>
               </Flex>
-              <SimpleGrid columns={{ base: 1, md: isOpen ? 2 : 3 }} spacing={16}>
-                  {soundCloudLinks.map((link, index) => (
-                    <Box
-                      width={{ base: "100%", md: "300px" }}
-                      mx={
-                        soundCloudLinks.length % 2 === 1 && index === soundCloudLinks.length - 1 && isOpen
-                          ? "auto"
-                          : 0
-                      }
-                      key={index}
-                    >
-                      <iframe
-                        width="100%"
-                        height="135%"
-                        scrolling="no"
-                        frameBorder="no"
-                        allow="autoplay"
-                        src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(link)}${soundCloudParams}`}
-                      ></iframe>
-                    </Box>
-                  ))}
-                </SimpleGrid>
+              <HStack spacing={16} justify={isOdd ? "center" : "flex-start"} wrap="wrap">
+                {soundCloudLinks.map((link, index) => (
+                  <Box
+                    width={{ base: "100%", md: "300px" }}
+                    key={index}
+                  >
+                    <iframe
+                      width="100%"
+                      height="135%"
+                      scrolling="no"
+                      frameBorder="no"
+                      allow="autoplay"
+                      src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
+                        link
+                      )}&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`}
+                    ></iframe>
+                  </Box>
+                ))}
+              </HStack>
                 </VStack>
               </Box>
             {/* Right empty panel */}
