@@ -52,11 +52,11 @@ export default function BookingPage() {
                 </Link>
               </Button>
             </VStack>
+
             {/* YouTube Tutorials Section */}
             <VStack spacing={8} align="center" mt={12}>
               <Heading size="xl">YouTube Tutorials</Heading>
 
-              {/* Embed the first video */}
               <Box width={["100%", "560px"]} height="315px" borderRadius="md" overflow="hidden" boxShadow="xl">
                 <iframe 
                   width="100%" 
@@ -68,7 +68,6 @@ export default function BookingPage() {
                 ></iframe>
               </Box>
 
-              {/* Embed the second video */}
               <Box width={["100%", "560px"]} height="315px" borderRadius="md" overflow="hidden" boxShadow="xl">
                 <iframe 
                   width="100%" 
@@ -80,7 +79,6 @@ export default function BookingPage() {
                 ></iframe>
               </Box>
 
-              {/* You can continue embedding more videos in a similar fashion */}
             </VStack>
           </Box>
         </Flex>
