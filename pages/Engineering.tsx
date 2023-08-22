@@ -11,10 +11,20 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Head from 'next/head';
 
 export default function EngineeringPage() {
   return (
       <ChakraProvider>
+        <Head>
+            <title>Recording Studio & Engineering Services</title>
+            <meta 
+            name="description" 
+            content="Professional recording, engineering, and sound design services. Book a recording session, explore engineering services, or schedule a consultation."
+            />
+            <meta property="og:url" content="https://jacklion.xyz/Engineering" /> 
+            <link rel="canonical" href="https://jacklion.xyz/Engineering" /> 
+        </Head>
           <Navbar />
           <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
               <VStack spacing={10} width="100%" maxW="600px">

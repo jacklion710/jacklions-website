@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet'; 
 
 export default function DevicesPage() {
 
@@ -79,6 +80,13 @@ export default function DevicesPage() {
 
   return (
     <ChakraProvider>
+      <Helmet>
+        <title>Creative Devices | Jack Lion's Studio</title>
+        <meta name="description" content="Discover creative devices by Jack Lion. From M4L MAP Button to Stereo Pitch Shifter, explore a range of tools for your music production needs." />
+        <meta name="keywords" content="Jack Lion, Creative Devices, M4L, Music Production, Ableton, Max for Live, Music Devices" />
+        <meta property="og:url" content="https://jacklion.xyz/Devices" /> 
+        <link rel="canonical" href="https://jacklion.xyz/Devices" />
+      </Helmet>
         <Navbar />
         <Box mb={50}>
             <Flex justify="center" my={4} ml={0} flexGrow={1} pb="100px">

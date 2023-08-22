@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 // Define the booking instructions
 const bookingInstructions = [
@@ -24,8 +25,20 @@ const bookingInstructions = [
 export default function BookingInstructionsPage() {
     return (
         <ChakraProvider>
+            <Helmet>
+                <title>Jack.Lion - Booking Instructions</title>
+                <meta 
+                  name="description" 
+                  content="Follow the easy steps to book your appointment with Jack.Lion for lessons, recording sessions, and more." 
+                />
+                <meta name="keywords" content="Jack.Lion, booking, lessons, recording, music, appointment" />
+                <meta property="og:title" content="Jack.Lion - Booking Instructions" />
+                <meta property="og:description" content="Instructions on how to book your appointment with Jack.Lion." />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://jacklion.xyz/SessionInfo" />
+                <link rel="canonical" href="https://jacklion.xyz/SessionInfo" /> 
+            </Helmet>
             <Navbar />
-
             {/* Main content */}
             <Flex justify="center" my={8} ml={0} flexGrow={1} pb="460px">
                 <VStack spacing={10} width="100%" maxW="800px">

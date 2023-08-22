@@ -19,7 +19,8 @@ import {
   import { auth } from '@/utils/firebase'; 
   import dynamic from "next/dynamic";
   import NextLink from 'next/link';
-  
+  import { Helmet } from 'react-helmet';
+
   function SignInPage() {
     const { colorMode } = useColorMode();
     console.log(colorMode)
@@ -52,6 +53,12 @@ import {
     }, []);
 
     return (
+        <>
+          <Helmet>
+              <title>Sign In | Your App Name</title>
+              <meta name="description" content="Sign in to your account and access exclusive features of our platform." />
+              <meta name="keywords" content="sign in, login, user access, your app keywords" />
+          </Helmet>
           <Flex
             align={'center'}
             justify={'flex-start'}
@@ -115,7 +122,7 @@ import {
             </Stack>
 
           </Flex>
-          
+        </>
       );
     }
 

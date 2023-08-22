@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 // Define the list of Instagram embed URLs
 const embedURLs = [
@@ -22,6 +23,16 @@ const embedURLs = [
 export default function HomePage() {
   return (
     <ChakraProvider>
+      <Helmet>
+        <title>Jack.Lion - Visuals</title>
+        <meta name="description" content="Explore the visual arts and photography of Jack.Lion." />
+        <meta name="keywords" content="Jack.Lion, visuals, photography, arts, Instagram" />
+        <meta property="og:title" content="Jack.Lion - Visuals" />
+        <meta property="og:description" content="Explore the visual arts and photography of Jack.Lion." />
+        <meta property="og:url" content="https://jacklion.xyz/Visual" /> 
+        <link rel="canonical" href="https://jacklion.xyz/Visual" /> 
+        {/* <meta property="og:image" content="URL_TO_YOUR_OG_IMAGE" />  */}
+      </Helmet>
       <Navbar />
       <Flex justify="center" my={8} ml={0} flexGrow={1}>
         <Flex direction={["column", "row"]} width="100%" pb="100px">

@@ -18,6 +18,7 @@ import { auth } from '@/utils/firebase';
 import { useRouter } from 'next/router';
 import React from 'react';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 interface User {
   email: string | null;
@@ -138,6 +139,16 @@ useEffect(() => {
 
   return (
     <ChakraProvider>
+      <Helmet>
+          <title>Jack.Lion - User Profile</title>
+          <meta 
+            name="description" 
+            content="Manage your user profile settings for Jack.Lion's official site. Edit bio, manage subscriptions, and delete your account." 
+          />
+          <meta name="robots" content="noindex, nofollow" />
+          <meta property="og:url" content="https://jacklion.xyz/Profile" /> 
+          <link rel="canonical" href="https://jacklion.xyz/Profile" /> 
+      </Helmet>
         <Box bgColor={backgroundColor} minH="100vh">
             <Navbar />
 

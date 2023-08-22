@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 export default function SocialPage() {
   const bg = useColorModeValue("white", "gray.800");
@@ -24,6 +25,13 @@ export default function SocialPage() {
 
   return (
     <ChakraProvider>
+      <Helmet>
+        <title>Connect with Jack Lion | Official Page</title>
+        <meta name="description" content="Reach out to Jack Lion on various platforms or send an email. For bookings, please use the provided link." />
+        <meta name="keywords" content="Jack Lion, Connect, Music, Bookings, Instagram, Email, Contact" />
+        <meta property="og:url" content="https://jacklion.xyz/Direct" /> 
+        <link rel="canonical" href="https://jacklion.xyz/Direct" />
+      </Helmet>
         <Flex direction="column" minHeight="100vh">
           <Navbar />
           <Flex

@@ -10,10 +10,20 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 export default function BookingPage() {
   return (
     <ChakraProvider resetCSS>
+      <Helmet>
+          <title>Jack.Lion - Book Music Lessons</title>
+          <meta 
+            name="description" 
+            content="Discover personalized music lessons with Jack.Lion. Tailored sessions in production, theory, guitar, bass, and more. Book online or onsite lessons today!" 
+          />
+          <meta property="og:url" content="https://jacklion.xyz/Lessons" /> 
+          <link rel="canonical" href="https://jacklion.xyz/Lessons" /> 
+      </Helmet>
       <Navbar />
       <Flex direction="column" align="center" justify="center" minH="100vh" p={4} pb="100px">
         <Flex direction={["column", "row"]} width="100%" maxWidth="1200px">

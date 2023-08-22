@@ -26,6 +26,7 @@ import {
   import { doc, setDoc, getDoc } from 'firebase/firestore';
   import { db } from '../../utils/firebase'; 
   import { User as FirebaseUser, sendEmailVerification } from 'firebase/auth';
+  import Head from 'next/head';
 
   type User = {
     email: string;
@@ -154,6 +155,16 @@ import {
     }, []);
     
     return (
+      <>
+      <Head>
+        <title>Sign Up - Jack.Lions Site</title>
+        <meta name="description" content="Sign up for Jack.Lions site and enjoy the best features." />
+        <meta name="keywords" content="Jack.Lions site, signup, join" />
+        <meta property="og:title" content="Sign Up for Jack.Lions site" />
+        <meta property="og:description" content="Sign up for Jack.Lions site and enjoy the best features." />
+        {/* <meta property="og:image" content="path_to_your_image.jpg" /> */}
+        <meta property="og:url" content="jacklion.xyz/signup" />
+      </Head>
       <Flex align={'center'} justify={'center'} pb="50px">
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={4} px={6}>
           <Stack align={'center'}>
@@ -263,10 +274,10 @@ import {
             </Stack>
           </Box>
         </Stack>
-
       </Flex>
-    );
-  }
+    </>
+  );
+}
 
   export default dynamic (() => Promise.resolve(SignUpPage), {ssr: false})
 

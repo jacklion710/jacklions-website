@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 // Define the sample packs data
 const samplePacks = [
@@ -36,8 +37,20 @@ const samplePacks = [
 export default function SamplePacksPage() {
   return (
     <ChakraProvider>
+      <Helmet>
+        <title>Jack.Lion - Sample Packs</title>
+        <meta 
+          name="description" 
+          content="Discover Jack.Lion's unique sample packs. From organic percussive sounds to eurorack experimentation, explore a range of high-quality samples." 
+        />
+        <meta name="keywords" content="Jack.Lion, sample packs, organic percs, eurorack, electronic sounds, foley, FX" />
+        <meta property="og:title" content="Jack.Lion - Sample Packs" />
+        <meta property="og:description" content="Explore a collection of Jack.Lion's unique sample packs." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://jacklion.xyz/Samples" />
+        <link rel="canonical" href="https://jacklion.xyz/Samples" />
+      </Helmet>
       <Navbar />
-
       {/* Main content */}
       <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
         <VStack spacing={10} width="100%" maxW="1000px">

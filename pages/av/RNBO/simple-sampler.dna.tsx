@@ -15,6 +15,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import p5 from 'p5';
 import { FaPlay, FaStop, FaVolumeUp, FaMousePointer, FaHandPointer, FaBell, FaBellSlash, FaArrowRight } from 'react-icons/fa';
+import { Helmet } from 'react-helmet';
 
 let context: AudioContext | null = null;
 let devices: any[] = [];
@@ -673,6 +674,13 @@ const Index = () => {
 
     return (
         <ChakraProvider>
+            <Helmet>
+                <title>Interactive Audio Experience | Jack Lion's Studio</title>
+                <meta name="description" content="Dive into an interactive audio experience crafted by Jack Lion. Explore the dynamic DNA structures and immerse yourself in sound." />
+                <meta name="keywords" content="Jack Lion, Interactive Audio, DNA Visuals, Sound Experience, Dynamic Audio, Music Visualization" />
+                <meta property="og:url" content="https://jacklion.xyz/av/RNBO/simpl-sampler.dna" /> 
+                <link rel="canonical" href="https://jacklion.xyz/av/RNBO/simpl-sampler.dna" />
+            </Helmet>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>

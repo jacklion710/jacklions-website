@@ -17,7 +17,7 @@ import {
 } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
+import { Helmet } from 'react-helmet';
 
 // Define the social media links and their respective icons and properties
 const socialLinks = [
@@ -68,6 +68,19 @@ const socialLinks = [
 export default function SocialPage() {
   return (
     <ChakraProvider>
+      <Helmet>
+        <title>Jack.Lion - Social Media</title>
+        <meta 
+          name="description" 
+          content="Connect with Jack.Lion on various social media platforms including Spotify, Apple Music, Soundcloud, Youtube, Instagram, Patreon, and Github." 
+        />
+        <meta name="keywords" content="Jack.Lion, music, Spotify, Apple Music, Soundcloud, Youtube, Instagram, Patreon, Github" />
+        <meta property="og:title" content="Jack.Lion - Social Media" />
+        <meta property="og:description" content="Connect with Jack.Lion on various social media platforms." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://jacklion.xyz/Social" /> 
+        <link rel="canonical" href="https://jacklion.xyz/Social" /> 
+      </Helmet>
       <Flex direction="column" minHeight="100vh">
         <Navbar />
 

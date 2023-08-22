@@ -41,11 +41,18 @@ export default function HomePage() {
   return (
     <ChakraProvider>
       <Helmet>
-        <title>Jack.Lion - Official Music Page</title>
-        <meta 
-          name="description" 
-          content="Official music page of Jack.Lion. Listen to tracks, explore discography, and connect on various music platforms." 
-        />
+          <title>Jack.Lion - Official Music Page</title>
+          <meta 
+            name="description" 
+            content="Official music page of Jack.Lion. Listen to tracks, explore discography, and connect on various music platforms." 
+          />
+          <meta name="keywords" content="Jack.Lion, music, tracks, discography, Spotify, SoundCloud, Apple Music, Bandcamp" />
+          <meta property="og:title" content="Jack.Lion - Official Music Page" />
+          <meta property="og:description" content="Official music page of Jack.Lion. Listen to tracks, explore discography, and connect on various music platforms." />
+          {/* <meta property="og:image" content="URL_TO_YOUR_OG_IMAGE" /> */}
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://jacklion.xyz/Audio" /> 
+          <link rel="canonical" href="https://jacklion.xyz/Audio" /> 
       </Helmet>
       <Navbar/>
       <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
