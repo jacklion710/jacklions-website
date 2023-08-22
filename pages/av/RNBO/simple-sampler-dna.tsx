@@ -785,7 +785,6 @@ import {
                        </Flex>
                    )}
            
-                   {/* This will push the footer to the bottom and stretch it */}
                    <Box marginTop="auto" width="100%">
                        <Footer />
                    </Box>
