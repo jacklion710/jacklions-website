@@ -19,12 +19,11 @@ export default function HomePage() {
             <Box p={2} flexGrow={1}>
               <VStack spacing={8} align="center">
                 <Heading size="xl" borderBottom="1px solid">Visuals</Heading>
-        {/* Embed SoundCloud Player */}
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={20}>
           <Box>
               <iframe 
                   src="https://www.instagram.com/p/Cpx9BBMp1tG/embed" 
-                  width="320" 
+                  width="100%" 
                   height="480" 
                   frameBorder="0" 
                   scrolling="no" 
@@ -33,7 +32,7 @@ export default function HomePage() {
           <Box>
             <iframe 
                 src="https://www.instagram.com/p/CEXJReCgq5h/embed" 
-                width="320" 
+                width="100%" 
                 height="480" 
                 frameBorder="0" 
                 scrolling="no" 
@@ -42,7 +41,7 @@ export default function HomePage() {
           <Box>
             <iframe 
                 src="https://www.instagram.com/p/CFtCJm_As_E/embed" 
-                width="320" 
+                width="100%" 
                 height="480" 
                 frameBorder="0" 
                 scrolling="no" 
@@ -51,7 +50,7 @@ export default function HomePage() {
           <Box>
             <iframe 
                 src="https://www.instagram.com/p/ChxYt1Cp1WT/embed" 
-                width="320" 
+                width="100%" 
                 height="480" 
                 frameBorder="0" 
                 scrolling="no" 
@@ -60,7 +59,7 @@ export default function HomePage() {
           <Box>
             <iframe 
                 src="https://www.instagram.com/p/Co5o9b4M9lV/embed" 
-                width="320" 
+                width="100%" 
                 height="480" 
                 frameBorder="0" 
                 scrolling="no" 
@@ -69,7 +68,7 @@ export default function HomePage() {
           <Box>
             <iframe 
                 src="https://www.instagram.com/p/CptSIkPAF_I/embed" 
-                width="320" 
+                width="100%" 
                 height="480" 
                 frameBorder="0" 
                 scrolling="no" 
