@@ -4,8 +4,7 @@ import {
     ChakraProvider, 
     useColorMode, 
     useColorModeValue, 
-    Text, 
-    Button 
+    Text 
    } from '@chakra-ui/react';
    import React, { useEffect, useState, useRef } from 'react';
    import dynamic from "next/dynamic";
@@ -14,7 +13,16 @@ import {
    import Navbar from '@/components/Navbar';
    import Footer from '@/components/Footer';
    import p5 from 'p5';
-   import { FaPlay, FaStop, FaVolumeUp, FaMousePointer, FaHandPointer, FaBell, FaBellSlash, FaArrowRight } from 'react-icons/fa';
+   import { 
+    FaPlay, 
+    FaStop, 
+    FaVolumeUp, 
+    FaMousePointer, 
+    FaHandPointer, 
+    FaBell, 
+    FaBellSlash, 
+    FaArrowRight 
+    } from 'react-icons/fa';
    import { Helmet } from 'react-helmet';
    
    let context: AudioContext | null = null;
