@@ -692,7 +692,7 @@ import {
                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                </Head>
                <Script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" />
-               <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/>
+               {/* <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/> */}
                <Navbar />
                <Flex direction="column" minHeight="100vh" alignItems="center" width="100%">
                <Box 
