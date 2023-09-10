@@ -692,6 +692,8 @@ import {
                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                </Head>
                <Script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" />
+               {/* Uncommenting the following line enables dynamic loading which could cause issues later if your patch isn't compatible witht the latest version; if you know the version of your exported RNBO patch then avoid dynamic loading */}
+
                {/* <Script src="https://cdn.cycling74.com/rnbo/latest/rnbo.min.js"/> */}
                <Navbar />
                <Flex direction="column" minHeight="100vh" alignItems="center" width="100%">
