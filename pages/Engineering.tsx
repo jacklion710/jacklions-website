@@ -103,6 +103,31 @@ export default function EngineeringPage() {
                       </Link>
                   </Button>
 
+                    <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
+                        <Heading size="lg" mb={4}>Mixing and Mastering Prices</Heading>
+                        <Heading size="md" mt={4}>Digital Mastering:</Heading>
+                        <Text>$25 for single track</Text>
+                        <Text>$100 for an EP (3 - 5 tracks)</Text>
+                        <Text>$200 for an album (6 - 12 tracks)</Text>
+                        
+                        <Heading size="md" mt={4}>Analog Mastering:</Heading>
+                        <Text>$40 for single track</Text>
+                        <Text>$180 for an EP (3 - 5 tracks)</Text>
+                        <Text>$360 for an album (6 - 12 tracks)</Text>
+
+                        <Heading size="md" mt={4}>Important Notes:</Heading>
+                        <Heading size="sm" mt={2}>For Mixdowns:</Heading>
+                        <Text>- Ensure each track is exported individually without effects such as compression and EQ unless it is crucial to the sound.</Text>
+                        <Text>- Avoid clipping. Ensure the peak level of each track is below 0dB.</Text>
+                        <Text>- Provide any reference tracks or specific instructions.</Text>
+
+                        <Heading size="sm" mt={2}>For Mastering:</Heading>
+                        <Text>- Provide the final mixed down track in the highest resolution possible.</Text>
+                        <Text>- There should be no mastering such as limiting applied to the mix.</Text>
+                        <Text>- Ensure there's a minimum of -6dB headroom.</Text>
+                        <Text>- Provide any reference tracks or specific instructions.</Text>
+                    </Box>
+
               </VStack>
           </Flex>
         <Footer />  
