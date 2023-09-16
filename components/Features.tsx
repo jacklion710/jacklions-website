@@ -156,7 +156,7 @@ import { AiFillEye } from 'react-icons/ai';
                   <Icon as={FaMicrophone} color={'red.500'} w={5} h={5} /> 
                 }
                 iconBg={useColorModeValue('red.100', 'red.900')}
-                text={'Mixdowns, Mastering & Recording'}
+                text={'Mixdowns Mastering & Recording'}
               />
 
             </Stack>
