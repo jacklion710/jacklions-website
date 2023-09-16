@@ -9,6 +9,14 @@ import {
   Button,
   List
 } from '@chakra-ui/react';
+import { 
+    FaMicrophone, 
+    FaHeadphones,
+    FaMusic, 
+    FaComment,
+    FaWrench
+} from "react-icons/fa";
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Head from 'next/head';
@@ -27,13 +35,18 @@ export default function EngineeringPage() {
         </Head>
           <Navbar />
           <Flex justify="center" my={8} ml={0} flexGrow={1} pb="100px">
-              <VStack spacing={10} width="100%" maxW="600px">
-                  <Heading size="xl" borderBottom="1px solid">Recording Studio Catalog</Heading>
+            <VStack spacing={10} width="100%" maxW="600px">
+                  <Heading size="xl" borderBottom="1px solid"> Recording Studio Catalog</Heading>
 
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
                     <Flex direction="column" justifyContent="space-between" alignItems="flex-start" h="100%">
                         <VStack align="start" spacing={4}>
-                            <Heading size="lg" mb={4}>Recording</Heading>
+                            <Flex align="center">
+                                <Heading size="lg" mb={4}>Recording</Heading>
+                                <Box ml={4} mt={-2}>
+                                    <FaMicrophone size="1.5em" />
+                                </Box>
+                            </Flex>
                             <Text>Professional vocal recordings or mono, stereo, mid/side, and up to 16 channel multitrack instrumental recording sessions for any source you wish to capture.</Text>
                             <Heading size="md" mt={4}>Instruments Available:</Heading>
                             <List>
@@ -69,15 +82,25 @@ export default function EngineeringPage() {
                     </Flex>
                 </Box>
 
-                  <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
-                      <Heading size="lg" mb={4}>Engineering</Heading>
+                <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
+                    <Flex align="center">
+                        <Heading size="lg" mb={4}>Engineering</Heading>
+                        <Box ml={4} mt={-2}>
+                            <FaHeadphones size="1.5em" />
+                        </Box>
+                    </Flex>
                       <Text>Choose from a variety of mixdown and master options to get the perfect sound for your project.</Text>
                       <Text>Mixdown</Text>
                       <Text>Digital Mastering</Text>
                       <Text>Analog Mastering</Text>
                   </Box>
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
-                      <Heading size="lg" mb={4}>Sound Design</Heading>
+                    <Flex align="center">
+                        <Heading size="lg" mb={4}>Sound Design</Heading>
+                        <Box ml={4} mt={-2}>
+                            <FaMusic size="1.5em" />
+                        </Box>
+                    </Flex>
                       <Text>Customized sound design for your tracks from synth parts & patches to soundscapes and cinematic fx.</Text>
                       <Text>Analog Synths</Text>
                       <Text>Drum Machines</Text>
@@ -90,7 +113,12 @@ export default function EngineeringPage() {
                       
                   </Box>
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
-                      <Heading size="lg" mb={4}>Consultations</Heading>
+                    <Flex align="center">
+                        <Heading size="lg" mb={4}>Consultations</Heading>
+                        <Box ml={4} mt={-2}>
+                            <FaComment size="1.5em" />
+                        </Box>
+                    </Flex>
                       <Text>Customized sound design for your tracks from synth parts & patches to soundscapes and cinematic fx.</Text>
                       <Text>Track Feedback</Text>
                       <Text>Art Installation Planning</Text>
@@ -104,7 +132,12 @@ export default function EngineeringPage() {
                   </Button>
 
                     <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
-                        <Heading size="lg" mb={4}>Mixing and Mastering Prices</Heading>
+                        <Flex align="center">
+                            <Heading size="lg" mb={4}>Mixing and Mastering</Heading>
+                            <Box ml={4} mt={-2}>
+                                <FaWrench size="1.5em" />
+                            </Box>
+                        </Flex>
                         <Heading size="md" mt={4}>Digital Mastering:</Heading>
                         <Text>$25 for single track</Text>
                         <Text>$100 for an EP (3 - 5 tracks)</Text>
