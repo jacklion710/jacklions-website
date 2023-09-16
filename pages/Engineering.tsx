@@ -157,7 +157,7 @@ export default function EngineeringPage() {
                         <Heading size="sm" mt={2}>For Mastering:</Heading>
                         <Text>- Provide the final mixed down track in the highest resolution possible.</Text>
                         <Text>- There should be no mastering such as limiting applied to the mix.</Text>
-                        <Text>- Ensure there's a at least -12 to -6dB headroom.</Text>
+                        <Text>- Ensure that there is a at least -12 to -6dB headroom.</Text>
                         <Text>- Provide any reference tracks or specific instructions.</Text>
                     </Box>
 
