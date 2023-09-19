@@ -150,7 +150,7 @@ export default function EngineeringPage() {
                         <Flex justifyContent="center" alignItems="center" mt={4}>
                             <Button colorScheme="blue" size="md">
                                 <Link href="/Direct">
-                                    For Engineering Services, Contact Me
+                                Contact me for engineering services 
                                 </Link>
                             </Button>
                         </Flex>
@@ -189,15 +189,17 @@ export default function EngineeringPage() {
                                 <Text>CR-14</Text>
                                 <Text>SP-1</Text>
                             </List>
-                            <Text mt={4}>Minimum of 1 hr in order to book a recording session</Text>
+                            <Text mt={4}>Minimum of 1 hr is required in order to book a recording session</Text>
                             <Text>$50/hr</Text>
                             <Text>$140 for 3 hours</Text>
                         </VStack>
-                        <Button colorScheme="blue" size="md" mt={4}>
-                            <Link href="/SessionInfo">
-                                Book a Recording Session
-                            </Link>
-                        </Button>
+                        <Flex justifyContent="center" width="100%"> 
+                            <Button colorScheme="blue" size="md" mt={4}>
+                                <Link href="/SessionInfo">
+                                    Book a recording session
+                                </Link>
+                            </Button>
+                        </Flex>
                     </Flex>
                 </Box>
 
@@ -217,7 +219,13 @@ export default function EngineeringPage() {
                       <Text>Foley</Text>
                       <Text>Electric or Acoustic Guitar</Text>
                       <Text>Electric Bass</Text>
-                      
+                      <Flex justifyContent="center" width="100%"> 
+                            <Button colorScheme="blue" size="md" mt={4}>
+                                <Link href="/Direct">
+                                    Contact me for custom sound design
+                                </Link>
+                            </Button>
+                        </Flex>
                   </Box>
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
                     <Flex align="center">
@@ -230,6 +238,13 @@ export default function EngineeringPage() {
                       <Text>Track Feedback</Text>
                       <Text>Art Installation Planning</Text>
                       <Text>DSP Theory & Design</Text>
+                      <Flex justifyContent="center" width="100%"> 
+                            <Button colorScheme="blue" size="md" mt={4}>
+                                <Link href="/Direct">
+                                    Contact me for consultations
+                                </Link>
+                            </Button>
+                        </Flex>
                   </Box>
               </VStack>
           </Flex>
