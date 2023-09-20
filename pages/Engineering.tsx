@@ -102,6 +102,14 @@ export default function EngineeringPage() {
                                 <FaWrench size="1.5em" />
                             </Box>
                         </Flex>
+
+                        <Heading size="md" mt={4}>Mixdowns:</Heading>
+                        <Text>$25/hr for any song</Text>
+                        <Text>10% off the final cost for an EP (3 - 5 tracks)</Text>
+                        <Text>15% off the final cost for an album (6 - 12 tracks)</Text>
+                        <Text>Most tracks (20-40 stems) take up to 4-6 hours. Songs with more stems, damaged audio or songs that require special mixing needs may take more time to complete to satisfaction</Text>
+                        <Text>Time spent on any revisions will be charged per hour. Please be concise if providing feedback in order to get the results you want quickly</Text>
+
                         <Heading size="md" mt={4}>Digital Mastering:</Heading>
                         <Text>$25 for single track</Text>
                         <Text>$100 for an EP (3 - 5 tracks)</Text>
@@ -234,10 +242,7 @@ export default function EngineeringPage() {
                             <FaComment size="1.5em" />
                         </Box>
                     </Flex>
-                      <Text>Customized sound design for your tracks from synth parts & patches to soundscapes and cinematic fx.</Text>
-                      <Text>Track Feedback</Text>
-                      <Text>Art Installation Planning</Text>
-                      <Text>DSP Theory & Design</Text>
+                      <Text>Personalized consultations to help you refine your sound. Receive track feedback, plan installations, or delve deep into DSP theory and design</Text>
                       <Flex justifyContent="center" width="100%"> 
                             <Button colorScheme="blue" size="md" mt={4}>
                                 <Link href="/Direct">
