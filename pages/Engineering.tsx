@@ -107,6 +107,7 @@ export default function EngineeringPage() {
                         <Text>$25/hr for any song</Text>
                         <Text>10% off the final cost for an EP (3 - 5 tracks)</Text>
                         <Text>15% off the final cost for an album (6 - 12 tracks)</Text>
+                        <Text>To secure your project, a flat rate deposit of $50 per song is required upfront. This non-refundable deposit confirms your slot and will be deducted from the final invoice.</Text>
                         <Text>Most tracks (20-40 stems) take up to 4-6 hours. Songs with more stems, damaged audio or songs that require special mixing needs may take more time to complete to satisfaction</Text>
                         <Text>Time spent on any revisions will be charged per hour. Please be concise if providing feedback in order to get the results you want quickly</Text>
 
