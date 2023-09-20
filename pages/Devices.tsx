@@ -81,9 +81,9 @@ export default function DevicesPage() {
   return (
     <ChakraProvider>
       <Helmet>
-        <title>Creative Devices | Jack Lions Studio</title>
-        <meta name="description" content="Discover creative devices by Jack Lion. From M4L MAP Button to Stereo Pitch Shifter, explore a range of tools for your music production needs." />
-        <meta name="keywords" content="Jack Lion, Creative Devices, M4L, Music Production, Ableton, Max for Live, Music Devices" />
+        <title>Creative Devices | Jack.Lions Studio</title>
+        <meta name="description" content="Discover creative devices by JackLion. From M4L MAP Button to Stereo Pitch Shifter, explore a range of tools for your music production needs." />
+        <meta name="keywords" content="Jack.Lion, Creative Devices, M4L, Music Production, Ableton, Max for Live, Music Devices" />
         <meta property="og:url" content="https://jacklion.xyz/Devices" /> 
         <link rel="canonical" href="https://jacklion.xyz/Devices" />
       </Helmet>

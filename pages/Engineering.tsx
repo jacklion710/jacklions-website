@@ -82,10 +82,10 @@ export default function EngineeringPage() {
   return (
       <ChakraProvider>
         <Head>
-            <title>Recording Studio & Engineering Services</title>
+            <title>Jack.Lions Recording Studio & Engineering Services</title>
             <meta 
             name="description" 
-            content="Professional recording, engineering, and sound design services. Book a recording session, explore engineering services, or schedule a consultation."
+            content="Professional recording, engineering, and sound design services on behald of Jack.Lion. Book a recording session, explore engineering services, or schedule a consultation."
             />
             <meta property="og:url" content="https://jacklion.xyz/Engineering" /> 
             <link rel="canonical" href="https://jacklion.xyz/Engineering" /> 

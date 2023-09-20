@@ -41,7 +41,7 @@ export default function SamplePacksPage() {
         <title>Jack.Lion - Sample Packs</title>
         <meta 
           name="description" 
-          content="Discover Jack.Lion's unique sample packs. From organic percussive sounds to eurorack experimentation, explore a range of high-quality samples." 
+          content="Discover Jack.Lions unique sample packs. From organic percussive sounds to eurorack experimentation, explore a range of high-quality samples." 
         />
         <meta name="keywords" content="Jack.Lion, sample packs, organic percs, eurorack, electronic sounds, foley, FX" />
         <meta property="og:title" content="Jack.Lion - Sample Packs" />

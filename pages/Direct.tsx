@@ -26,7 +26,7 @@ export default function SocialPage() {
   return (
     <ChakraProvider>
       <Helmet>
-        <title>Connect with Jack Lion | Official Page</title>
+        <title>Connect with Jack.Lion | Official Page</title>
         <meta name="description" content="Reach out to Jack Lion on various platforms or send an email. For bookings, please use the provided link." />
         <meta name="keywords" content="Jack Lion, Connect, Music, Bookings, Instagram, Email, Contact" />
         <meta property="og:url" content="https://jacklion.xyz/Direct" /> 

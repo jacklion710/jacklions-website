@@ -50,7 +50,7 @@ export default function ResetPassword() {
                 <title>Jack.Lion - Reset Password</title>
                 <meta 
                   name="description" 
-                  content="Reset your password for Jack.Lion's official site. Enter your email to receive reset instructions."   
+                  content="Reset your password for Jack.Lions official site. Enter your email to receive reset instructions."   
                 />
                 <meta property="og:url" content="https://jacklion.xyz/ResetPassword" /> 
                 <link rel="canonical" href="https://jacklion.xyz/ResetPassword" /> 
