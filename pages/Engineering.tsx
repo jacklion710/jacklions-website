@@ -146,15 +146,15 @@ export default function EngineeringPage() {
 
                         <Heading size="md" mt={4}>Important Notes:</Heading>
                         <Heading size="sm" mt={2}>For Mixdowns:</Heading>
-                        <Text>- Ensure each track is exported individually without effects such as compression and EQ unless it is crucial to the sound.</Text>
-                        <Text>- Avoid clipping. Ensure the peak level of each track is below 0dB.</Text>
-                        <Text>- Provide any reference tracks or specific instructions.</Text>
+                        <Text>- Ensure each track is exported individually without effects such as compression and EQ unless it is crucial to the sound</Text>
+                        <Text>- Avoid clipping. Ensure the peak level of each track is below 0dB</Text>
+                        <Text>- Provide any reference tracks or specific instructions</Text>
 
                         <Heading size="sm" mt={2}>For Mastering:</Heading>
-                        <Text>- Provide the final mixed down track in the highest resolution possible.</Text>
-                        <Text>- There should be no mastering such as limiting applied to the mix.</Text>
-                        <Text>- Ensure that there is a at least -12 to -6dB headroom.</Text>
-                        <Text>- Provide any reference tracks or specific instructions.</Text>
+                        <Text>- Provide the final mixed down track in the highest resolution possible</Text>
+                        <Text>- There should be no mastering such as limiting applied to the mix</Text>
+                        <Text>- Ensure that there is a at least -12 to -6dB headroom</Text>
+                        <Text>- Provide any reference tracks or specific instructions</Text>
                         <Flex justifyContent="center" alignItems="center" mt={4}>
                             <Button colorScheme="blue" size="md">
                                 <Link href="/Direct">
@@ -174,7 +174,7 @@ export default function EngineeringPage() {
                                     <FaMicrophone size="1.5em" />
                                 </Box>
                             </Flex>
-                            <Text>Professional vocal recordings or mono, stereo, mid/side, and up to 16 channel multitrack instrumental recording sessions for any source you wish to capture.</Text>
+                            <Text>Professional vocal recordings or mono, stereo, mid/side, and up to 16 channel multitrack instrumental recording sessions for any source you wish to capture</Text>
                             <Heading size="md" mt={4}>Instruments Available:</Heading>
                             <List>
                                 <Text>Electric Guitar</Text>
@@ -218,7 +218,7 @@ export default function EngineeringPage() {
                             <FaMusic size="1.5em" />
                         </Box>
                     </Flex>
-                      <Text>Customized sound design for your tracks from synth parts & patches to soundscapes and cinematic fx.</Text>
+                      <Text>Customized sound design for your tracks from synth parts & patches to soundscapes and cinematic fx</Text>
                       <Text>Analog Synths</Text>
                       <Text>Drum Machines</Text>
                       <Text>VST Patches</Text>
