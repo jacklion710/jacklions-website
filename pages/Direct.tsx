@@ -71,7 +71,7 @@ export default function SocialPage() {
             </Text>
               <HStack spacing={4} justify="center" wrap="wrap" mb={4}>
                 <Link href="https://www.instagram.com/jack.lion/?hl=en" isExternal>
-                  <IconButton aria-label="Spotify" icon={<FaInstagram />} size="lg" colorScheme="pink" />
+                  <IconButton aria-label="Instagram" icon={<FaInstagram />} size="lg" colorScheme="pink" />
                 </Link>
                 {/* ... other icons ... */}
                 <Link href="mailto:jack.lion710@gmail.com">
