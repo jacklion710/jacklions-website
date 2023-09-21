@@ -67,6 +67,16 @@ import { AiFillEye } from 'react-icons/ai';
       md: '0%',       // For tablets
       lg: '-100%',   // For desktop and larger screens
     });
+    const iframeHeight = useBreakpointValue({
+      base: '250px',   // On mobile devices
+      md: '250px',     // On medium devices (tablets, etc.)
+      lg: '250px',     // On large devices (desktops, etc.)
+    });
+    const iframeContainerWidth = useBreakpointValue({
+      base: '100%',  
+      md: '85%',     
+      lg: '85%',     
+    });
     return (
       <Container maxW={'5xl'} py={6}>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 10, md: 60 }}>
@@ -193,7 +203,8 @@ import { AiFillEye } from 'react-icons/ai';
 
           <div dangerouslySetInnerHTML={{ 
               __html: `
-              <iframe width="${iframeWidth}" style="margin-left:${iframeMarginLeft};" height="${['150', '150', '120', '100', '100']}" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1485160441&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+              <iframe width="${iframeWidth}" style="margin-left:${iframeMarginLeft};" height="${iframeHeight}"
+              scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1485160441&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
               <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/jack0lion" title="Jack.Lion" target="_blank" style="color: #cccccc; text-decoration: none;">Jack.Lion</a> · <a href="https://soundcloud.com/jack0lion/velocity" title="Velocity" target="_blank" style="color: #cccccc; text-decoration: none;">Velocity</a></div>
               ` 
           }} />
