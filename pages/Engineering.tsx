@@ -175,7 +175,7 @@ export default function EngineeringPage() {
                                     <FaMicrophone size="1.5em" />
                                 </Box>
                             </Flex>
-                            <Text>Professional vocal recordings or mono, stereo, mid/side, and up to 16 channel multitrack instrumental recording sessions for any source you wish to capture</Text>
+                            <Text>Professional vocal recordings including mono, stereo, mid/side, and up to 16 channel multitrack instrumental recording sessions for any source you wish to capture</Text>
                             <Heading size="md" mt={4}>Instruments Available:</Heading>
                             <List>
                                 <Text>Electric Guitar</Text>
