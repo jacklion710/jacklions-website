@@ -495,45 +495,45 @@ import {
            }
            
                                     
-           p.touchStarted = function() {
-               if (p.touches.length > 0) {
-                   const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
-                   const rect = (p as any).canvas.getBoundingClientRect();
+        //    p.touchStarted = function() {
+        //        if (p.touches.length > 0) {
+        //            const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+        //            const rect = (p as any).canvas.getBoundingClientRect();
                    
-                   // Translate touch point to relative canvas coordinates
-                   const touchX = touchPoint.x - rect.left;
-                   const touchY = touchPoint.y - rect.top;
+        //            // Translate touch point to relative canvas coordinates
+        //            const touchX = touchPoint.x - rect.left;
+        //            const touchY = touchPoint.y - rect.top;
            
-                   if (isInsideCanvas(touchX, touchY)) {
-                       updateParameters(touchX, touchY);
-                       return false; // prevent default only if inside the canvas
-                   }
-               }
-               return true;
-           };          
+        //            if (isInsideCanvas(touchX, touchY)) {
+        //                updateParameters(touchX, touchY);
+        //                return false; // prevent default only if inside the canvas
+        //            }
+        //        }
+        //        return true;
+        //    };          
            
-           // let previousTouchY = 0;  // Outside of any function to persist across calls
+        //    // let previousTouchY = 0;  // Outside of any function to persist across calls
    
-           p.touchMoved = function() {
-               if (p.touches.length > 0) {
-                   const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
-                   const rect = (p as any).canvas.getBoundingClientRect();
+        //    p.touchMoved = function() {
+        //        if (p.touches.length > 0) {
+        //            const touchPoint: TouchPoint = p.touches[0] as TouchPoint;
+        //            const rect = (p as any).canvas.getBoundingClientRect();
            
-                   // Translate touch point to relative canvas coordinates
-                   const touchX = touchPoint.x - rect.left;
-                   const touchY = touchPoint.y - rect.top;
+        //            // Translate touch point to relative canvas coordinates
+        //            const touchX = touchPoint.x - rect.left;
+        //            const touchY = touchPoint.y - rect.top;
            
-                   if (isInsideCanvas(touchX, touchY)) {
-                       let normalizedTouchY = p.map(touchY, 0, p.height, 0, 6000);
-                       let smoothTouchY = limitChange(previousTouchY, normalizedTouchY, 50);
-                       previousTouchY = smoothTouchY;
+        //            if (isInsideCanvas(touchX, touchY)) {
+        //                let normalizedTouchY = p.map(touchY, 0, p.height, 0, 6000);
+        //                let smoothTouchY = limitChange(previousTouchY, normalizedTouchY, 50);
+        //                previousTouchY = smoothTouchY;
            
-                       updateParameters(touchX, touchY);
-                       return false; // prevent default
-                   }
-               }
-               return true;
-           };
+        //                updateParameters(touchX, touchY);
+        //                return false; // prevent default
+        //            }
+        //        }
+        //        return true;
+        //    };
                  
            p.touchEnded = function() {
                // Check if there are any touches
@@ -730,6 +730,7 @@ import {
                            display="flex"
                            alignItems="center"
                            justifyContent="center"
+                           mb={5}
                            backgroundColor={isAudioActive ? stopButtonBg : playButtonBg}
                            borderRadius="md"
                        >
