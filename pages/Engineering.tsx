@@ -105,7 +105,7 @@ export default function EngineeringPage() {
 
                         <Heading size="md" mt={4}>Mixdowns:</Heading>
                         <Text>$25/hr for any song</Text>
-                        <Text>10% off the final cost for an EP (3 - 5 tracks)</Text>
+                        <Text>10% off the final cost for an EP (4 - 5 tracks)</Text>
                         <Text>15% off the final cost for an album (6 - 12 tracks)</Text>
                         <Text>To secure your project, a flat rate deposit of $50 per song is required upfront. This non-refundable deposit confirms your slot and will be deducted from the final invoice.</Text>
                         <Text>Most tracks (20-40 stems) take up to 4-6 hours. Songs with more stems, damaged audio or songs that require special mixing needs may take more time to complete to satisfaction</Text>
@@ -113,12 +113,12 @@ export default function EngineeringPage() {
 
                         <Heading size="md" mt={4}>Digital Mastering:</Heading>
                         <Text>$25 for single track</Text>
-                        <Text>$100 for an EP (3 - 5 tracks)</Text>
+                        <Text>$100 for an EP (4 - 5 tracks)</Text>
                         <Text>$200 for an album (6 - 12 tracks)</Text>
                         
                         <Heading size="md" mt={4}>Analog Mastering:</Heading>
                         <Text>$40 for single track</Text>
-                        <Text>$180 for an EP (3 - 5 tracks)</Text>
+                        <Text>$180 for an EP (4 - 5 tracks)</Text>
                         <Text>$360 for an album (6 - 12 tracks)</Text>
                         
                         <Flex flexDirection="column" alignItems="center" mt={4}>
