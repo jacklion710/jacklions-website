@@ -113,13 +113,13 @@ export default function EngineeringPage() {
 
                         <Heading size="md" mt={4}>Digital Mastering:</Heading>
                         <Text>$25 for single track</Text>
-                        <Text>$100 for an EP (4 - 5 tracks)</Text>
-                        <Text>$200 for an album (6 - 12 tracks)</Text>
+                        <Text>10% discount for an EP (4 - 5 tracks)</Text>
+                        <Text>15% discount for an album (6 - 12 tracks)</Text>
                         
                         <Heading size="md" mt={4}>Analog Mastering:</Heading>
                         <Text>$40 for single track</Text>
-                        <Text>$180 for an EP (4 - 5 tracks)</Text>
-                        <Text>$360 for an album (6 - 12 tracks)</Text>
+                        <Text>10% discount for an EP (4 - 5 tracks)</Text>
+                        <Text>15% discount for an album (6 - 12 tracks)</Text>
                         
                         <Flex flexDirection="column" alignItems="center" mt={4}>
                             <Heading size="sm">Premaster</Heading>
