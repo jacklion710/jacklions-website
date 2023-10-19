@@ -111,7 +111,7 @@ import { AiFillEye } from 'react-icons/ai';
               textAlign="center" 
               color={'gray.500'} 
               fontSize={'lg'}>
-              Electronic artist, developer and audio engineer
+              Electronic artist, creative coder and audio engineer
             </Text>
             <Stack
               spacing={4}
