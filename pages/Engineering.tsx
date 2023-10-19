@@ -126,10 +126,10 @@ export default function EngineeringPage() {
                         <Text>- Provide any reference tracks or specific instructions</Text>
 
                         <Heading size="sm" mt={2}>For Mastering:</Heading>
-                        <Text>- Provide the final mixed down track in the highest resolution possible</Text>
-                        <Text>- There should be no mastering such as limiting applied to the mix</Text>
+                        <Text>- Provide the final mixdown of the track in the highest resolution possible</Text>
+                        <Text>- There should be no dithering or mastering such as limiting applied to the mix</Text>
                         <Text>- Ensure that there is a at least -12 to -6dB headroom</Text>
-                        <Text>- Provide any reference tracks or specific instructions</Text>
+                        <Text>- Please provide one or more high quality reference tracks (.wav preferred) as well as any specific instructions for optimal results</Text>
                         <Flex justifyContent="center" alignItems="center" mt={4}>
                             <Button colorScheme="blue" size="md">
                                 <Link href="/Direct">
@@ -139,7 +139,6 @@ export default function EngineeringPage() {
                         </Flex>
                     </Box>
                     
-
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
                     <Flex direction="column" justifyContent="space-between" alignItems="flex-start" h="100%">
                         <VStack align="start" spacing={4}>
