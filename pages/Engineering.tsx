@@ -8,7 +8,8 @@ import {
   Text,
   Button,
   List,
-  Divider
+  Divider,
+  HStack
 } from '@chakra-ui/react';
 import React, { useEffect, useRef } from 'react';
 import { 
@@ -131,11 +132,24 @@ export default function EngineeringPage() {
                         <Text>- Ensure that there is a at least -12 to -6dB headroom</Text>
                         <Text>- Please provide one or more high quality reference tracks (.wav preferred) as well as any specific instructions for optimal results</Text>
                         <Flex justifyContent="center" alignItems="center" mt={4}>
+                        <HStack spacing={6}> {/* Increase the spacing here for more gap between the buttons. */}
+                
+                            {/* Existing Contact button */}
                             <Button colorScheme="blue" size="md">
-                                <Link href="/Direct">
-                                Contact me for engineering services 
-                                </Link>
+                            <Link href="/Direct">
+                                Contact me for engineering services
+                            </Link>
                             </Button>
+
+                            {/* Updated Portfolio button with new text */}
+                            <Button colorScheme="teal" size="md">
+                            {/* <Link href="/Portfolio"> */}
+                            <Link href="/wip">
+                                Hear my work {/* Updated text to make it more inviting */}
+                            </Link>
+                            </Button>
+
+                        </HStack>
                         </Flex>
                     </Box>
                     
