@@ -7,10 +7,10 @@ import {
   Flex,
   Text,
   Button,
-  List
+  List,
+  Divider
 } from '@chakra-ui/react';
 import React, { useEffect, useRef } from 'react';
-import WaveSurfer from 'wavesurfer.js';
 import { 
     FaMicrophone, 
     FaMusic, 
@@ -23,61 +23,6 @@ import Waveform from '../components/Waveform';
 import Head from 'next/head';
 
 export default function EngineeringPage() {
-    const waveformRefPre = useRef(null);
-    const waveformRefAnalog = useRef(null);
-    const waveformRefDigital = useRef(null);
-    const wavesurferPre = useRef<WaveSurfer | null>(null);
-    const wavesurferAnalog = useRef<WaveSurfer | null>(null);
-    const wavesurferDigital = useRef<WaveSurfer | null>(null);
-    const wavesurfer = useRef<WaveSurfer | null>(null);
-  
-    useEffect(() => {
-        if (waveformRefPre.current) {
-           wavesurferPre.current = WaveSurfer.create({
-              container: waveformRefPre.current,
-              waveColor: '#2C3E50',
-              progressColor: '#3498DB'
-           });
-           wavesurferPre.current.load('/audio/Long_Road[Premaster].wav');
-        }
-     
-        if (waveformRefAnalog.current) {
-           wavesurferAnalog.current = WaveSurfer.create({
-              container: waveformRefAnalog.current,
-              waveColor: '#2C3E50',
-              progressColor: '#3498DB'
-           });
-           wavesurferAnalog.current.load('/audio/Long_Road[Analog_Master].wav');
-        }
-
-        if (waveformRefDigital.current) {
-            wavesurferDigital.current = WaveSurfer.create({
-               container: waveformRefDigital.current,
-               waveColor: '#2C3E50',
-               progressColor: '#3498DB'
-            });
-            wavesurferDigital.current.load('/audio/Long_Road[Digital_Master].wav');
-         }
-     
-        return () => {
-           wavesurferPre.current?.destroy();
-           wavesurferAnalog.current?.destroy();
-           wavesurferDigital.current?.destroy();
-        };
-     }, []);
-
-     const handlePlayPausePre = () => {
-        wavesurferPre.current?.playPause();
-     };
-     
-     const handlePlayPauseAnalog = () => {
-        wavesurferAnalog.current?.playPause();
-     };
-
-     const handlePlayPauseDigital = () => {
-        wavesurferDigital.current?.playPause();
-     };
-
   return (
       <ChakraProvider>
         <Head>
@@ -119,30 +64,60 @@ export default function EngineeringPage() {
                         <Text>$40 for single track</Text>
                         <Text>10% discount for an EP (4 - 5 tracks)</Text>
                         <Text>15% discount for an album (6 - 12 tracks)</Text>
-                        
-                        <Flex flexDirection="column" alignItems="center" mt={4}>
-                            <Heading size="sm">Premaster</Heading>
-                            <Box mt={4} mb={10} width="100%" height="100px"> 
-                                <div ref={waveformRefPre} style={{ width: '100%', height: '100%' }}></div>
-                            </Box>
-                            <Button onClick={handlePlayPausePre}>Play/Pause</Button>
-                        </Flex>
 
-                        <Flex flexDirection="column" alignItems="center" mt={4}>
-                            <Heading size="sm">Analog Master</Heading>
-                            <Box mt={4} mb={10} width="100%" height="100px"> 
-                                <div ref={waveformRefAnalog} style={{ width: '100%', height: '100%' }}></div>
-                            </Box>
-                            <Button onClick={handlePlayPauseAnalog}>Play/Pause</Button>
-                        </Flex>
+                        <Box w="full" mt={5} mb={5}>
+                            <Flex direction="column" align="center" mb={5}>
+                                <Box
+                                    w="full"
+                                    p={6}
+                                    boxShadow="md"
+                                    rounded="md"
+                                    bg="rgba(0, 0, 0, .2)"
+                                    mb={5}
+                                >
+                                    <Heading size="md" mb={4}>
+                                    Premaster
+                                    </Heading>
+                                    <Waveform url='/audio/Long_Road[Premaster].wav' />
+                                </Box>
+                            </Flex>
 
-                        <Flex flexDirection="column" alignItems="center" mt={4}>
-                            <Heading size="sm">Digital Master</Heading>
-                            <Box mt={4} mb={10} width="100%" height="100px"> 
-                                <div ref={waveformRefDigital} style={{ width: '100%', height: '100%' }}></div>
-                            </Box>
-                            <Button onClick={handlePlayPauseDigital}>Play/Pause</Button>
-                        </Flex>
+                            <Divider borderColor="gray.300" mb={5} />
+
+                            <Flex direction="column" align="center" mb={5}>
+                                <Box
+                                    w="full"
+                                    p={6}
+                                    boxShadow="md"
+                                    rounded="md"
+                                    bg="rgba(0, 0, 0, .2)"
+                                    mb={5}
+                                >
+                                    <Heading size="md" mb={4}>
+                                    Analog Master
+                                    </Heading>
+                                    <Waveform url='/audio/Long_Road[Analog_Master].wav' />
+                                </Box>
+                            </Flex>
+
+                            <Divider borderColor="gray.300" mb={5} />
+
+                            <Flex direction="column" align="center" mb={5}>
+                                <Box
+                                    w="full"
+                                    p={6}
+                                    boxShadow="md"
+                                    rounded="md"
+                                    bg="rgba(0, 0, 0, .2)"
+                                    mb={5}
+                                >
+                                    <Heading size="md" mb={4}>
+                                    Digital Master
+                                    </Heading>
+                                    <Waveform url='/audio/Long_Road[Digital_Master].wav' />
+                                </Box>
+                            </Flex>
+                        </Box>
 
                         <Heading size="md" mt={4}>Important Notes:</Heading>
                         <Heading size="sm" mt={2}>For Mixdowns:</Heading>
