@@ -13,14 +13,13 @@ import React, { useEffect, useRef } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 import { 
     FaMicrophone, 
-    FaHeadphones,
     FaMusic, 
     FaComment,
     FaWrench
 } from "react-icons/fa";
-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Waveform from '../components/Waveform';
 import Head from 'next/head';
 
 export default function EngineeringPage() {
