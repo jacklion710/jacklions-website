@@ -1,24 +1,29 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
+import { Divider } from '@chakra-ui/react';
 
 interface WaveformProps {
-    src: string;
-    isVisible: boolean;
+    url: string;
 }
 
-const Waveform: React.FC<WaveformProps> = ({ src, isVisible }) => {
-    const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+const Waveform: React.FC<WaveformProps> = ({ url }) => {
+    const [windowWidth, setWindowWidth] = useState<number>(0);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const waveformRef = useRef<HTMLDivElement | null>(null);
     const wavesurfer = useRef<WaveSurfer | null>(null);
 
     // Handle window resize
     useEffect(() => {
+        // Only runs once the component is mounted, and 'window' is available
+        setWindowWidth(window.innerWidth);
+
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
         };
 
         window.addEventListener('resize', handleResize);
+        
+        // Clean-up function
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -29,22 +34,21 @@ const Waveform: React.FC<WaveformProps> = ({ src, isVisible }) => {
         if (waveformRef.current) {
             wavesurfer.current = WaveSurfer.create({
                 container: waveformRef.current,
-                waveColor: 'violet', // as per your preference
-                progressColor: 'purple' // as per your preference
+                waveColor: '#0b507a',
+                progressColor: '#032033'
             });
-            wavesurfer.current.load(src);
+
+            wavesurfer.current.load(url);
         }
 
         return () => {
-            // Check if wavesurfer.current is not null before calling destroy
             if (wavesurfer.current) {
                 wavesurfer.current.destroy();
             }
         };
-    }, [src]);
+    }, [url]);
 
     const togglePlayPause = () => {
-        // Check if wavesurfer.current is not null before calling playPause
         if (wavesurfer.current) {
             setIsPlaying(!isPlaying);
             wavesurfer.current.playPause();
@@ -62,11 +66,15 @@ const Waveform: React.FC<WaveformProps> = ({ src, isVisible }) => {
     return (
         <div style={{ width: waveformWidth, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div ref={waveformRef} style={{ width: '100%', height: '100px' }}></div>
-            {isVisible && (
-                <button onClick={togglePlayPause} style={{
-                    marginTop: '10px',
+            <div style={{ width: '50%', margin: 'auto' }}> 
+            <Divider borderColor="gray.300" mb={4} mt={8}/>
+            </div>            
+            <button 
+                onClick={togglePlayPause} 
+                style={{
+                    marginTop: '4px', 
                     padding: '10px 20px',
-                    background: 'linear-gradient(45deg, violet, purple)',
+                    background: 'linear-gradient(45deg, #032033, #0b507a)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '5px',
@@ -75,10 +83,10 @@ const Waveform: React.FC<WaveformProps> = ({ src, isVisible }) => {
                     transition: 'all 0.3s',
                     fontSize: '16px',
                     fontWeight: '600'
-                }}>
-                    {isPlaying ? 'Pause' : 'Play'}
-                </button>
-            )}
+                }}
+            >
+                {isPlaying ? 'Pause' : 'Play'}
+            </button>
         </div>
     );
 };
