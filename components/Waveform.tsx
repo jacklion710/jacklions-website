@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-import { Divider, useColorMode } from '@chakra-ui/react';
+import { Box, Divider, Flex, useColorMode, useMediaQuery, IconButton } from '@chakra-ui/react';
 import { MdPlayArrow, MdPause, MdStop } from 'react-icons/md'; 
 
 interface WaveformProps {
@@ -18,7 +18,10 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
     const dividerColor = isLightMode ? 'black' : 'gray.300';
     const waveColor = isLightMode ? '#a0a0a0' : '#0b507a'; 
     const progressColor = isLightMode ? '#787878' : '#032033';
-    
+    const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+    const extendedWidth = 2000
+
+
     // Handle window resize
     useEffect(() => {
         // Only runs once the component is mounted, and 'window' is available
@@ -69,14 +72,6 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
         }
     };
 
-    // Adjusting the waveform's width based on the window width
-    let waveformWidth = '100%'; // Default width
-    if (windowWidth <= 480) {
-        waveformWidth = '250%';
-    } else if (windowWidth <= 768) {
-        waveformWidth = '150%';
-    }
-
     // Define the styles for the buttons
     const buttonStyle = {
         padding: '10px',
@@ -119,27 +114,52 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
     };
 
     return (
-        <div style={{ width: waveformWidth, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div ref={waveformRef} style={{ width: '100%', height: '100px' }}></div>
-            <div style={{ width: '50%', margin: 'auto' }}> 
-              <Divider borderColor={dividerColor} mb={4} mt={10}/>
-            </div>            
-            <div style={{ display: 'flex', gap: '30px', marginTop: '4px' }}> 
-                <button 
-                    onClick={togglePlayPause} 
-                    style={playButtonStyle}
-                >
-                    {isPlaying ? <MdPause size={24}/> : <MdPlayArrow size={24}/>}
-                </button>
-                <button 
-                    onClick={stopAudio} 
-                    style={stopButtonStyle}
-                >
-                    <MdStop size={24}/> {/* Stop icon */}
-                </button>
-            </div>
-        </div>
-    );
+        <Box
+            maxW="100vw" // This ensures the parent doesn't cause horizontal scrolling.
+            overflowX="auto" // This allows the Box to scroll horizontally.
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+        >
+            <Flex direction="column" align="center" w="full">
+                <Box ref={waveformRef} w={`${extendedWidth}px`} h="100px"></Box>
+
+      <Box w="50%" my="auto">
+        <Divider borderColor={dividerColor} mb={4} mt={10} />
+      </Box>
+
+      <Box display="flex" gap={6} mt={4}>
+        <IconButton
+          aria-label={isPlaying ? "Pause" : "Play"}
+          icon={isPlaying ? <MdPause size={24} /> : <MdPlayArrow size={24} />}
+          onClick={togglePlayPause}
+          borderRadius="full"
+          boxShadow="sm"
+          colorScheme={isPlaying ? "blue" : "green"} // or use color directly e.g. color="white"
+          bgColor={playButtonBgColor}
+          size="lg" // Chakra's size tokens (xs, sm, md, lg, xl)
+          _hover={{
+            transform: 'scale(1.1)', // Add a nice hover effect
+          }}
+        />
+
+        <IconButton
+          aria-label="Stop"
+          icon={<MdStop size={24} />}
+          onClick={stopAudio}
+          borderRadius="full"
+          boxShadow="sm"
+          colorScheme="red" // or use color directly e.g. color="white"
+          bgColor={stopButtonBgColor}
+          size="lg" // Chakra's size tokens (xs, sm, md, lg, xl)
+          _hover={{
+            transform: 'scale(1.1)', // Add a nice hover effect
+          }}
+        />
+      </Box>
+      </Flex>
+    </Box>
+  );
 };
 
 export default Waveform;
