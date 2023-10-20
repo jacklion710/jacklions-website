@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import WaveSurfer from 'wavesurfer.js';
-import { Divider } from '@chakra-ui/react';
+import { Divider, useColorMode } from '@chakra-ui/react';
 import { MdPlayArrow, MdPause, MdStop } from 'react-icons/md'; 
 
 interface WaveformProps {
@@ -12,7 +12,13 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const waveformRef = useRef<HTMLDivElement | null>(null);
     const wavesurfer = useRef<WaveSurfer | null>(null);
-
+    const { colorMode } = useColorMode();
+    const isLightMode = colorMode === 'light';
+    const iconColor = isLightMode ? 'black' : 'white';
+    const dividerColor = isLightMode ? 'black' : 'gray.300';
+    const waveColor = isLightMode ? '#a0a0a0' : '#0b507a'; 
+    const progressColor = isLightMode ? '#787878' : '#032033';
+    
     // Handle window resize
     useEffect(() => {
         // Only runs once the component is mounted, and 'window' is available
@@ -35,8 +41,8 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
         if (waveformRef.current) {
             wavesurfer.current = WaveSurfer.create({
                 container: waveformRef.current,
-                waveColor: '#0b507a',
-                progressColor: '#032033'
+                waveColor: waveColor,
+                progressColor: progressColor,
             });
 
             wavesurfer.current.load(url);
@@ -47,7 +53,7 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
                 wavesurfer.current.destroy();
             }
         };
-    }, [url]);
+    }, [url, waveColor, progressColor]);
 
     const togglePlayPause = () => {
         if (wavesurfer.current) {
@@ -84,23 +90,31 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
         justifyContent: 'center',
         transition: 'background-color 0.3s ease',
         width: '40px', // Ensure the buttons are circles by having equal width and height
-        height: '40px'
+        height: '40px',
+        color: iconColor
     };
 
     // Determine the button color based on the play state
     const playButtonColor = isPlaying ? 'linear-gradient(135deg, #0d47a1, black)' : 'linear-gradient(135deg, #00695c, black)';
     const stopButtonColor = 'linear-gradient(135deg, #b71c1c, black)';
 
+    const playButtonBgColor = isPlaying
+    ? (isLightMode ? 'linear-gradient(135deg, #63a4ff, #0073e6)' : 'linear-gradient(135deg, #0d47a1, black)')
+    : (isLightMode ? 'linear-gradient(135deg, #98ee99, #4caf50)' : 'linear-gradient(135deg, #00695c, black)');
+    const stopButtonBgColor = isLightMode 
+    ? 'linear-gradient(135deg, #ff867c, #d32f2f)' 
+    : 'linear-gradient(135deg, #b71c1c, black)';
+
     // Clone and override specific styles for play and stop buttons
     const playButtonStyle = {
         ...buttonStyle,
-        background: playButtonColor, // Gradient color based on playing state
+        background: playButtonBgColor, // Gradient color based on playing state
         color: 'white'
     };
 
     const stopButtonStyle = {
         ...buttonStyle,
-        background: stopButtonColor, // Red to black gradient
+        background: stopButtonBgColor, // Red to black gradient
         color: 'white'
     };
 
@@ -108,7 +122,7 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
         <div style={{ width: waveformWidth, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div ref={waveformRef} style={{ width: '100%', height: '100px' }}></div>
             <div style={{ width: '50%', margin: 'auto' }}> 
-              <Divider borderColor="gray.300" mb={4} mt={10}/>
+              <Divider borderColor={dividerColor} mb={4} mt={10}/>
             </div>            
             <div style={{ display: 'flex', gap: '30px', marginTop: '4px' }}> 
                 <button 
