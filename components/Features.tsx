@@ -9,18 +9,20 @@ import {
     StackDivider,
     Icon,
     useColorModeValue,
-    VStack
+    VStack,
+    Box,
+    AspectRatio,
+    Button
   } from '@chakra-ui/react';
+  import { Link as ChakraLink } from '@chakra-ui/react';
   import { Divider, useBreakpointValue } from '@chakra-ui/react';
   import { BsMusicNoteBeamed  } from 'react-icons/bs';  
   import {  PiPaintBrushBold  } from 'react-icons/pi';
-  import {  FaWrench, FaMicrophone, FaChalkboardTeacher } from 'react-icons/fa';
+  import {  FaWrench, FaMicrophone, FaChalkboardTeacher, FaLink } from 'react-icons/fa';
   import { ReactElement } from 'react';
   import Link from 'next/link';
   import { GiSoundWaves } from 'react-icons/gi'; 
 import { AiFillEye } from 'react-icons/ai'; 
-
-
   
   interface FeatureProps {
     text: string;
@@ -30,6 +32,7 @@ import { AiFillEye } from 'react-icons/ai';
   }
   
   const Feature = ({ text, icon, iconBg, href }: FeatureProps) => {
+    
     return (
       <Link href={href} passHref>
         <Stack 
@@ -77,7 +80,25 @@ import { AiFillEye } from 'react-icons/ai';
       md: '85%',     
       lg: '85%',     
     });
-    return (
+    const sisterSites = [
+      {
+        title: "Sister Site 1",
+        description: "This site focuses on...",
+        imageUrl: "/images/tech-portfolio.png", 
+        siteUrl: "https://jacobleone-tech.vercel.app", 
+      },
+      {
+        title: "Sister Site 2",
+        description: "This site covers...",
+        imageUrl: "/images/music-portfolio.png", 
+        siteUrl: "https://jacobleone.com", 
+      },
+    ];
+
+    const bgColor = useColorModeValue('rgba(200, 200, 215, 0.75)', 'rgba(0, 0, 0, 0.75)');  // replace 'yourLightModeColor' with your actual color for light mode
+    const borderColor = useColorModeValue('gray.200', 'gray.600');
+
+      return (
       <Container maxW={'5xl'} py={6}>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 10, md: 60 }}>
           <Stack spacing={4} alignItems="center"> 
@@ -208,6 +229,35 @@ import { AiFillEye } from 'react-icons/ai';
               <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/jack0lion" title="Jack.Lion" target="_blank" style="color: #cccccc; text-decoration: none;">Jack.Lion</a> · <a href="https://soundcloud.com/jack0lion/velocity" title="Velocity" target="_blank" style="color: #cccccc; text-decoration: none;">Velocity</a></div>
               ` 
           }} />
+          <Heading mt={50} mb={5}>Featured Sister Sites</Heading> 
+          <SimpleGrid columns={[1, 2]} spacing={10} w="full"> 
+            {sisterSites.map((site, index) => (
+              <Box 
+                key={index} 
+                p={5} 
+                borderWidth="1px" 
+                borderRadius="md" 
+                borderColor={borderColor} 
+                shadow="lg" 
+                transition="transform .2s" 
+                _hover={{ transform: 'scale(1.05)' }} 
+                bgColor={bgColor}  // using the bgColor from the hook
+              >
+                <AspectRatio ratio={4 / 3}>
+                  <Image src={site.imageUrl} alt={site.title} borderRadius="md" mb={4} objectFit="cover" />
+                </AspectRatio>
+                <Heading size="md" my={2} textAlign="center" fontFamily="'Space Mono', monospace" fontWeight="700">{site.title}</Heading>
+                <Text mb={4} noOfLines={2} fontFamily="'Space Mono', monospace">{site.description}</Text>
+                <Flex justifyContent="center">
+                <ChakraLink href={site.siteUrl} isExternal>
+                  <Button leftIcon={<FaLink />} colorScheme="blue">
+                    Visit Site
+                  </Button>
+                </ChakraLink>
+                </Flex>
+              </Box>
+            ))}
+          </SimpleGrid>
       </VStack>        
     </Container>
   );
