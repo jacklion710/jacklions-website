@@ -64,7 +64,7 @@ import {
 
                 <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
                 <Heading size="lg" mb={4}>The Hot Seat</Heading>
-                    <Text mb={6}>The Hot Seat consists of a revolving lineup of seasoned musicians with influences as broad as R&B, psych rock, and jazz. An emphasis is placed on the live sounding aspects of the mix with a tinge of something special to keep it fresh and exciting. I have done full EP mixdowns and masters for this band which help me practice consistency with my strokes in order to produce a cohesive sound. Vocals are up front, drums and bass are punchy and the instrumentals are the icing on top. When mastering for this client, masters were optimized for Spotifys loudness normalization algorithm.</Text>
+                    <Text mb={6}>The Hot Seat consists of a revolving lineup of seasoned musicians with influences as broad as R&B, psych rock, and jazz. An emphasis is placed on the live sounding aspects of the mix with a tinge of something special to keep it fresh and exciting. I have done full EP mixdowns and masters for this band which help me practice consistency with my strokes in order to produce a cohesive sound. Vocals are up front, drums and bass are punchy and the instrumentals are the icing on top. When mastering for this client, masters were optimized for Spotify and their infamous loudness normalization algorithm.</Text>
 
                     <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" bg="rgba(0, 0, 0, .2)" mb={2} mt={2}>
                     <Heading size="lg" mb={4}>Craving</Heading>
@@ -91,7 +91,7 @@ import {
                 {/* Box for personal work */}
                 <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
                 <Heading size="lg" mb={4}>Jack.Lion</Heading>
-                    <Text mb={6}>Jack.Lion is my personal brand and music project that has been the arbiter of my creative growth. Although my primary project, it maintains its catalog of progress in my skills along the way. I'm always getting better and the songs I have released as Jack.Lion over the years are a testament to that. Punchy, loud masters are my main goals with certain songs taking a more playful approach to mastering.</Text>
+                    <Text mb={6}>Jack.Lion is my personal brand and music project that has been the arbiter of my creative growth. Although my primary project, it maintains its catalog of progress in my skills along the way. I am always getting better and the songs I have released as Jack.Lion over the years are a testament to that. Punchy, loud masters are my main goals with certain songs taking a more playful approach to mastering.</Text>
                     <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" bg="rgba(0, 0, 0, .2)" mb={2} mt={2}>
                     <Heading size="lg" mb={4}>Long Road [Analog Master]</Heading>
                     {/* Description or other content related to Project 1 */}
