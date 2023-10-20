@@ -54,7 +54,7 @@ import {
                     <Waveform url='/audio/Long_Road[Digital_Master].wav' /> {/* Replace with the actual audio file */}
                     </Box>
                 <Flex justifyContent="center" mt={4}>
-                <Link href="https://soundcloud.com/beatsfordayz23" isExternal>
+                <Link href="https://linktr.ee/BeatsforDayzMusic?fbclid=PAAaZBmvUdWzXb_lS3fMr8r6zdUmc-ogSAuA6u_kn2kiUMsDXcazUAjdnrZ74" isExternal>
                 <Button colorScheme="blue">
                     Hear more by From this Label
                 </Button>
