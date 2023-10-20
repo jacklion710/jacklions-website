@@ -143,9 +143,9 @@ export default function EngineeringPage() {
 
                             {/* Updated Portfolio button with new text */}
                             <Button colorScheme="teal" size="md">
-                            {/* <Link href="/Portfolio"> */}
-                            <Link href="/wip">
-                                Hear my work {/* Updated text to make it more inviting */}
+                            <Link href="/Portfolio">
+                            {/* <Link href="/wip"> */}
+                                Hear my work 
                             </Link>
                             </Button>
 
