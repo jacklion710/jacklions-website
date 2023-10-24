@@ -136,7 +136,7 @@ import {
                   
                               <Button colorScheme="teal" size="md">
                                   <Link href="/Portfolio">
-                                      Hear my work
+                                      Engineering portfolio
                                   </Link>
                               </Button>
    
