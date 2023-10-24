@@ -132,7 +132,7 @@ import {
                           <Text>- Ensure that there is a at least -12 to -6dB headroom</Text>
                           <Text>- Please provide one or more high quality reference tracks (.wav preferred) as well as any specific instructions for optimal results</Text>
                           <Flex justifyContent="center" alignItems="center" mt={4}>
-                          <VStack spacing={6}> {/* Increase the spacing here for more gap between the buttons. */}
+                          <VStack spacing={6}>
                   
                               <Button colorScheme="teal" size="md">
                                   <Link href="/Portfolio">
