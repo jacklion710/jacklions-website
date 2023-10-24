@@ -135,6 +135,7 @@ const Waveform: React.FC<WaveformProps> = ({ url }) => {
           onClick={togglePlayPause}
           borderRadius="full"
           boxShadow="sm"
+          mb={5}
           colorScheme={isPlaying ? "blue" : "green"} // or use color directly e.g. color="white"
           bgColor={playButtonBgColor}
           size="lg" // Chakra's size tokens (xs, sm, md, lg, xl)
