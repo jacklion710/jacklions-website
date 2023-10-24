@@ -37,21 +37,36 @@ export default function PortfolioPage() {
           <Heading size="xl" borderBottom="1px solid">My Engineering Portfolio</Heading>
 
           <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
-              <Heading size="lg" mb={4}>BeatsforDayz</Heading>
+              <Heading size="lg" mb={4}>
+                <Link href="https://linktr.ee/BeatsforDayzMusic?fbclid=PAAaZBmvUdWzXb_lS3fMr8r6zdUmc-ogSAuA6u_kn2kiUMsDXcazUAjdnrZ74" color="teal.500" isExternal>
+                          BeatsforDayz
+                </Link>
+              </Heading>
                   <Text mb={6}>BeatsforDayz is an online label consisting of various electronic artists who contribute beats from a diverse array of left-field genres. Loudness and clarity are top priorities in this modern arena of mastering.</Text>
       
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" bg="rgba(0, 0, 0, .2)" mb={2} mt={2}>
-                  <Heading size="lg" mb={4}>Roll it Up</Heading>
-                  <Waveform url='/audio/Roll_it_Up_Snippet.wav' /> 
+                    <Heading size="lg" mb={4}>
+                      <Link href="https://soundcloud.com/knoote" color="teal.500" isExternal>
+                            Knoote
+                      </Link>
+                      {' '} - Roll it Up     
+                    </Heading>
+                    <Waveform url='/audio/Roll_it_Up_Snippet.wav' /> 
+                    </Box>
+
+                    <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" bg="rgba(0, 0, 0, .2)" mb={2} mt={2}>
+                    <Heading size="lg" mb={4}>
+                      <Link href="https://soundcloud.com/knoote" color="teal.500" isExternal>
+                            Knoote
+                      </Link>
+                      {' '} - {' '}  
+                      <Link href="https://soundcloud.com/beatsfordayz23/knoote-i-got" color="teal.500" isExternal>
+                            I Got
+                      </Link>   
+                    </Heading>
+                    <Waveform url='/audio/I_Got_Snippet.wav' /> 
+                    </Box>
                   </Box>
-              <Flex justifyContent="center" mt={4}>
-              <Link href="https://linktr.ee/BeatsforDayzMusic?fbclid=PAAaZBmvUdWzXb_lS3fMr8r6zdUmc-ogSAuA6u_kn2kiUMsDXcazUAjdnrZ74" isExternal>
-              <Button colorScheme="blue">
-                  Hear more from the Label
-              </Button>
-              </Link>
-              </Flex>
-              </Box>
 
               <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
               <Heading size="lg" mb={4}>The Hot Seat</Heading>
@@ -78,16 +93,15 @@ export default function PortfolioPage() {
                   </Box>
 
               <Flex justifyContent="center" mt={4}>
-              <Link href="https://soundcloud.com/beatsfordayz23" isExternal>
-              <Button colorScheme="blue">
-                  Hear more from the Band
-              </Button>
-              </Link>
               </Flex>
               </Box>
                         
               <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
-              <Heading size="lg" mb={4}>Jack.Lion</Heading>
+              <Heading size="lg" mb={4}>
+                <Link href="https://linktr.ee/Jack.Lion" color="teal.500" isExternal>
+                          Jack.Lion
+                </Link>
+              </Heading>
                   <Text mb={6}>Jack.Lion is my personal brand and music project that has been the arbiter of my creative growth. Although my primary project, it maintains its catalog of progress in my skills along the way. I am always getting better and the songs I have released as Jack.Lion over the years are a testament to that. Punchy, loud masters are my main goals with certain songs taking a more playful approach to mastering.</Text>
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" bg="rgba(0, 0, 0, .2)" mb={2} mt={2}>
                   <Heading size="lg" mb={4}>Long Road [Analog Master]</Heading>
@@ -95,7 +109,7 @@ export default function PortfolioPage() {
                   </Box>
       
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" bg="rgba(0, 0, 0, .2)" mb={2} mt={2}>
-                  <Heading size="lg" mb={4}>Long Road [Digital_Master]</Heading>
+                  <Heading size="lg" mb={4}>Long Road [Digital Master]</Heading>
                   <Waveform url='/audio/Long_Road[Digital_Master].wav' /> 
                   </Box>
 
@@ -108,12 +122,6 @@ export default function PortfolioPage() {
                       </Heading>
                       <Waveform url='/audio/The_Funk_Snippet.wav' />
                   </Box>
-
-              <Flex justifyContent="center" mt={4}>
-                  <Link href="/Audio">
-                  <Button colorScheme="blue">Hear more by Jack.Lion</Button>
-                  </Link>
-              </Flex>
               </Box>
         </VStack>
        </Flex>
