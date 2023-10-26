@@ -69,7 +69,11 @@ export default function PortfolioPage() {
                   </Box>
 
               <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%">
-              <Heading size="lg" mb={4}>The Hot Seat</Heading>
+              <Heading size="lg" mb={4}>
+                <Link href="https://linktr.ee/thehotseatband" color="teal.500" isExternal>
+                  The Hot Seat
+                </Link>
+              </Heading>
                   <Text mb={6}>The Hot Seat consists of a revolving lineup of seasoned musicians with influences as broad as R&B, psych rock, and jazz. An emphasis is placed on the live sounding aspects of the mix with a tinge of something special to keep it fresh and exciting. I have done full EP mixdowns and masters for this band which help me practice consistency with my strokes in order to produce a cohesive sound. Vocals are up front, drums and bass are punchy and the instrumentals are the icing on top. When mastering for this client, masters were optimized for Spotify and their infamous loudness normalization algorithm.</Text>
 
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" bg="rgba(0, 0, 0, .2)" mb={2} mt={2}>
@@ -83,7 +87,11 @@ export default function PortfolioPage() {
                   </Box>
 
                   <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md" width="100%" bg="rgba(0, 0, 0, .2)" mb={2} mt={2}>
-                  <Heading size="lg" mb={4}>Falling in Love</Heading>
+                  <Heading size="lg" mb={4}>
+                    <Link href="https://open.spotify.com/track/12WuMgQSs4ANPtCvvuss2H?si=22ccdcfcafb74608" color="teal.500" isExternal>
+                            Falling in Love
+                    </Link>
+                  </Heading>
                   <Waveform url='/audio/Falling_in_Love_Snippet.wav' /> 
                   </Box>
 
