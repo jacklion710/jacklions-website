@@ -152,3 +152,6 @@ export/*.json
 
 # Ignore patches
 /patches
+
+# local notes
+notes.txt
