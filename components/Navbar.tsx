@@ -455,5 +455,3 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       ],
     }
   ];
-
-  

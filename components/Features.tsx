@@ -82,14 +82,14 @@ import { AiFillEye } from 'react-icons/ai';
     });
     const sisterSites = [
       {
-        title: "Sister Site 1",
-        description: "This site focuses on...",
+        title: "Tech portfolio",
+        description: "This site is where you will find my technical portfolio. Whether its AI, web development or something more esoteric this is where you can learn more about my software engineering services",
         imageUrl: "/images/tech-portfolio.png", 
-        siteUrl: "https://jacobleone-tech.vercel.app", 
+        siteUrl: "https://jacobleone.tech", 
       },
       {
-        title: "Sister Site 2",
-        description: "This site covers...",
+        title: "Commercial music portfolio",
+        description: "This site encompasses matters relating to music business as opposed to my artistry. You can listen to my reel and discover additional music services",
         imageUrl: "/images/music-portfolio.png", 
         siteUrl: "https://jacobleone.com", 
       },
@@ -225,8 +225,8 @@ import { AiFillEye } from 'react-icons/ai';
           <div dangerouslySetInnerHTML={{ 
               __html: `
               <iframe width="${iframeWidth}" style="margin-left:${iframeMarginLeft};" height="${iframeHeight}"
-              scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1485160441&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-              <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/jack0lion" title="Jack.Lion" target="_blank" style="color: #cccccc; text-decoration: none;">Jack.Lion</a> · <a href="https://soundcloud.com/jack0lion/velocity" title="Velocity" target="_blank" style="color: #cccccc; text-decoration: none;">Velocity</a></div>
+              scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1668670434&color=%23ff0000&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+              <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/jack0lion" title="Jack.Lion" target="_blank" style="color: #cccccc; text-decoration: none;">Jack.Lion</a> · <a href="https://soundcloud.com/jack0lion/long-road" title="Long Road" target="_blank" style="color: #cccccc; text-decoration: none;">Velocity</a></div>
               ` 
           }} />
           <Heading mt={50} mb={5}>Featured Sister Sites</Heading> 
